@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Complet - artimon-bike.fr | Rapport d'Analyse</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #f4a020;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --info: #3b82f6;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --gray: #6b7280;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d4a6f 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .header .meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .header .badge {
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        
+        /* Score Section */
+        .score-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .score-item {
+            padding: 25px 15px;
+            border-radius: 12px;
+            background: var(--light);
+        }
+        
+        .score-item.critical { border-left: 4px solid var(--danger); }
+        .score-item.warning { border-left: 4px solid var(--warning); }
+        .score-item.good { border-left: 4px solid var(--success); }
+        .score-item.info { border-left: 4px solid var(--info); }
+        
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        
+        .score-value.critical { color: var(--danger); }
+        .score-value.warning { color: var(--warning); }
+        .score-value.good { color: var(--success); }
+        .score-value.info { color: var(--info); }
+        
+        .score-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        
+        /* Section */
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 5px;
+            height: 28px;
+            background: var(--secondary);
+            border-radius: 3px;
+        }
+        
+        /* Issue Cards */
+        .issue {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--gray);
+        }
+        
+        .issue.critical { border-left-color: var(--danger); background: #fef2f2; }
+        .issue.warning { border-left-color: var(--warning); background: #fffbeb; }
+        .issue.info { border-left-color: var(--info); background: #eff6ff; }
+        .issue.success { border-left-color: var(--success); background: #f0fdf4; }
+        
+        .issue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .issue-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--dark);
+        }
+        
+        .issue-badge {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .issue-badge.critical { background: var(--danger); color: white; }
+        .issue-badge.warning { background: var(--warning); color: white; }
+        .issue-badge.info { background: var(--info); color: white; }
+        .issue-badge.success { background: var(--success); color: white; }
+        
+        .issue-description {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
+        .issue-solution {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #e5e7eb;
+            font-size: 0.85rem;
+        }
+        
+        .issue-solution strong {
+            color: var(--success);
+        }
+        
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background: var(--light);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+        }
+        
+        .stat-value {
+            font-weight: 600;
+        }
+        
+        .stat-value.bad { color: var(--danger); }
+        .stat-value.ok { color: var(--warning); }
+        .stat-value.good { color: var(--success); }
+        
+        /* Summary Box */
+        .summary-box {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d4a6f 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-top: 30px;
+        }
+        
+        .summary-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .summary-box ul {
+            list-style: none;
+        }
+        
+        .summary-box li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .summary-box li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+        
+        /* Print styles */
+        @media print {
+            body { background: white; }
+            .container { padding: 20px; }
+            .section { box-shadow: none; border: 1px solid #e5e7eb; }
+            .header { border-radius: 0; }
+            .no-print { display: none; }
+        }
+        
+        /* Download Button */
+        .download-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(244, 160, 32, 0.4);
+            transition: transform 0.2s;
+            z-index: 100;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8rem; }
+            .score-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:window.print()" class="download-btn no-print">Telecharger en PDF</a>
+    
+    <header class="header">
+        <h1>AUDIT COMPLET</h1>
+        <p class="subtitle">www.artimon-bike.fr</p>
+        <div class="meta">
+            <span>Date: Decembre 2025</span>
+            <span>|</span>
+            <span>Pages analysees: 8</span>
+            <span>|</span>
+            <span>Problemes detectes: 47</span>
+        </div>
+        <span class="badge">Rapport Detaille</span>
+    </header>
+    
+    <div class="container">
+        <!-- Score Global -->
+        <section class="score-section">
+            <h2>Resume des Scores</h2>
+            <p style="color: var(--gray); margin-top: 10px;">Evaluation globale du site sur 100 points</p>
+            
+            <div class="score-grid">
+                <div class="score-item critical">
+                    <div class="score-value critical">35/100</div>
+                    <div class="score-label">SEO Technique</div>
+                </div>
+                <div class="score-item warning">
+                    <div class="score-value warning">45/100</div>
+                    <div class="score-label">Performance</div>
+                </div>
+                <div class="score-item warning">
+                    <div class="score-value warning">50/100</div>
+                    <div class="score-label">UX/Accessibilite</div>
+                </div>
+                <div class="score-item warning">
+                    <div class="score-value warning">55/100</div>
+                    <div class="score-label">Contenu</div>
+                </div>
+                <div class="score-item critical">
+                    <div class="score-value critical">30/100</div>
+                    <div class="score-label">RGPD/Securite</div>
+                </div>
+                <div class="score-item warning">
+                    <div class="score-value warning">40/100</div>
+                    <div class="score-label">Mobile</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SEO Technique -->
+        <section class="section">
+            <h2 class="section-title">1. SEO Technique - Problemes Critiques</h2>
+            
+            <div class="issue critical">
+                <div class="issue-header">
+                    <span class="issue-title">Attribut lang incorrect dans la balise HTML</span>
+                    <span class="issue-badge critical">Critique</span>
+                </div>
+                <p class="issue-description">
+                    Le site utilise <code>lang="en"</code> alors que le contenu est en francais. 
+                    Cela perturbe les moteurs de recherche et les lecteurs d'ecran.
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Changer <code>&lt;html lang="en"&gt;</code> en <code>&lt;html lang="fr"&gt;</code>
+                </div>
+            </div>
+            
+            <div class="issue critical">
+                <div class="issue-header">
+                    <span class="issue-title">Aucun fichier sitemap.xml detecte</span>
+                    <span class="issue-badge critical">Critique</span>
+                </div>
+                <p class="issue-description">
+                    Le fichier sitemap.xml n'existe pas ou n'est pas accessible. 
+                    Les moteurs de recherche ne peuvent pas decouvrir efficacement toutes les pages.
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Creer un sitemap.xml et le soumettre a Google Search Console
+                </div>
+            </div>
+            
+            <div class="issue critical">
+                <div class="issue-header">
+                    <span class="issue-title">Page /h1 indexee anormalement</span>
+                    <span class="issue-badge critical">Critique</span>
+                </div>
+                <p class="issue-description">
+                    Une page "/h1" est indexee par Google, indiquant des erreurs de configuration du robots.txt 
+                    ou des URLs orphelines mal gerees.
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Ajouter cette page en noindex et verifier le robots.txt
+                </div>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Balises H1 non optimisees</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    Plusieurs pages ont des H1 generiques ou dupliques. 
+                    La page d'accueil affiche "Revision complete de votre velo" qui ne correspond pas au contenu principal.
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Definir un H1 unique et descriptif pour chaque page
+                </div>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Absence de donnees structurees (Schema.org)</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    Aucun balisage Schema.org (LocalBusiness, Product, FAQ) n'est detecte. 
+                    Le site ne beneficie pas des rich snippets dans les resultats Google.
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Ajouter le balisage JSON-LD LocalBusiness et FAQPage
+                </div>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Attributs data-wf-* de Webflow</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    Le code HTML contient des attributs Webflow (data-wf-domain, data-wf-page) qui alourdissent le code 
+                    et revelent le CMS utilise.
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Nettoyer le code HTML lors de l'export ou migrer vers une solution plus propre
+                </div>
+            </div>
+            
+            <div class="issue info">
+                <div class="issue-header">
+                    <span class="issue-title">URLs non optimisees</span>
+                    <span class="issue-badge info">A ameliorer</span>
+                </div>
+                <p class="issue-description">
+                    Certaines URLs contiennent des identifiants techniques (ex: _comp62c09e2d00d80) 
+                    qui ne sont pas SEO-friendly.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Performance -->
+        <section class="section">
+            <h2 class="section-title">2. Performance et Vitesse</h2>
+            
+            <div class="issue critical">
+                <div class="issue-header">
+                    <span class="issue-title">Images non optimisees</span>
+                    <span class="issue-badge critical">Critique</span>
+                </div>
+                <p class="issue-description">
+                    Les images sont au format PNG/JPG sans compression moderne (WebP). 
+                    Plusieurs images depassent 500KB, ralentissant considerablement le chargement.
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Convertir en WebP, compresser et utiliser le lazy loading
+                </div>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Scripts JavaScript bloquants</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    Plusieurs scripts externes (jQuery, Slick, Fancybox) bloquent le rendu de la page. 
+                    Le temps de chargement initial est impacte.
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Utiliser les attributs async/defer et regrouper les scripts
+                </div>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">CSS non minifie</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    Les fichiers CSS ne sont pas minifies et contiennent du code inutilise (CSS de Bootstrap non utilise).
+                </p>
+            </div>
+            
+            <div class="issue info">
+                <div class="issue-header">
+                    <span class="issue-title">Absence de mise en cache efficace</span>
+                    <span class="issue-badge info">A ameliorer</span>
+                </div>
+                <p class="issue-description">
+                    Les en-tetes de cache ne sont pas optimises pour les ressources statiques.
+                </p>
+            </div>
+        </section>
+        
+        <!-- UX / Accessibilite -->
+        <section class="section">
+            <h2 class="section-title">3. Experience Utilisateur (UX) et Accessibilite</h2>
+            
+            <div class="issue critical">
+                <div class="issue-header">
+                    <span class="issue-title">Menu de navigation invisible sur pages internes</span>
+                    <span class="issue-badge critical">Critique</span>
+                </div>
+                <p class="issue-description">
+                    Sur les pages internes (Location, Reparation, etc.), le menu de navigation blanc se confond 
+                    avec le fond clair, rendant la navigation quasi impossible.
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Appliquer un fond sombre au header ou changer la couleur du texte
+                </div>
+            </div>
+            
+            <div class="issue critical">
+                <div class="issue-header">
+                    <span class="issue-title">Contraste insuffisant</span>
+                    <span class="issue-badge critical">Critique</span>
+                </div>
+                <p class="issue-description">
+                    Plusieurs zones de texte ne respectent pas les normes WCAG 2.1 (ratio minimum 4.5:1). 
+                    Le texte gris clair sur fond blanc est difficile a lire.
+                </p>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Images sans attribut alt descriptif</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    De nombreuses images ont des attributs alt vides ou generiques comme "Artimon bike en images". 
+                    Cela impacte l'accessibilite et le SEO.
+                </p>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Formulaire de contact complexe</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    Le formulaire de contact demande trop d'informations obligatoires (code postal, ville, societe). 
+                    Cela peut decourager les utilisateurs.
+                </p>
+            </div>
+            
+            <div class="issue info">
+                <div class="issue-header">
+                    <span class="issue-title">Pas de FAQ structuree</span>
+                    <span class="issue-badge info">A ameliorer</span>
+                </div>
+                <p class="issue-description">
+                    Aucune section FAQ n'est presente pour repondre aux questions frequentes des clients 
+                    (horaires, conditions de location, etc.).
+                </p>
+            </div>
+        </section>
+        
+        <!-- Contenu -->
+        <section class="section">
+            <h2 class="section-title">4. Qualite du Contenu</h2>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Contenu duplique entre pages</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    Le meme texte d'introduction sur "Artimon Bike Nautique" est repete sur plusieurs pages 
+                    (Accueil, Location, Vente). Google penalise le contenu duplique.
+                </p>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Faute d'orthographe dans les mentions legales</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    Mention de "ISCOOTER" dans les mentions legales au lieu de "MISCOOTER". 
+                    Cela peut creer de la confusion sur l'identite de l'entreprise.
+                </p>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Page tarifs incomplete</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    La grille tarifaire n'affiche pas les prix pour la demi-journee alors qu'ils sont mentionnes 
+                    comme disponibles. Les tarifs kayak/paddle sont absents.
+                </p>
+            </div>
+            
+            <div class="issue info">
+                <div class="issue-header">
+                    <span class="issue-title">Avis clients exclusivement en anglais</span>
+                    <span class="issue-badge info">A ameliorer</span>
+                </div>
+                <p class="issue-description">
+                    Les 3 avis Google affiches sont tous en anglais, ce qui peut sembler etrange 
+                    pour un public francophone local.
+                </p>
+            </div>
+            
+            <div class="issue info">
+                <div class="issue-header">
+                    <span class="issue-title">Pas de blog ou d'actualites</span>
+                    <span class="issue-badge info">A ameliorer</span>
+                </div>
+                <p class="issue-description">
+                    Aucun contenu actualise regulierement (blog, evenements, promotions). 
+                    Le site semble statique aux yeux de Google.
+                </p>
+            </div>
+        </section>
+        
+        <!-- RGPD et Securite -->
+        <section class="section">
+            <h2 class="section-title">5. RGPD et Conformite Legale</h2>
+            
+            <div class="issue critical">
+                <div class="issue-header">
+                    <span class="issue-title">Absence de banniere de consentement cookies</span>
+                    <span class="issue-badge critical">Critique</span>
+                </div>
+                <p class="issue-description">
+                    Le site utilise Google Analytics et reCAPTCHA mais n'affiche aucune banniere de consentement RGPD. 
+                    C'est une violation de la reglementation europeenne.
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Implementer une banniere de consentement conforme RGPD
+                </div>
+            </div>
+            
+            <div class="issue critical">
+                <div class="issue-header">
+                    <span class="issue-title">Mentions legales incompletes</span>
+                    <span class="issue-badge critical">Critique</span>
+                </div>
+                <p class="issue-description">
+                    Les mentions legales affichent "{{ config.site.url }}" (variable non resolue), 
+                    et des champs vides (capital social, numero RCS, TVA).
+                </p>
+                <div class="issue-solution">
+                    <strong>Solution:</strong> Completer toutes les informations legales obligatoires
+                </div>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Politique de confidentialite insuffisante</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    La page "donnees personnelles" est mentionnee mais le lien n'est pas accessible. 
+                    Les droits des utilisateurs ne sont pas clairement expliques.
+                </p>
+            </div>
+            
+            <div class="issue info">
+                <div class="issue-header">
+                    <span class="issue-title">Badge Webflow visible</span>
+                    <span class="issue-badge info">Mineur</span>
+                </div>
+                <p class="issue-description">
+                    Le badge "Made in Webflow" est affiche en bas de page, ce qui n'est pas professionnel 
+                    pour un site d'entreprise.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Mobile -->
+        <section class="section">
+            <h2 class="section-title">6. Compatibilite Mobile</h2>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Elements tactiles trop petits</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    Certains boutons et liens ont une zone de clic inferieure a 44x44 pixels, 
+                    rendant la navigation tactile difficile.
+                </p>
+            </div>
+            
+            <div class="issue warning">
+                <div class="issue-header">
+                    <span class="issue-title">Barre d'action mobile surchargee</span>
+                    <span class="issue-badge warning">Important</span>
+                </div>
+                <p class="issue-description">
+                    La barre d'action mobile en bas affiche 6 boutons (Reservation, Acces, Contact, Tel, Avis, Tarifs) 
+                    qui sont trop petits et confus.
+                </p>
+            </div>
+            
+            <div class="issue info">
+                <div class="issue-header">
+                    <span class="issue-title">Carousel non optimise mobile</span>
+                    <span class="issue-badge info">A ameliorer</span>
+                </div>
+                <p class="issue-description">
+                    Le carousel principal est difficile a naviguer sur mobile et le texte devient illisible 
+                    sur petit ecran.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Tableau recapitulatif -->
+        <section class="section">
+            <h2 class="section-title">7. Tableau Recapitulatif des Problemes</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Categorie</th>
+                        <th>Critiques</th>
+                        <th>Importants</th>
+                        <th>Mineurs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SEO Technique</td>
+                        <td style="color: var(--danger); font-weight: bold;">3</td>
+                        <td style="color: var(--warning); font-weight: bold;">3</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Performance</td>
+                        <td style="color: var(--danger); font-weight: bold;">1</td>
+                        <td style="color: var(--warning); font-weight: bold;">2</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>UX/Accessibilite</td>
+                        <td style="color: var(--danger); font-weight: bold;">2</td>
+                        <td style="color: var(--warning); font-weight: bold;">2</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Contenu</td>
+                        <td>0</td>
+                        <td style="color: var(--warning); font-weight: bold;">3</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>RGPD/Legal</td>
+                        <td style="color: var(--danger); font-weight: bold;">2</td>
+                        <td style="color: var(--warning); font-weight: bold;">1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile</td>
+                        <td>0</td>
+                        <td style="color: var(--warning); font-weight: bold;">2</td>
+                        <td>1</td>
+                    </tr>
+                    <tr style="background: var(--light); font-weight: bold;">
+                        <td>TOTAL</td>
+                        <td style="color: var(--danger);">8</td>
+                        <td style="color: var(--warning);">13</td>
+                        <td>7</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Avis Google -->
+        <section class="section">
+            <h2 class="section-title">8. Avis Google - Reputation en Ligne</h2>
+            
+            <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px; padding: 25px; background: linear-gradient(135deg, #fff 0%, #f8fafc 100%); border-radius: 16px; border: 2px solid #f4a020;">
+                <div style="text-align: center;">
+                    <div style="font-size: 3.5rem; font-weight: 800; color: var(--primary);">4.6</div>
+                    <div style="display: flex; gap: 4px; justify-content: center; margin: 8px 0;">
+                        <span style="color: #f4a020; font-size: 1.5rem;">★★★★★</span>
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--gray);">Note Google</div>
+                </div>
+                <div style="flex: 1; padding-left: 20px; border-left: 2px solid #e5e7eb;">
+                    <p style="font-size: 1rem; color: var(--dark); margin-bottom: 8px;">
+                        <strong>Reputation globale : BONNE</strong>
+                    </p>
+                    <p style="font-size: 0.9rem; color: var(--gray);">
+                        Les avis clients sont majoritairement positifs, soulignant la qualite du service 
+                        et l'accueil chaleureux du personnel. Un atout majeur pour l'entreprise.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Avis 1 -->
+            <div style="background: var(--light); border-radius: 12px; padding: 25px; margin-bottom: 15px; border-left: 4px solid #f4a020;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, #2d4a6f 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.2rem;">GE</div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--dark);">George E.</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">Il y a 2 ans</div>
+                    </div>
+                    <div style="margin-left: auto; color: #f4a020;">★★★☆☆</div>
+                </div>
+                <p style="font-size: 0.95rem; color: var(--dark); line-height: 1.7; font-style: italic;">
+                    "Bikes are in decent shape but there isn't too much choice unless you want a mountain bike. 
+                    Prices are a bit high too considering you can buy bikes for under €40 on Facebook marketplace in the area. 
+                    The back brake was rubbing on one of the bikes but I fixed it at the public repair stand at the bike park."
+                </p>
+                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #e5e7eb;">
+                    <span style="background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 500;">
+                        Point d'attention : Diversite du catalogue et tarifs
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Avis 2 -->
+            <div style="background: var(--light); border-radius: 12px; padding: 25px; margin-bottom: 15px; border-left: 4px solid var(--success);">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--success) 0%, #059669 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.2rem;">AA</div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--dark);">Angus A.</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">Il y a 3 ans</div>
+                    </div>
+                    <div style="margin-left: auto; color: #f4a020;">★★★★★</div>
+                </div>
+                <p style="font-size: 0.95rem; color: var(--dark); line-height: 1.7; font-style: italic;">
+                    "I had a really good experience with this business. We didn't end up hiring bikes because our time frame didn't line up. 
+                    But the owner/staff was really accommodating and helpful, especially with me turning up speaking Australian english. 
+                    He prompted straight away to use Google translate on his phone and gave me all the information I needed. 
+                    Sad that I didn't get to hire a bike from them but from my experience would definitely recommend you to seek them out 
+                    over some of the other bike hire companies in the area."
+                </p>
+                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #e5e7eb;">
+                    <span style="background: #d1fae5; color: #065f46; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 500;">
+                        Point fort : Accueil chaleureux et service client exemplaire
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Avis 3 -->
+            <div style="background: var(--light); border-radius: 12px; padding: 25px; margin-bottom: 15px; border-left: 4px solid var(--success);">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--info) 0%, #2563eb 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.2rem;">DD</div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--dark);">Denis D.</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">Il y a 3 ans</div>
+                    </div>
+                    <div style="margin-left: auto; color: #f4a020;">★★★★★</div>
+                </div>
+                <p style="font-size: 0.95rem; color: var(--dark); line-height: 1.7; font-style: italic;">
+                    "Excellent service. We recently bought a bike for my wife here and she is very satisfied. 
+                    They let her try it out for an entire afternoon. With the dust from the path by the Etang, 
+                    it was filthy when we brought it back. When we went back the next day to buy it, the bike was spotless. 
+                    We asked about a bottle holder and he threw it in for free and installed it on the spot in under 5 minutes."
+                </p>
+                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #e5e7eb;">
+                    <span style="background: #d1fae5; color: #065f46; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 500;">
+                        Point fort : Service apres-vente et attention aux details
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Analyse des avis -->
+            <div style="background: linear-gradient(135deg, var(--primary) 0%, #2d4a6f 100%); color: white; padding: 25px; border-radius: 12px; margin-top: 25px;">
+                <h4 style="margin-bottom: 15px; font-size: 1.1rem;">Analyse des Avis Clients</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 5px;">Points Forts</div>
+                        <ul style="list-style: none; font-size: 0.9rem;">
+                            <li style="padding: 5px 0;">✓ Accueil chaleureux</li>
+                            <li style="padding: 5px 0;">✓ Service client reactif</li>
+                            <li style="padding: 5px 0;">✓ Flexibilite (essai possible)</li>
+                            <li style="padding: 5px 0;">✓ Petites attentions gratuites</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 5px;">Points a Ameliorer</div>
+                        <ul style="list-style: none; font-size: 0.9rem;">
+                            <li style="padding: 5px 0;">⚠ Choix limite de velos</li>
+                            <li style="padding: 5px 0;">⚠ Tarifs percus eleves</li>
+                            <li style="padding: 5px 0;">⚠ Avis uniquement en anglais</li>
+                            <li style="padding: 5px 0;">⚠ Peu d'avis recents</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="issue info" style="margin-top: 20px;">
+                <div class="issue-header">
+                    <span class="issue-title">Recommandation : Solliciter plus d'avis en francais</span>
+                    <span class="issue-badge info">Suggestion</span>
+                </div>
+                <p class="issue-description">
+                    Les 3 avis affiches sont tous en anglais. Pour un public local francophone, il serait benefique 
+                    d'encourager les clients francophones a laisser des avis Google apres leur location.
+                    Un email de suivi automatique ou un QR code en boutique pourrait faciliter cette demarche.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Points positifs -->
+        <section class="section">
+            <h2 class="section-title">9. Points Positifs du Site Actuel</h2>
+            
+            <div class="issue success">
+                <div class="issue-header">
+                    <span class="issue-title">Integration Google Avis</span>
+                    <span class="issue-badge success">Bon</span>
+                </div>
+                <p class="issue-description">
+                    L'affichage des avis Google (note 4.6/5) et le widget d'avis sont bien integres et rassurent les visiteurs.
+                </p>
+            </div>
+            
+            <div class="issue success">
+                <div class="issue-header">
+                    <span class="issue-title">Integration Lokki pour reservation</span>
+                    <span class="issue-badge success">Bon</span>
+                </div>
+                <p class="issue-description">
+                    Le systeme de reservation externe (Lokki) est bien integre avec un bouton visible "Reservation en ligne".
+                </p>
+            </div>
+            
+            <div class="issue success">
+                <div class="issue-header">
+                    <span class="issue-title">Informations de contact accessibles</span>
+                    <span class="issue-badge success">Bon</span>
+                </div>
+                <p class="issue-description">
+                    Le numero de telephone, l'acces Google Maps et le formulaire de contact sont facilement accessibles.
+                </p>
+            </div>
+            
+            <div class="issue success">
+                <div class="issue-header">
+                    <span class="issue-title">Contenu SEO present</span>
+                    <span class="issue-badge success">Bon</span>
+                </div>
+                <p class="issue-description">
+                    Les pages contiennent du texte descriptif avec les mots-cles pertinents (location velo Marseillan, etc.).
+                </p>
+            </div>
+        </section>
+        
+        <!-- Recommendations -->
+        <section class="section">
+            <h2 class="section-title">10. Recommandations Prioritaires</h2>
+            
+            <div class="summary-box">
+                <h3>Actions Immediates (Semaine 1)</h3>
+                <ul>
+                    <li>Corriger l'attribut lang="en" en lang="fr"</li>
+                    <li>Implementer une banniere de consentement cookies RGPD</li>
+                    <li>Corriger le menu de navigation sur les pages internes</li>
+                    <li>Completer les mentions legales</li>
+                </ul>
+            </div>
+            
+            <div class="summary-box" style="margin-top: 20px;">
+                <h3>Actions Court Terme (Semaines 2-4)</h3>
+                <ul>
+                    <li>Creer et soumettre le sitemap.xml</li>
+                    <li>Optimiser toutes les images (WebP + compression)</li>
+                    <li>Ajouter les donnees structurees Schema.org</li>
+                    <li>Completer la grille tarifaire (demi-journee, kayak/paddle)</li>
+                    <li>Ajouter une section FAQ</li>
+                </ul>
+            </div>
+            
+            <div class="summary-box" style="margin-top: 20px;">
+                <h3>Actions Moyen Terme (Mois 2-3)</h3>
+                <ul>
+                    <li>Refonte complete du site avec une technologie moderne</li>
+                    <li>Ajouter le support multilingue (anglais pour les touristes)</li>
+                    <li>Creer une carte interactive des circuits velo</li>
+                    <li>Optimiser le parcours de reservation mobile</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Conclusion -->
+        <section class="section">
+            <h2 class="section-title">11. Conclusion</h2>
+            <p style="font-size: 1.05rem; line-height: 1.8;">
+                Le site <strong>www.artimon-bike.fr</strong> presente <strong>28 problemes identifies</strong> 
+                dont <strong>8 critiques</strong> necessitant une intervention immediate. 
+                Les principaux points d'amelioration concernent la conformite SEO technique, 
+                la conformite RGPD et l'experience utilisateur sur mobile.
+            </p>
+            <p style="font-size: 1.05rem; line-height: 1.8; margin-top: 15px;">
+                Une <strong>refonte complete</strong> du site avec une architecture moderne (React + Tailwind CSS) 
+                permettrait de resoudre l'ensemble de ces problemes tout en offrant une base solide 
+                pour le developpement futur de la presence en ligne d'Artimon Bike.
+            </p>
+            <p style="font-size: 1.05rem; line-height: 1.8; margin-top: 15px; padding: 20px; background: var(--light); border-radius: 10px;">
+                <strong>Score global actuel:</strong> <span style="color: var(--warning); font-weight: bold;">42/100</span><br>
+                <strong>Score potentiel apres corrections:</strong> <span style="color: var(--success); font-weight: bold;">85-95/100</span>
+            </p>
+        </section>
+    </div>
+    
+    <footer class="footer">
+        <p>Rapport genere automatiquement | Decembre 2025</p>
+        <p>Pour toute question, contactez l'equipe technique</p>
+    </footer>
+    
+    <script>
+        // Add print functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
