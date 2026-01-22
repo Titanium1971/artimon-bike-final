@@ -22,4 +22,5 @@
 /reparateur-velo-marseillan    /reparation  301
 
 # SPA fallback - toutes les autres routes vers index.html
+/nos-tarifs/   /tarifs   301!
 /*                   /index.html          200
