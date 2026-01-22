@@ -2,7 +2,7 @@
 # https://www.artimon-bike.fr
 
 User-agent: *
-Disallow: /
+Allow: /
 Disallow: /api/
 Disallow: /admin/
 Disallow: /*.json$
