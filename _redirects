@@ -47,7 +47,3 @@
 
 /reparateur-velo-marseillan /reparation                  301
 /reparateur-velo-marseillan/ /reparation                 301
-
-
-# SPA fallback - toutes les autres routes vers index.html (toujours en dernier)
- /*                         /index.html                  200
