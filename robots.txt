@@ -1,13 +1,35 @@
 # Robots.txt pour Artimon Bike
 # https://www.artimonbike.com
+# Mis à jour : 27 janvier 2026
+
+# ====================
+# RÈGLES GÉNÉRALES
+# ====================
 
 User-agent: *
 Allow: /
+
+# Bloquer répertoires techniques/admin
 Disallow: /api/
 Disallow: /admin/
-Disallow: /*.json$
+Disallow: /_next/
+Disallow: /.well-known/
+Disallow: /node_modules/
 
-# Crawl-delay pour les bots agressifs
+# Bloquer fichiers système et config
+Disallow: /*.json$
+Disallow: /package.json
+Disallow: /package-lock.json
+
+# Bloquer paramètres de tracking (optionnel)
+Disallow: /*?utm_
+Disallow: /*?ref=
+Disallow: /*?fbclid=
+
+# ====================
+# BOTS SEO AGRESSIFS (Ralentir)
+# ====================
+
 User-agent: AhrefsBot
 Crawl-delay: 10
 
@@ -17,8 +39,34 @@ Crawl-delay: 10
 User-agent: MJ12bot
 Crawl-delay: 10
 
-# Sitemap
-Sitemap: https://www.artimonbike.com/sitemap.xml
+User-agent: dotbot
+Crawl-delay: 10
 
-# Host
-Host: https://www.artimonbike.com
+User-agent: BLEXBot
+Crawl-delay: 10
+
+User-agent: PetalBot
+Crawl-delay: 10
+
+# ====================
+# SITEMAP
+# ====================
+
+Sitemap: https://www.artimonbike.com/sitemap.xml
+```
+
+---
+
+## 📝 COMMENT L'UTILISER
+
+1. **Copie tout le texte ci-dessus**
+2. **Va dans ton repo GitHub**
+3. **Ouvre le fichier `robots.txt`**
+4. **Remplace tout le contenu** par celui ci-dessus
+5. **Commit et push**
+
+---
+
+Une fois déployé, teste sur :
+```
+https://www.artimonbike.com/robots.txt
