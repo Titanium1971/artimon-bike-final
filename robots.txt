@@ -54,19 +54,3 @@ Crawl-delay: 10
 
 Sitemap: https://www.artimonbike.com/sitemap.xml
 ```
-
----
-
-## 📝 COMMENT L'UTILISER
-
-1. **Copie tout le texte ci-dessus**
-2. **Va dans ton repo GitHub**
-3. **Ouvre le fichier `robots.txt`**
-4. **Remplace tout le contenu** par celui ci-dessus
-5. **Commit et push**
-
----
-
-Une fois déployé, teste sur :
-```
-https://www.artimonbike.com/robots.txt
