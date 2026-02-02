@@ -1,124 +1,25 @@
-# ==========================================
-# REDIRECTIONS SEO - ARTIMON BIKE
-# ==========================================
-# Fichier: _redirects (Cloudflare Pages)
-# Priorité: Les règles en haut sont exécutées en premier
-# ==========================================
-
-# ==========================================
-# 1. ANCIEN DOMAINE → NOUVEAU DOMAINE (PRIORITÉ MAX)
-# ==========================================
-# Redirection de TOUT le trafic de artimon-bike.fr vers artimonbike.com
-# IMPORTANT: Ces redirections doivent aussi être configurées côté artimon-bike.fr
-
-# Pages spécifiques de l'ancien site (avec backlinks importants)
-https://artimon-bike.fr/location                    https://www.artimonbike.com/location                    301
-https://www.artimon-bike.fr/location                https://www.artimonbike.com/location                    301
-https://artimon-bike.fr/nos-tarifs                  https://www.artimonbike.com/tarifs                      301
-https://www.artimon-bike.fr/nos-tarifs              https://www.artimonbike.com/tarifs                      301
-https://artimon-bike.fr/location-velo-a-marseillan  https://www.artimonbike.com/location                    301
-https://www.artimon-bike.fr/location-velo-a-marseillan https://www.artimonbike.com/location                 301
-https://artimon-bike.fr/reparation                  https://www.artimonbike.com/reparation                  301
-https://www.artimon-bike.fr/reparation              https://www.artimonbike.com/reparation                  301
-
-# Redirection générale de l'ancien domaine (catch-all)
-https://artimon-bike.fr/*                           https://www.artimonbike.com/:splat                      301
-https://www.artimon-bike.fr/*                       https://www.artimonbike.com/:splat                      301
-http://artimon-bike.fr/*                            https://www.artimonbike.com/:splat                      301
-http://www.artimon-bike.fr/*                        https://www.artimonbike.com/:splat                      301
-
-# ==========================================
-# 2. NORMALISATION DU DOMAINE ACTUEL
-# ==========================================
-# Force HTTPS + www (ou sans www selon ton choix)
-
-# HTTP → HTTPS (sans www)
-http://artimonbike.com/*                            https://www.artimonbike.com/:splat                      301
-
-# HTTPS non-www → HTTPS www
-https://artimonbike.com/*                           https://www.artimonbike.com/:splat                      301
-
-# HTTP www → HTTPS www
-http://www.artimonbike.com/*                        https://www.artimonbike.com/:splat                      301
-
-# ==========================================
-# 3. REDIRECTIONS INTERNES (ancien site Grav/Webflow)
-# ==========================================
+# Redirections 301 pour migration SEO - Artimon Bike
+# Ces redirections préservent le référencement lors du changement de site
 
 # Anciennes URLs du site Grav/Webflow
-/nos-tarifs                                         /tarifs                                                 301
-/donnees-personnelles                               /politique-confidentialite                              301
-/balise-h1                                          /                                                       301
-/h1                                                 /                                                       301
-/index                                              /                                                       301
-/home                                               /                                                       301
-/accueil                                            /                                                       301
-/index.html                                         /                                                       301
+/nos-tarifs          /tarifs              301
+/donnees-personnelles /politique-confidentialite 301
+/balise-h1           /                    301
+/h1                  /                    301
+/index               /                    301
+/home                /                    301
+/accueil             /                    301
 
-# URLs en anglais (pour compatibilité internationale)
-/rental                                             /location                                               301
-/repair                                             /reparation                                             301
-/sale                                               /vente                                                  301
-/prices                                             /tarifs                                                 301
-/bike-rental                                        /location                                               301
-/bike-repair                                        /reparation                                             301
+# URLs en anglais (pour compatibilité)
+/rental              /location            301
+/repair              /reparation          301
+/sale                /vente               301
+/prices              /tarifs              301
 
-# Anciennes URLs avec mots-clés SEO (artimon-bike.fr)
-/vente-velos-trottinettes                           /vente                                                  301
-/louer-velo-marseillan                              /location                                               301
-/reparateur-velo-marseillan                         /reparation                                             301
-/location-velo-marseillan                           /location                                               301
-/location-velo-a-marseillan                         /location                                               301
+# Anciennes URLs avec mots-clés SEO
+/vente-velos-trottinettes      /vente       301
+/louer-velo-marseillan         /location    301
+/reparateur-velo-marseillan    /reparation  301
 
-# ==========================================
-# 4. REDIRECTIONS SEO INTELLIGENTES
-# ==========================================
-# Variations courantes de recherche
-
-# Variations orthographiques
-/location-velo                                      /location                                               301
-/location-vélo                                      /location                                               301
-/location-velos                                     /location                                               301
-/location-vélos                                     /location                                               301
-/reparation-velo                                    /reparation                                             301
-/réparation-vélo                                    /reparation                                             301
-/vente-velo                                         /vente                                                  301
-/vente-vélo                                         /vente                                                  301
-
-# Localités (pour capturer trafic des villes voisines)
-/location-agde                                      /location                                               301
-/location-meze                                      /location                                               301
-/location-sete                                      /location                                               301
-/location-bouzigues                                 /location                                               301
-
-# Types de vélos (si pages non créées, rediriger vers /location)
-/velo-electrique                                    /location                                               301
-/vae                                                /location                                               301
-/vtt                                                /location                                               301
-/vtc                                                /location                                               301
-/tandem                                             /location                                               301
-
-# ==========================================
-# 5. PAGES SUPPRIMÉES / ERREURS COMMUNES
-# ==========================================
-
-# Pages admin/technique à bloquer
-/admin                                              /                                                       301
-/admin/*                                            /                                                       301
-/wp-admin                                           /                                                       301
-/wp-admin/*                                         /                                                       301
-/login                                              /                                                       301
-/administrator                                      /                                                       301
-
-# Extensions de fichiers inutiles
-/*.php                                              /                                                       301
-/*.asp                                              /                                                       301
-/*.aspx                                             /                                                       301
-
-# ==========================================
-# 6. SPA FALLBACK (DOIT RESTER EN DERNIER)
-# ==========================================
-# Toutes les autres routes non matchées → index.html (200, pas 301)
-# Important pour le routing côté client (SPA)
-
-/*                                                  /index.html                                             200
+# SPA fallback - toutes les autres routes vers index.html
+/*                   /index.html          200

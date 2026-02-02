@@ -1,35 +1,13 @@
 # Robots.txt pour Artimon Bike
 # https://www.artimonbike.com
-# Mis à jour : 27 janvier 2026
-
-# ====================
-# RÈGLES GÉNÉRALES
-# ====================
 
 User-agent: *
 Allow: /
-
-# Bloquer répertoires techniques/admin
 Disallow: /api/
 Disallow: /admin/
-Disallow: /_next/
-Disallow: /.well-known/
-Disallow: /node_modules/
-
-# Bloquer fichiers système et config
 Disallow: /*.json$
-Disallow: /package.json
-Disallow: /package-lock.json
 
-# Bloquer paramètres de tracking (optionnel)
-Disallow: /*?utm_
-Disallow: /*?ref=
-Disallow: /*?fbclid=
-
-# ====================
-# BOTS SEO AGRESSIFS (Ralentir)
-# ====================
-
+# Crawl-delay pour les bots agressifs
 User-agent: AhrefsBot
 Crawl-delay: 10
 
@@ -39,17 +17,8 @@ Crawl-delay: 10
 User-agent: MJ12bot
 Crawl-delay: 10
 
-User-agent: dotbot
-Crawl-delay: 10
-
-User-agent: BLEXBot
-Crawl-delay: 10
-
-User-agent: PetalBot
-Crawl-delay: 10
-
-# ====================
-# SITEMAP
-# ====================
-
+# Sitemap
 Sitemap: https://www.artimonbike.com/sitemap.xml
+
+# Host
+Host: https://www.artimonbike.com

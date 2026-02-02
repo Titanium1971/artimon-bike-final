@@ -2,180 +2,169 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
-  <!-- Page d'accueil FR -->
+  <!-- Page d'accueil -->
   <url>
     <loc>https://www.artimonbike.com/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.artimonbike.com/"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
-  <!-- Location FR -->
+  <!-- Location -->
   <url>
     <loc>https://www.artimonbike.com/location</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/location"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/location"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   
-  <!-- Réparation FR -->
+  <!-- Réparation -->
   <url>
     <loc>https://www.artimonbike.com/reparation</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/reparation"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/reparation"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Vente FR -->
+  <!-- Vente -->
   <url>
     <loc>https://www.artimonbike.com/vente</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/vente"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/vente"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Tarifs FR -->
+  <!-- Tarifs -->
   <url>
     <loc>https://www.artimonbike.com/tarifs</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/tarifs"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/tarifs"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   
-  <!-- Contact FR -->
+  <!-- Contact -->
   <url>
     <loc>https://www.artimonbike.com/contact</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/contact"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/contact"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- FAQ FR -->
+  <!-- Blog -->
+  <url>
+    <loc>https://www.artimonbike.com/blog</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/blog"/>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- FAQ -->
   <url>
     <loc>https://www.artimonbike.com/faq</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/faq"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/faq"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
-  <!-- Parcours vélo FR -->
+  <!-- Parcours vélo -->
   <url>
     <loc>https://www.artimonbike.com/parcours</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/parcours"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/parcours"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Mentions légales FR -->
+  <!-- Mentions légales -->
   <url>
     <loc>https://www.artimonbike.com/mentions-legales</loc>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
-  <!-- Politique de confidentialité FR -->
+  <!-- Politique de confidentialité -->
   <url>
     <loc>https://www.artimonbike.com/politique-confidentialite</loc>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
-  <!-- Page d'accueil EN -->
+  <!-- Pages en anglais -->
   <url>
     <loc>https://www.artimonbike.com/en/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.artimonbike.com/"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   
-  <!-- Location EN -->
   <url>
     <loc>https://www.artimonbike.com/en/location</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/location"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/location"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Réparation EN -->
   <url>
     <loc>https://www.artimonbike.com/en/reparation</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/reparation"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/reparation"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
-  <!-- Vente EN -->
   <url>
     <loc>https://www.artimonbike.com/en/vente</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/vente"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/vente"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
-  <!-- Tarifs EN -->
   <url>
     <loc>https://www.artimonbike.com/en/tarifs</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/tarifs"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/tarifs"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Contact EN -->
   <url>
     <loc>https://www.artimonbike.com/en/contact</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/contact"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/contact"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
-  <!-- FAQ EN -->
   <url>
     <loc>https://www.artimonbike.com/en/faq</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/faq"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/faq"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
-  <!-- Parcours EN -->
   <url>
     <loc>https://www.artimonbike.com/en/parcours</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/parcours"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/parcours"/>
-    <lastmod>2025-01-27T19:00:00+01:00</lastmod>
+    <lastmod>2025-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
