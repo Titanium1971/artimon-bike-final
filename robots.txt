@@ -1,5 +1,5 @@
 # Robots.txt pour Artimon Bike
-# https://www.artimonbike.com
+# https://www.artimon-bike.fr
 
 User-agent: *
 Allow: /
@@ -18,7 +18,7 @@ User-agent: MJ12bot
 Crawl-delay: 10
 
 # Sitemap
-Sitemap: https://www.artimonbike.com/sitemap.xml
+Sitemap: https://www.artimon-bike.fr/sitemap.xml
 
 # Host
-Host: https://www.artimonbike.com
+Host: https://www.artimon-bike.fr
