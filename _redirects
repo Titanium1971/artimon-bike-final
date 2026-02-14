@@ -1,0 +1,25 @@
+# Redirections 301 pour migration SEO - Artimon Bike
+# Ces redirections préservent le référencement lors du changement de site
+
+# Anciennes URLs du site Grav/Webflow
+/nos-tarifs          /tarifs              301
+/donnees-personnelles /politique-confidentialite 301
+/balise-h1           /                    301
+/h1                  /                    301
+/index               /                    301
+/home                /                    301
+/accueil             /                    301
+
+# URLs en anglais (pour compatibilité)
+/rental              /location            301
+/repair              /reparation          301
+/sale                /vente               301
+/prices              /tarifs              301
+
+# Anciennes URLs avec mots-clés SEO
+/vente-velos-trottinettes      /vente       301
+/louer-velo-marseillan         /location    301
+/reparateur-velo-marseillan    /reparation  301
+
+# SPA fallback - toutes les autres routes vers index.html
+/*                   /index.html          200

@@ -1,0 +1,31 @@
+{
+  "rewrites": [
+    { "source": "/((?!api/.*).*)", "destination": "/index.html" }
+  ],
+  "redirects": [
+    { "source": "/nos-tarifs", "destination": "/tarifs", "permanent": true },
+    { "source": "/donnees-personnelles", "destination": "/politique-confidentialite", "permanent": true },
+    { "source": "/balise-h1", "destination": "/", "permanent": true },
+    { "source": "/h1", "destination": "/", "permanent": true },
+    { "source": "/index", "destination": "/", "permanent": true },
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/accueil", "destination": "/", "permanent": true },
+    { "source": "/rental", "destination": "/location", "permanent": true },
+    { "source": "/repair", "destination": "/reparation", "permanent": true },
+    { "source": "/sale", "destination": "/vente", "permanent": true },
+    { "source": "/prices", "destination": "/tarifs", "permanent": true },
+    { "source": "/vente-velos-trottinettes", "destination": "/vente", "permanent": true },
+    { "source": "/louer-velo-marseillan", "destination": "/location", "permanent": true },
+    { "source": "/reparateur-velo-marseillan", "destination": "/reparation", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
+      ]
+    }
+  ]
+}
