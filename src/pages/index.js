@@ -1,0 +1,15 @@
+export { default as HomePage } from './HomePage';
+export { default as LocationPage } from './LocationPage';
+export { default as ReparationPage } from './ReparationPage';
+export { default as VentePage } from './VentePage';
+export { default as BikePathsPage } from './BikePathsPage';
+export { default as TarifsPage } from './TarifsPage';
+export { default as ContactPage } from './ContactPage';
+export { default as FAQPage } from './FAQPage';
+export { default as BlogPage } from './BlogPage';
+export { default as ArticlePage } from './ArticlePage';
+export { default as AdminPage } from './AdminPage';
+export { default as MentionsLegalesPage } from './MentionsLegalesPage';
+export { default as PolitiqueConfidentialitePage } from './PolitiqueConfidentialitePage';
+export { default as NotFoundPage } from './NotFoundPage';
+export { default as BlogSection } from './BlogSection';
