@@ -88,12 +88,7 @@ html {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Leaflet map fixes */
-.leaflet-container {
-    height: 100%;
-    width: 100%;
-    border-radius: 12px;
-}
+/* Leaflet styles removed (leaflet removed). */
 
 /* Cookie banner styles */
 .cookie-banner {
