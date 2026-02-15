@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 
@@ -9,23 +9,21 @@ import { Footer } from "./components/layout/Footer";
 import { CookieConsent } from "./components/ui/CookieConsent";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 
-// Pages
-import {
-  HomePage,
-  LocationPage,
-  ReparationPage,
-  VentePage,
-  BikePathsPage,
-  TarifsPage,
-  ContactPage,
-  FAQPage,
-  BlogPage,
-  ArticlePage,
-  AdminPage,
-  MentionsLegalesPage,
-  PolitiqueConfidentialitePage,
-  NotFoundPage
-} from "./pages";
+// Pages - lazy loaded to reduce initial bundle
+const HomePage = lazy(() => import("./pages/HomePage"));
+const LocationPage = lazy(() => import("./pages/LocationPage"));
+const ReparationPage = lazy(() => import("./pages/ReparationPage"));
+const VentePage = lazy(() => import("./pages/VentePage"));
+const BikePathsPage = lazy(() => import("./pages/BikePathsPage"));
+const TarifsPage = lazy(() => import("./pages/TarifsPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const FAQPage = lazy(() => import("./pages/FAQPage"));
+const BlogPage = lazy(() => import("./pages/BlogPage"));
+const ArticlePage = lazy(() => import("./pages/ArticlePage"));
+const AdminPage = lazy(() => import("./pages/AdminPage"));
+const MentionsLegalesPage = lazy(() => import("./pages/MentionsLegalesPage"));
+const PolitiqueConfidentialitePage = lazy(() => import("./pages/PolitiqueConfidentialitePage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 // Redirects configuration
 import { REDIRECTS } from "./constants";
@@ -80,6 +78,7 @@ function App() {
           <GoogleAnalytics />
           <Navigation />
           <main>
+            <Suspense fallback={<div style={{minHeight:'60vh'}}></div>}>
             <Routes>
               {/* Main Pages */}
               <Route path="/" element={<HomePage />} />
@@ -117,6 +116,7 @@ function App() {
               {/* 404 Page */}
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
+            </Suspense>
           </main>
           <Footer />
           {showCookieConsent && <CookieConsent onAccept={handleCookieAccept} onReject={handleCookieReject} />}
