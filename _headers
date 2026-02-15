@@ -4,3 +4,17 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://artimon-backend.onrender.com https://www.google-analytics.com https://*.tile.openstreetmap.org https://cloudflareinsights.com; frame-src 'self' https://www.google.com https://maps.google.com https://lokki.rent
+
+# Cache fingerprinted static assets for 1 year and mark immutable
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Short cache for HTML (force revalidate)
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Images and media - 1 week
+/static/media/*
+  Cache-Control: public, max-age=604800
+
+/*/

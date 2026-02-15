@@ -64,7 +64,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "minify:js": "npx terser ./build/static/js/*.js --compress --mangle --output ./build/static/js/",
-    "postbuild": "npm run minify:js || true"
+    "precompress": "node scripts/precompress.js",
+    "postbuild": "npm run minify:js || true && npm run precompress || true"
   },
   "browserslist": {
     "production": [
