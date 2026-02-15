@@ -1,0 +1,47 @@
+name: Bundle Analysis
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - merge/prepare-from-conflict
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build --if-present
+
+      - name: Install source-map-explorer
+        run: npm install -g source-map-explorer@2
+
+      - name: Run bundle analysis
+        run: |
+          mkdir -p reports
+          npx source-map-explorer "build/static/js/*.js" --json > reports/bundle-tree.json || true
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-report
+          path: reports/bundle-tree.json
+
+      - name: Comment PR with summary (if PR)
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            Bundle analysis run. Artifact `bundle-report` uploaded.
