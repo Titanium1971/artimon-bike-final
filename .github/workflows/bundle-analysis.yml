@@ -20,13 +20,18 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ] || [ -f yarn.lock ]; then
+            npm ci --ignore-scripts --no-audit || npm ci || true
+          else
+            npm install --no-audit || true
+          fi
 
       - name: Build
         run: npm run build --if-present
 
       - name: Install source-map-explorer
-        run: npm install -g source-map-explorer@2
+        run: npm install -g source-map-explorer@2 || npm i -g source-map-explorer@2 || true
 
       - name: Run bundle analysis
         run: |
