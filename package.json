@@ -62,7 +62,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "minify:js": "npx terser ./build/static/js/*.js --compress --mangle --output ./build/static/js/",
+    "postbuild": "npm run minify:js || true"
   },
   "browserslist": {
     "production": [
