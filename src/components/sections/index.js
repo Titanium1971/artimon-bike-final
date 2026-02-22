@@ -7,3 +7,4 @@ export { FAQSection } from './FAQSection';
 export { ReviewsSection } from './ReviewsSection';
 export { ContactSection } from './ContactSection';
 export { CTASection } from './CTASection';
+export { PartnersSection } from './PartnersSection';

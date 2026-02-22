@@ -9,7 +9,6 @@ export const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center" data-testid="hero-section">
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=60&auto=format')", backgroundSize: "cover", backgroundPosition: "center" }} />
         <div className="absolute inset-0 hero-gradient" />
       </div>
 

@@ -3,7 +3,7 @@ import { useSEO } from "../hooks/useSEO";
 import { SEO_DATA } from "../constants";
 import {
   HeroSection, CitiesSection, ServicesSection, PricingSection,
-  FAQSection, ReviewsSection, ContactSection, CTASection
+  FAQSection, ReviewsSection, ContactSection, CTASection, PartnersSection
 } from "../components/sections";
 import BlogSection from "./BlogSection";
 
@@ -23,6 +23,7 @@ const HomePage = () => {
       <ServicesSection />
       <PricingSection />
       <ReviewsSection />
+      <PartnersSection />
       <BlogSection />
       <FAQSection />
       <CTASection />
