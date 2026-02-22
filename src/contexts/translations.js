@@ -259,7 +259,7 @@ export const translations = {
           ],
           startPoint: "Artimon Bike - Port de Marseillan",
           recommendedBike: "Vélo de route ou VTC sportif",
-          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Marseillan&destination=Marseillan&waypoints=Abbaye+de+Valmagne%7CP%C3%A9zenas&travelmode=bicycling&dir_action=navigate",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9G2M%2BPG+Marseillan&waypoints=8GQQ%2BR7+Marseillan%7CAbbaye+de+Valmagne%7CP%C3%A9zenas&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/Marseillan/Abbaye+de+Valmagne/P%C3%A9zenas/Marseillan/@43.46,3.5,11z/data=!4m2!4m1!3e1"
         },
         {
@@ -283,7 +283,7 @@ export const translations = {
           ],
           startPoint: "Artimon Bike - Port de Marseillan",
           recommendedBike: "VTC ou Vélo électrique",
-          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Phare+des+Onglous%7CMarseillan-Plage%7CS%C3%A8te%7CBalaruc-les-Bains%7CBouzigues%7CM%C3%A8ze&travelmode=bicycling&dir_action=navigate",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9G2M%2BPG+Marseillan&waypoints=8GQQ%2BR7+Marseillan%7C9J88%2BHC+S%C3%A8te%7CBalaruc-les-Bains%7CCMW5%2BRQ+Bouzigues%7C9HX9%2B62+M%C3%A8ze&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Phare+des+Onglous/Marseillan-Plage/S%C3%A8te/Balaruc-les-Bains/Bouzigues/M%C3%A8ze/Artimon+Bike+Marseillan/@43.4,3.63,11z/data=!4m2!4m1!3e1"
         },
         {
@@ -306,7 +306,7 @@ export const translations = {
           ],
           startPoint: "Artimon Bike - Port de Marseillan",
           recommendedBike: "Tout type de vélo (idéal VTC/VAE)",
-          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Phare+des+Onglous%7CAgde%7CGrau+d%27Agde%7CCap+d%27Agde%7CMarseillan-Plage&travelmode=bicycling&dir_action=navigate",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9G2M%2BPG+Marseillan&waypoints=8GQQ%2BR7+Marseillan%7C8F79%2BHJ+Agde%7CGrau+d%27Agde%7CCap+d%27Agde%7C8H84%2BM4+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Phare+des+Onglous/Agde/Grau+d%27Agde/Cap+d%27Agde/Marseillan-Plage/Artimon+Bike+Marseillan/@43.33,3.52,11z/data=!4m2!4m1!3e1"
         },
         {
@@ -328,7 +328,7 @@ export const translations = {
           ],
           startPoint: "Artimon Bike - Port de Marseillan",
           recommendedBike: "Tout type de vélo (idéal familles)",
-          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Marseillan-Plage%7CS%C3%A8te&travelmode=bicycling&dir_action=navigate",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9G2M%2BPG+Marseillan&waypoints=8H84%2BM4+Marseillan%7C9PW2%2BMM+S%C3%A8te&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Marseillan-Plage/S%C3%A8te/Artimon+Bike+Marseillan/@43.37,3.62,12z/data=!4m2!4m1!3e1"
         }
       ]
@@ -594,7 +594,7 @@ export const translations = {
           ],
           startPoint: "Artimon Bike - Marseillan Harbor",
           recommendedBike: "Road bike or sporty hybrid",
-          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Marseillan&destination=Marseillan&waypoints=Abbaye+de+Valmagne%7CP%C3%A9zenas&travelmode=bicycling&dir_action=navigate",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9G2M%2BPG+Marseillan&waypoints=8GQQ%2BR7+Marseillan%7CAbbaye+de+Valmagne%7CP%C3%A9zenas&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/Marseillan/Abbaye+de+Valmagne/P%C3%A9zenas/Marseillan/@43.46,3.5,11z/data=!4m2!4m1!3e1"
         },
         {
@@ -618,7 +618,7 @@ export const translations = {
           ],
           startPoint: "Artimon Bike - Marseillan Harbor",
           recommendedBike: "Hybrid or Electric bike",
-          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Phare+des+Onglous%7CMarseillan-Plage%7CS%C3%A8te%7CBalaruc-les-Bains%7CBouzigues%7CM%C3%A8ze&travelmode=bicycling&dir_action=navigate",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9G2M%2BPG+Marseillan&waypoints=8GQQ%2BR7+Marseillan%7C9J88%2BHC+S%C3%A8te%7CBalaruc-les-Bains%7CCMW5%2BRQ+Bouzigues%7C9HX9%2B62+M%C3%A8ze&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Phare+des+Onglous/Marseillan-Plage/S%C3%A8te/Balaruc-les-Bains/Bouzigues/M%C3%A8ze/Artimon+Bike+Marseillan/@43.4,3.63,11z/data=!4m2!4m1!3e1"
         },
         {
@@ -641,7 +641,7 @@ export const translations = {
           ],
           startPoint: "Artimon Bike - Marseillan Harbor",
           recommendedBike: "Any bike type (ideal with hybrid/e-bike)",
-          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Phare+des+Onglous%7CAgde%7CGrau+d%27Agde%7CCap+d%27Agde%7CMarseillan-Plage&travelmode=bicycling&dir_action=navigate",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9G2M%2BPG+Marseillan&waypoints=8GQQ%2BR7+Marseillan%7C8F79%2BHJ+Agde%7CGrau+d%27Agde%7CCap+d%27Agde%7C8H84%2BM4+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Phare+des+Onglous/Agde/Grau+d%27Agde/Cap+d%27Agde/Marseillan-Plage/Artimon+Bike+Marseillan/@43.33,3.52,11z/data=!4m2!4m1!3e1"
         },
         {
@@ -663,7 +663,7 @@ export const translations = {
           ],
           startPoint: "Artimon Bike - Marseillan Harbor",
           recommendedBike: "Any bike (great for families)",
-          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Marseillan-Plage%7CS%C3%A8te&travelmode=bicycling&dir_action=navigate",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9G2M%2BPG+Marseillan&waypoints=8H84%2BM4+Marseillan%7C9PW2%2BMM+S%C3%A8te&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Marseillan-Plage/S%C3%A8te/Artimon+Bike+Marseillan/@43.37,3.62,12z/data=!4m2!4m1!3e1"
         }
       ]
