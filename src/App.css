@@ -16,7 +16,7 @@
 
 /* Button styles */
 .btn-primary {
-    background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 100%);
+    background: linear-gradient(135deg, #C2410C 0%, #9A3412 100%);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -39,7 +39,7 @@
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+    box-shadow: 0 10px 30px rgba(154, 52, 18, 0.35);
 }
 
 /* Navigation link animation */
@@ -268,6 +268,27 @@
 
 .animate-bike-right {
     animation: bikeRight 2s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    .animate-fade-in-up,
+    .animate-fade-in-right,
+    .animate-float,
+    .animate-bounce,
+    .animate-bike-left,
+    .animate-bike-right {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* Pulse animation */

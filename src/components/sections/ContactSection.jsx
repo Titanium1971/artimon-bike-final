@@ -4,10 +4,11 @@ import { API_URL, BUSINESS_INFO } from "../../constants";
 import { PhoneIcon, MapPinIcon, ClockIcon, CheckIcon, WhatsAppIcon } from "../../icons";
 
 export const ContactSection = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [showMap, setShowMap] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -104,16 +105,33 @@ export const ContactSection = () => {
 
           <div className="space-y-6">
             <div className="h-80 rounded-2xl overflow-hidden shadow-lg" data-testid="contact-map">
-              <iframe
-                src="https://maps.google.com/maps?q=Artimon+Bike+Nautique+Marseillan&t=&z=17&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Artimon Bike Location"
-              />
+              {showMap ? (
+                <iframe
+                  src="https://maps.google.com/maps?q=Artimon+Bike+Nautique+Marseillan&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Artimon Bike Location"
+                />
+              ) : (
+                <div className="h-full w-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-6 text-center">
+                  <div className="max-w-sm">
+                    <p className="text-gray-700 font-medium mb-4">
+                      {language === "fr" ? "Carte désactivée pour un chargement plus rapide." : "Map disabled initially for faster loading."}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setShowMap(true)}
+                      className="px-5 py-3 rounded-xl bg-orange-700 hover:bg-orange-800 text-white font-semibold transition-colors"
+                    >
+                      {language === "fr" ? "Afficher la carte" : "Show map"}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="grid gap-4">

@@ -5,6 +5,8 @@
 :root {
     --primary: #FF6B35;
     --primary-dark: #E55A2B;
+    --primary-accessible: #C2410C;
+    --primary-accessible-dark: #9A3412;
     --secondary: #1A1A2E;
     --accent: #16213E;
     --light: #F7F7F7;
@@ -29,6 +31,27 @@ body {
 
 html {
     scroll-behavior: smooth;
+}
+
+.text-orange-500 {
+    color: var(--primary-accessible) !important;
+}
+
+.bg-orange-500 {
+    background-color: var(--primary-accessible) !important;
+}
+
+.border-orange-500 {
+    border-color: var(--primary-accessible) !important;
+}
+
+.hover\:text-orange-500:hover,
+.hover\:text-orange-600:hover {
+    color: var(--primary-accessible-dark) !important;
+}
+
+.hover\:bg-orange-600:hover {
+    background-color: var(--primary-accessible-dark) !important;
 }
 
 /* Custom scrollbar */
