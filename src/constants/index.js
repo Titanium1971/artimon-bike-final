@@ -42,6 +42,35 @@ export const BUSINESS_INFO = {
   reviewCount: 174,
 };
 
+export const FALLBACK_BLOG_ARTICLES = [
+  {
+    id: "fallback-fr-2026-cyclables",
+    slug: "nouvelles-pistes-cyclables-herault-2026",
+    title: "Les nouvelles pistes cyclables 2026 dans l'Hérault",
+    excerpt: "Les nouveautés 2026 autour de l'Étang de Thau, avec nos conseils pour préparer vos sorties vélo.",
+    image_url: "https://images.unsplash.com/photo-1502904550040-7534597429ae?w=1200&h=600&fit=crop",
+    category: "Actualités",
+    tags: ["velo", "etang-de-thau", "herault", "2026"],
+    author: "Artimon Bike",
+    created_at: "2026-02-07T09:00:00.000Z",
+    content:
+      "## Les nouvelles pistes cyclables 2026\n\nLe réseau cyclable autour de l'Étang de Thau continue de s'améliorer. Nous recommandons de partir tôt, d'emporter de l'eau et de privilégier les voies vertes sécurisées pour les sorties en famille.\n\n### Nos conseils\n\n- Vérifier la météo avant de partir\n- Prévoir un itinéraire avec pauses\n- Utiliser un vélo adapté au parcours",
+  },
+  {
+    id: "fallback-en-2026-cyclables",
+    slug: "new-bike-paths-herault-2026",
+    title: "New Bike Paths in Hérault for 2026",
+    excerpt: "What changes in 2026 around the Étang de Thau area and practical tips for your cycling rides.",
+    image_url: "https://images.unsplash.com/photo-1502904550040-7534597429ae?w=1200&h=600&fit=crop",
+    category: "News",
+    tags: ["english", "cycling", "etang-de-thau", "herault", "2026"],
+    author: "Artimon Bike",
+    created_at: "2026-02-07T09:00:00.000Z",
+    content:
+      "## New bike paths in 2026\n\nThe cycling network around Étang de Thau keeps improving. We recommend early departures, enough water, and secure greenways for family rides.\n\n### Our tips\n\n- Check weather conditions before leaving\n- Plan your route with break points\n- Choose a bike suited to the route",
+  },
+];
+
 export const PRICING_DATA = [
   { icon: "👶", halfDay: "6€", day: "10€", threeDays: "27€", fiveDays: "40€", week: "55€" },
   { icon: "🚲", halfDay: "12€", day: "20€", threeDays: "46€", fiveDays: "85€", week: "112€" },

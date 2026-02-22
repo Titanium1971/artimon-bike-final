@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
-import { API_URL } from "../constants";
+import { API_URL, FALLBACK_BLOG_ARTICLES } from "../constants";
 import { CTASection } from "../components/sections";
 
 const BlogPage = () => {
@@ -19,23 +19,25 @@ const BlogPage = () => {
   });
 
   useEffect(() => {
+    const filterByLanguage = (data) => {
+      return data.filter((article) => {
+        const hasEnglishTag = article.tags && article.tags.includes('english');
+        return language === 'en' ? hasEnglishTag : !hasEnglishTag;
+      });
+    };
+
     const fetchArticles = async () => {
       try {
         const response = await fetch(`${API_URL}/api/blog`);
         if (response.ok) {
           const data = await response.json();
-          const filteredArticles = data.filter(article => {
-            const hasEnglishTag = article.tags && article.tags.includes('english');
-            if (language === 'en') {
-              return hasEnglishTag;
-            } else {
-              return !hasEnglishTag;
-            }
-          });
-          setArticles(filteredArticles);
+          const filteredArticles = filterByLanguage(data);
+          setArticles(filteredArticles.length ? filteredArticles : filterByLanguage(FALLBACK_BLOG_ARTICLES));
+        } else {
+          setArticles(filterByLanguage(FALLBACK_BLOG_ARTICLES));
         }
       } catch (error) {
-        console.log("Error fetching blog articles");
+        setArticles(filterByLanguage(FALLBACK_BLOG_ARTICLES));
       } finally {
         setLoading(false);
       }

@@ -92,7 +92,7 @@ const BikePathsPage = () => {
           {/* Google Maps Embed */}
           <div className="h-96 rounded-2xl overflow-hidden shadow-lg" data-testid="bike-paths-map">
             <iframe
-              src="https://maps.google.com/maps?q=43.3521372,3.53385181(Artimon+Bike+Nautique)&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              src="https://maps.google.com/maps?q=Artimon+Bike+Nautique+Marseillan&t=&z=13&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
-import { API_URL } from "../constants";
+import { API_URL, FALLBACK_BLOG_ARTICLES } from "../constants";
 import { CTASection } from "../components/sections";
 
 const ENGLISH_TAG = "english";
@@ -63,6 +63,15 @@ const findTranslatedArticle = (currentArticle, allArticles, targetLanguage) => {
   return null;
 };
 
+const getFallbackArticle = (currentSlug, currentLanguage) => {
+  const preferredIsEnglish = currentLanguage === "en";
+  return (
+    FALLBACK_BLOG_ARTICLES.find((article) => article.slug === currentSlug) ||
+    FALLBACK_BLOG_ARTICLES.find((article) => isEnglishArticle(article) === preferredIsEnglish) ||
+    null
+  );
+};
+
 const ArticlePage = () => {
   const { slug } = useParams();
   const { language } = useLanguage();
@@ -90,10 +99,22 @@ const ArticlePage = () => {
           setArticle(data);
           setError(null);
         } else {
-          setError(language === "fr" ? "Article non trouvé" : "Article not found");
+          const fallbackArticle = getFallbackArticle(slug, language);
+          if (fallbackArticle) {
+            setArticle(fallbackArticle);
+            setError(null);
+          } else {
+            setError(language === "fr" ? "Article non trouvé" : "Article not found");
+          }
         }
       } catch (error) {
-        setError(language === "fr" ? "Erreur de chargement" : "Loading error");
+        const fallbackArticle = getFallbackArticle(slug, language);
+        if (fallbackArticle) {
+          setArticle(fallbackArticle);
+          setError(null);
+        } else {
+          setError(language === "fr" ? "Erreur de chargement" : "Loading error");
+        }
       } finally {
         setLoading(false);
       }
@@ -105,11 +126,15 @@ const ArticlePage = () => {
     const fetchAllArticles = async () => {
       try {
         const response = await fetch(`${API_URL}/api/blog`);
-        if (!response.ok) return;
+        if (!response.ok) {
+          setAllArticles(FALLBACK_BLOG_ARTICLES);
+          return;
+        }
         const data = await response.json();
-        setAllArticles(Array.isArray(data) ? data : []);
+        const normalized = Array.isArray(data) ? data : [];
+        setAllArticles(normalized.length ? normalized : FALLBACK_BLOG_ARTICLES);
       } catch (error) {
-        // No-op: article view still works without this list.
+        setAllArticles(FALLBACK_BLOG_ARTICLES);
       }
     };
 
