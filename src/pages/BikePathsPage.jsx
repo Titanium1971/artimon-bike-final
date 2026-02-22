@@ -4,6 +4,8 @@ import { useSEO } from "../hooks/useSEO";
 import { SEO_DATA, BUSINESS_INFO } from "../constants";
 import { PhoneIcon } from "../icons";
 
+const ROUTE_DISPLAY_ORDER = [5, 9, 3, 2, 4, 8, 7, 1, 6];
+
 const BikePathsPage = () => {
   const { t, language } = useLanguage();
   useSEO({
@@ -14,7 +16,17 @@ const BikePathsPage = () => {
   });
   
   const [filterRoute, setFilterRoute] = useState('all');
-  const routes = useMemo(() => t.bikePaths.routes || [], [t.bikePaths.routes]);
+  const routes = useMemo(() => {
+    const rawRoutes = t.bikePaths.routes || [];
+    const orderIndex = new Map(ROUTE_DISPLAY_ORDER.map((id, index) => [id, index]));
+
+    return [...rawRoutes].sort((a, b) => {
+      const aIndex = orderIndex.has(a.id) ? orderIndex.get(a.id) : Number.MAX_SAFE_INTEGER;
+      const bIndex = orderIndex.has(b.id) ? orderIndex.get(b.id) : Number.MAX_SAFE_INTEGER;
+      if (aIndex !== bIndex) return aIndex - bIndex;
+      return a.id - b.id;
+    });
+  }, [t.bikePaths.routes]);
 
   useEffect(() => {
     // Keep filter valid when language switches and route sets differ.
