@@ -76,18 +76,6 @@ export const trackConversion = (conversionType, details = {}) => {
   });
 };
 
-// React Hook for automatic page tracking
-export const usePageTracking = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    // Wait for page title to update
-    setTimeout(() => {
-      trackPageView(location.pathname + location.search, document.title);
-    }, 100);
-  }, [location]);
-};
-
 // Analytics Provider Component
 const GoogleAnalytics = () => {
   const location = useLocation();
@@ -130,26 +118,16 @@ const GoogleAnalytics = () => {
     window.addEventListener('storage', handleStorageChange);
     window.addEventListener('cookieConsentChanged', handleConsentChange);
 
-    // Periodically check for consent changes (fallback for same-tab changes)
-    const intervalId = setInterval(() => {
-      if (!isInitialized) {
-        checkAndInitGA();
-      }
-    }, 1000);
-
     return () => {
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('cookieConsentChanged', handleConsentChange);
-      clearInterval(intervalId);
     };
-  }, [checkAndInitGA, isInitialized]);
+  }, [checkAndInitGA]);
 
   useEffect(() => {
     // Track page views when initialized
     if (isInitialized) {
-      setTimeout(() => {
-        trackPageView(location.pathname + location.search, document.title);
-      }, 100);
+      trackPageView(location.pathname + location.search, document.title);
     }
   }, [location, isInitialized]);
 

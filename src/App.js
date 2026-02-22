@@ -7,7 +7,6 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import { Navigation } from "./components/layout/Navigation";
 import { Footer } from "./components/layout/Footer";
 import { CookieConsent } from "./components/ui/CookieConsent";
-import GoogleAnalytics from "./components/GoogleAnalytics";
 
 // Pages - lazy loaded to reduce initial bundle
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -24,6 +23,7 @@ const AdminPage = lazy(() => import("./pages/AdminPage"));
 const MentionsLegalesPage = lazy(() => import("./pages/MentionsLegalesPage"));
 const PolitiqueConfidentialitePage = lazy(() => import("./pages/PolitiqueConfidentialitePage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+const GoogleAnalytics = lazy(() => import("./components/GoogleAnalytics"));
 
 // Redirects configuration
 import { REDIRECTS } from "./constants";
@@ -54,6 +54,39 @@ function App() {
     const cookieChoice = localStorage.getItem("cookieConsent");
     return !cookieChoice;
   });
+  const [gaEnabled, setGaEnabled] = useState(() => {
+    const cookieChoice = localStorage.getItem("cookieConsent");
+    if (!cookieChoice) return false;
+    try {
+      const parsed = JSON.parse(cookieChoice);
+      return Boolean(parsed.accepted && parsed.preferences?.analytics !== false);
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    const refreshGaState = () => {
+      const cookieChoice = localStorage.getItem("cookieConsent");
+      if (!cookieChoice) {
+        setGaEnabled(false);
+        return;
+      }
+      try {
+        const parsed = JSON.parse(cookieChoice);
+        setGaEnabled(Boolean(parsed.accepted && parsed.preferences?.analytics !== false));
+      } catch {
+        setGaEnabled(false);
+      }
+    };
+
+    window.addEventListener("cookieConsentChanged", refreshGaState);
+    window.addEventListener("storage", refreshGaState);
+    return () => {
+      window.removeEventListener("cookieConsentChanged", refreshGaState);
+      window.removeEventListener("storage", refreshGaState);
+    };
+  }, []);
 
   const handleCookieAccept = (preferences) => {
     localStorage.setItem("cookieConsent", JSON.stringify({ accepted: true, preferences }));
@@ -71,7 +104,9 @@ function App() {
         <BrowserRouter>
           <ScrollToTop />
           <RedirectHandler />
-          <GoogleAnalytics />
+          <Suspense fallback={null}>
+            {gaEnabled && <GoogleAnalytics />}
+          </Suspense>
           <Navigation />
           <main>
             <Suspense fallback={<div style={{minHeight:'60vh'}}></div>}>
