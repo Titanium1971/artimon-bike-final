@@ -1,4 +1,7 @@
-export const API_URL = process.env.REACT_APP_BACKEND_URL || "";
+const isDevelopment = process.env.NODE_ENV === "development";
+
+// In local dev, use CRA proxy to avoid CORS issues with the backend.
+export const API_URL = isDevelopment ? "" : (process.env.REACT_APP_BACKEND_URL || "");
 
 export const REDIRECTS = {
   "/nos-tarifs": "/tarifs",

@@ -1,35 +1,131 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
 import { API_URL } from "../constants";
 import { CTASection } from "../components/sections";
 
+const ENGLISH_TAG = "english";
+
+const normalizeTags = (tags) => (Array.isArray(tags) ? tags : []);
+
+const isEnglishArticle = (article) =>
+  normalizeTags(article?.tags).some((tag) => String(tag).toLowerCase() === ENGLISH_TAG);
+
+const slugBase = (slug = "") =>
+  slug
+    .toLowerCase()
+    .replace(/-(en|english|anglais)$/i, "")
+    .trim();
+
+const tagTranslationKey = (article) => {
+  const tags = normalizeTags(article?.tags).map((tag) => String(tag));
+  const keyTag = tags.find((tag) => /^(translation|pair|i18n|lang):/i.test(tag));
+  return keyTag ? keyTag.split(":").slice(1).join(":").trim().toLowerCase() : "";
+};
+
+const sameCalendarDay = (left, right) => {
+  if (!left || !right) return false;
+  try {
+    const leftDate = new Date(left).toISOString().slice(0, 10);
+    const rightDate = new Date(right).toISOString().slice(0, 10);
+    return leftDate === rightDate;
+  } catch {
+    return false;
+  }
+};
+
+const findTranslatedArticle = (currentArticle, allArticles, targetLanguage) => {
+  const targetIsEnglish = targetLanguage === "en";
+  const targetArticles = allArticles.filter((candidate) => isEnglishArticle(candidate) === targetIsEnglish);
+
+  if (!targetArticles.length) return null;
+
+  const currentKey = tagTranslationKey(currentArticle);
+  if (currentKey) {
+    const byTag = targetArticles.find((candidate) => tagTranslationKey(candidate) === currentKey);
+    if (byTag) return byTag;
+  }
+
+  const currentBaseSlug = slugBase(currentArticle.slug);
+  const bySlugBase = targetArticles.find((candidate) => slugBase(candidate.slug) === currentBaseSlug);
+  if (bySlugBase) return bySlugBase;
+
+  const byImageAndDate = targetArticles.find(
+    (candidate) =>
+      candidate.image_url &&
+      currentArticle.image_url &&
+      candidate.image_url === currentArticle.image_url &&
+      sameCalendarDay(candidate.created_at, currentArticle.created_at)
+  );
+  if (byImageAndDate) return byImageAndDate;
+
+  return null;
+};
+
 const ArticlePage = () => {
   const { slug } = useParams();
   const { language } = useLanguage();
+  const navigate = useNavigate();
   const [article, setArticle] = useState(null);
+  const [allArticles, setAllArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchArticle = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const response = await fetch(`${API_URL}/api/blog/${slug}`);
+        // Prefer language-aware API if supported, fallback to legacy endpoint.
+        const languageAwareUrl = `${API_URL}/api/blog/${slug}?lang=${language}`;
+        let response = await fetch(languageAwareUrl);
+
+        if (!response.ok && response.status >= 400) {
+          response = await fetch(`${API_URL}/api/blog/${slug}`);
+        }
+
         if (response.ok) {
           const data = await response.json();
           setArticle(data);
+          setError(null);
         } else {
-          setError("Article non trouvé");
+          setError(language === "fr" ? "Article non trouvé" : "Article not found");
         }
       } catch (error) {
-        setError("Erreur de chargement");
+        setError(language === "fr" ? "Erreur de chargement" : "Loading error");
       } finally {
         setLoading(false);
       }
     };
     fetchArticle();
-  }, [slug]);
+  }, [slug, language]);
+
+  useEffect(() => {
+    const fetchAllArticles = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/blog`);
+        if (!response.ok) return;
+        const data = await response.json();
+        setAllArticles(Array.isArray(data) ? data : []);
+      } catch (error) {
+        // No-op: article view still works without this list.
+      }
+    };
+
+    fetchAllArticles();
+  }, []);
+
+  useEffect(() => {
+    if (!article || !allArticles.length) return;
+    const articleMatchesLanguage = isEnglishArticle(article) === (language === "en");
+    if (articleMatchesLanguage) return;
+
+    const translatedArticle = findTranslatedArticle(article, allArticles, language);
+    if (translatedArticle?.slug && translatedArticle.slug !== slug) {
+      navigate(`/blog/${translatedArticle.slug}`, { replace: true });
+    }
+  }, [article, allArticles, language, navigate, slug]);
 
   useSEO({
     title: article ? `${article.title} | Artimon Bike` : "Article | Artimon Bike",
@@ -42,7 +138,9 @@ const ArticlePage = () => {
       <div className="pt-20 min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full mx-auto"></div>
-          <p className="mt-4 text-gray-600">Chargement de l'article...</p>
+          <p className="mt-4 text-gray-600">
+            {language === "fr" ? "Chargement de l'article..." : "Loading article..."}
+          </p>
         </div>
       </div>
     );
@@ -52,8 +150,12 @@ const ArticlePage = () => {
     return (
       <div className="pt-20 min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Article non trouvé</h1>
-          <Link to="/blog" className="text-orange-500 hover:underline">Retour au blog</Link>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            {language === "fr" ? "Article non trouvé" : "Article not found"}
+          </h1>
+          <Link to="/blog" className="text-orange-500 hover:underline">
+            {language === "fr" ? "Retour au blog" : "Back to blog"}
+          </Link>
         </div>
       </div>
     );
@@ -64,6 +166,13 @@ const ArticlePage = () => {
     return content
       .split('\n\n')
       .map((paragraph, i) => {
+        const trimmed = paragraph.trim();
+
+        // Hide raw markdown image/link separators that look unprofessional in article body.
+        if (/^!\[.*\]\(.*\)$/.test(trimmed) || trimmed === '---') {
+          return null;
+        }
+
         if (paragraph.startsWith('# ')) {
           return <h1 key={i} className="text-3xl font-bold text-gray-900 mb-6">{paragraph.slice(2)}</h1>;
         }
@@ -109,7 +218,13 @@ const ArticlePage = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-3 text-white/80 mb-4">
               <span className="px-3 py-1 bg-orange-500 rounded-full text-sm font-medium text-white">{article.category}</span>
-              <span>{new Date(article.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+              <span>
+                {new Date(article.created_at).toLocaleDateString(language === "fr" ? "fr-FR" : "en-US", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
               <span>•</span>
               <span>{article.author}</span>
             </div>

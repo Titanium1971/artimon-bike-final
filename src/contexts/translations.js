@@ -238,6 +238,98 @@ export const translations = {
           recommendedBike: "Tout type de vélo (idéal familles)",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=8GQQ%2BR7+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/9G2M%2BPG+Marseillan/8GQQ%2BR7+Marseillan/@43.36,3.55,15z/data=!4m2!4m1!3e1"
+        },
+        {
+          id: 6,
+          name: "Abbaye de Valmagne & Pézenas",
+          description: "Grand circuit route de 63 km au départ de Marseillan, passant par l'Abbaye de Valmagne et Pézenas. Itinéraire panoramique plus sportif, idéal pour cyclistes réguliers.",
+          distance: "63 km",
+          duration: "5h30",
+          elevation: "390 m",
+          difficulty: "moderate",
+          color: "#14B8A6",
+          highlights: ["Abbaye de Valmagne", "Centre historique de Pézenas", "Vignobles héraultais", "Campagne du Biterrois", "Étang de Thau"],
+          pointsOfInterest: [
+            { icon: "🚴", name: "Artimon Bike", description: "Départ/retour à la boutique" },
+            { icon: "🗼", name: "Phare des Onglous", description: "Point de vue sur l'étang au départ" },
+            { icon: "⛪", name: "Abbaye de Valmagne", description: "Ancienne abbaye cistercienne" },
+            { icon: "🏛️", name: "Pézenas", description: "Ville d'art et d'histoire (Molière)" },
+            { icon: "🍇", name: "Vignobles de Montagnac", description: "Paysages viticoles du secteur" },
+            { icon: "🌿", name: "Campagne héraultaise", description: "Routes secondaires calmes et panoramiques" }
+          ],
+          startPoint: "Artimon Bike - Port de Marseillan",
+          recommendedBike: "Vélo de route ou VTC sportif",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Marseillan&destination=Marseillan&waypoints=Abbaye+de+Valmagne%7CP%C3%A9zenas&travelmode=bicycling&dir_action=navigate",
+          viewUrl: "https://www.google.com/maps/dir/Marseillan/Abbaye+de+Valmagne/P%C3%A9zenas/Marseillan/@43.46,3.5,11z/data=!4m2!4m1!3e1"
+        },
+        {
+          id: 7,
+          name: "Tour de l'Étang de Thau",
+          description: "Version Cirkwi/Hérault Tourisme de la grande boucle autour de l'étang. Parcours de référence entre Marseillan, Sète, Bouzigues, Balaruc et Mèze.",
+          distance: "58 km",
+          duration: "4h30",
+          elevation: "116 m",
+          difficulty: "easy",
+          color: "#0EA5E9",
+          highlights: ["Pointe des Onglous", "Voie verte du Lido", "Sète", "Bouzigues", "Mèze", "Parcs à huîtres"],
+          pointsOfInterest: [
+            { icon: "🚴", name: "Artimon Bike", description: "Départ/retour à la boutique" },
+            { icon: "🗼", name: "Pointe des Onglous", description: "Embouchure du Canal du Midi" },
+            { icon: "🏖️", name: "Voie verte du Lido", description: "Piste cyclable entre mer et lagune" },
+            { icon: "🌊", name: "Sète", description: "Corniche, port et ambiance méditerranéenne" },
+            { icon: "♨️", name: "Balaruc-les-Bains", description: "Promenade au bord de l'étang" },
+            { icon: "🦪", name: "Bouzigues", description: "Capitale de l'huître de Thau" },
+            { icon: "⚓", name: "Mèze", description: "Port, halles et front d'étang" }
+          ],
+          startPoint: "Artimon Bike - Port de Marseillan",
+          recommendedBike: "VTC ou Vélo électrique",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Phare+des+Onglous%7CMarseillan-Plage%7CS%C3%A8te%7CBalaruc-les-Bains%7CBouzigues%7CM%C3%A8ze&travelmode=bicycling&dir_action=navigate",
+          viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Phare+des+Onglous/Marseillan-Plage/S%C3%A8te/Balaruc-les-Bains/Bouzigues/M%C3%A8ze/Artimon+Bike+Marseillan/@43.4,3.63,11z/data=!4m2!4m1!3e1"
+        },
+        {
+          id: 8,
+          name: "Agde, eaux douces et eaux salées",
+          description: "Boucle facile inspirée du tracé Cirkwi autour d'Agde, du Cap d'Agde, du Grau d'Agde et de Marseillan, avec départ/retour Artimon Bike.",
+          distance: "33 km",
+          duration: "3h",
+          elevation: "85 m",
+          difficulty: "veryEasy",
+          color: "#22C55E",
+          highlights: ["Canal du Midi", "Agde", "Grau d'Agde", "Cap d'Agde", "Réserve du Bagnas", "Marseillan-Plage"],
+          pointsOfInterest: [
+            { icon: "🚴", name: "Artimon Bike", description: "Départ/retour à la boutique" },
+            { icon: "🗼", name: "Phare des Onglous", description: "Point photo iconique" },
+            { icon: "🔒", name: "Écluse ronde d'Agde", description: "Ouvrage unique en France" },
+            { icon: "⛪", name: "Cathédrale Saint-Étienne", description: "Patrimoine volcanique d'Agde" },
+            { icon: "🏖️", name: "Grau & Cap d'Agde", description: "Plages, port et marina" },
+            { icon: "🦩", name: "Réserve du Bagnas", description: "Faune et oiseaux de lagune" }
+          ],
+          startPoint: "Artimon Bike - Port de Marseillan",
+          recommendedBike: "Tout type de vélo (idéal VTC/VAE)",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Phare+des+Onglous%7CAgde%7CGrau+d%27Agde%7CCap+d%27Agde%7CMarseillan-Plage&travelmode=bicycling&dir_action=navigate",
+          viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Phare+des+Onglous/Agde/Grau+d%27Agde/Cap+d%27Agde/Marseillan-Plage/Artimon+Bike+Marseillan/@43.33,3.52,11z/data=!4m2!4m1!3e1"
+        },
+        {
+          id: 9,
+          name: "Voie verte du Lido",
+          description: "Parcours très facile basé sur la voie verte du Lido entre Marseillan et Sète, prolongé depuis la boutique pour un départ/retour fluide.",
+          distance: "13 km",
+          duration: "1h",
+          elevation: "5 m",
+          difficulty: "veryEasy",
+          color: "#F97316",
+          highlights: ["Marseillan-Plage", "Dunes du Lido", "Sète", "Voie verte sécurisée"],
+          pointsOfInterest: [
+            { icon: "🚴", name: "Artimon Bike", description: "Départ/retour boutique" },
+            { icon: "🗼", name: "Phare des Onglous", description: "Canal du Midi et étang de Thau" },
+            { icon: "🏖️", name: "Plage des 3 Digues", description: "Plage sauvage le long du Lido" },
+            { icon: "🌿", name: "Dunes du Lido", description: "Paysages protégés mer/lagune" },
+            { icon: "🌊", name: "Sète", description: "Entrée de ville côté mer" }
+          ],
+          startPoint: "Artimon Bike - Port de Marseillan",
+          recommendedBike: "Tout type de vélo (idéal familles)",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Marseillan-Plage%7CS%C3%A8te&travelmode=bicycling&dir_action=navigate",
+          viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Marseillan-Plage/S%C3%A8te/Artimon+Bike+Marseillan/@43.37,3.62,12z/data=!4m2!4m1!3e1"
         }
       ]
     },
@@ -481,6 +573,98 @@ export const translations = {
           recommendedBike: "Any bike (ideal for families)",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=8GQQ%2BR7+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/9G2M%2BPG+Marseillan/8GQQ%2BR7+Marseillan/@43.36,3.55,15z/data=!4m2!4m1!3e1"
+        },
+        {
+          id: 6,
+          name: "Valmagne Abbey & Pézenas",
+          description: "A 63 km road loop starting from Marseillan via Valmagne Abbey and Pézenas. A more sporty panoramic route, ideal for regular cyclists.",
+          distance: "63 km",
+          duration: "5h30",
+          elevation: "390 m",
+          difficulty: "moderate",
+          color: "#14B8A6",
+          highlights: ["Valmagne Abbey", "Historic center of Pézenas", "Hérault vineyards", "Back-country roads", "Étang de Thau"],
+          pointsOfInterest: [
+            { icon: "🚴", name: "Artimon Bike", description: "Start/finish at the shop" },
+            { icon: "🗼", name: "Onglous Lighthouse", description: "Lagoon viewpoint near departure" },
+            { icon: "⛪", name: "Valmagne Abbey", description: "Former Cistercian abbey" },
+            { icon: "🏛️", name: "Pézenas", description: "Town of art and history" },
+            { icon: "🍇", name: "Montagnac vineyards", description: "Typical Hérault wine landscapes" },
+            { icon: "🌿", name: "Hérault countryside", description: "Quiet panoramic secondary roads" }
+          ],
+          startPoint: "Artimon Bike - Marseillan Harbor",
+          recommendedBike: "Road bike or sporty hybrid",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Marseillan&destination=Marseillan&waypoints=Abbaye+de+Valmagne%7CP%C3%A9zenas&travelmode=bicycling&dir_action=navigate",
+          viewUrl: "https://www.google.com/maps/dir/Marseillan/Abbaye+de+Valmagne/P%C3%A9zenas/Marseillan/@43.46,3.5,11z/data=!4m2!4m1!3e1"
+        },
+        {
+          id: 7,
+          name: "Étang de Thau Tour",
+          description: "Cirkwi/Hérault Tourisme version of the iconic lagoon loop. Reference route between Marseillan, Sète, Bouzigues, Balaruc and Mèze.",
+          distance: "58 km",
+          duration: "4h30",
+          elevation: "116 m",
+          difficulty: "easy",
+          color: "#0EA5E9",
+          highlights: ["Onglous Point", "Lido Greenway", "Sète", "Bouzigues", "Mèze", "Oyster farms"],
+          pointsOfInterest: [
+            { icon: "🚴", name: "Artimon Bike", description: "Start/finish at the shop" },
+            { icon: "🗼", name: "Onglous Point", description: "Canal du Midi outlet and lagoon views" },
+            { icon: "🏖️", name: "Lido Greenway", description: "Secure path between sea and lagoon" },
+            { icon: "🌊", name: "Sète", description: "Corniche, harbor and Mediterranean atmosphere" },
+            { icon: "♨️", name: "Balaruc-les-Bains", description: "Lagoon promenade area" },
+            { icon: "🦪", name: "Bouzigues", description: "Iconic oyster village of Thau" },
+            { icon: "⚓", name: "Mèze", description: "Harbor, market hall and waterfront" }
+          ],
+          startPoint: "Artimon Bike - Marseillan Harbor",
+          recommendedBike: "Hybrid or Electric bike",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Phare+des+Onglous%7CMarseillan-Plage%7CS%C3%A8te%7CBalaruc-les-Bains%7CBouzigues%7CM%C3%A8ze&travelmode=bicycling&dir_action=navigate",
+          viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Phare+des+Onglous/Marseillan-Plage/S%C3%A8te/Balaruc-les-Bains/Bouzigues/M%C3%A8ze/Artimon+Bike+Marseillan/@43.4,3.63,11z/data=!4m2!4m1!3e1"
+        },
+        {
+          id: 8,
+          name: "Agde, Freshwater and Saltwater",
+          description: "Easy loop inspired by the official Cirkwi route around Agde, Cap d'Agde, Grau d'Agde and Marseillan, with start/finish at Artimon Bike.",
+          distance: "33 km",
+          duration: "3h",
+          elevation: "85 m",
+          difficulty: "veryEasy",
+          color: "#22C55E",
+          highlights: ["Canal du Midi", "Agde", "Grau d'Agde", "Cap d'Agde", "Bagnas reserve", "Marseillan-Plage"],
+          pointsOfInterest: [
+            { icon: "🚴", name: "Artimon Bike", description: "Start/finish at the shop" },
+            { icon: "🗼", name: "Onglous Lighthouse", description: "Iconic photo stop at the lagoon" },
+            { icon: "🔒", name: "Round Lock of Agde", description: "Unique engineering landmark" },
+            { icon: "⛪", name: "Saint-Étienne Cathedral", description: "Historic volcanic-stone monument" },
+            { icon: "🏖️", name: "Grau & Cap d'Agde", description: "Beaches, harbor and marina" },
+            { icon: "🦩", name: "Bagnas Reserve", description: "Lagoon wildlife and birdwatching" }
+          ],
+          startPoint: "Artimon Bike - Marseillan Harbor",
+          recommendedBike: "Any bike type (ideal with hybrid/e-bike)",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Phare+des+Onglous%7CAgde%7CGrau+d%27Agde%7CCap+d%27Agde%7CMarseillan-Plage&travelmode=bicycling&dir_action=navigate",
+          viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Phare+des+Onglous/Agde/Grau+d%27Agde/Cap+d%27Agde/Marseillan-Plage/Artimon+Bike+Marseillan/@43.33,3.52,11z/data=!4m2!4m1!3e1"
+        },
+        {
+          id: 9,
+          name: "Lido Greenway",
+          description: "Very easy route based on the Lido greenway between Marseillan and Sète, extended from the shop for a smooth start and return.",
+          distance: "13 km",
+          duration: "1h",
+          elevation: "5 m",
+          difficulty: "veryEasy",
+          color: "#F97316",
+          highlights: ["Marseillan-Plage", "Lido dunes", "Sète", "Secure cycle path"],
+          pointsOfInterest: [
+            { icon: "🚴", name: "Artimon Bike", description: "Start/finish at the shop" },
+            { icon: "🗼", name: "Onglous Lighthouse", description: "Canal du Midi meets the lagoon" },
+            { icon: "🏖️", name: "3 Digues Beach", description: "Wild beach along the Lido route" },
+            { icon: "🌿", name: "Lido dunes", description: "Protected sea/lagoon landscapes" },
+            { icon: "🌊", name: "Sète", description: "Seafront access into town" }
+          ],
+          startPoint: "Artimon Bike - Marseillan Harbor",
+          recommendedBike: "Any bike (great for families)",
+          launchUrl: "https://www.google.com/maps/dir/?api=1&origin=Artimon+Bike+Marseillan&destination=Artimon+Bike+Marseillan&waypoints=Marseillan-Plage%7CS%C3%A8te&travelmode=bicycling&dir_action=navigate",
+          viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Marseillan-Plage/S%C3%A8te/Artimon+Bike+Marseillan/@43.37,3.62,12z/data=!4m2!4m1!3e1"
         }
       ]
     },

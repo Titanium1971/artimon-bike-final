@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
 import { SEO_DATA, BUSINESS_INFO } from "../constants";
@@ -14,6 +14,14 @@ const BikePathsPage = () => {
   });
   
   const [filterRoute, setFilterRoute] = useState('all');
+  const routes = useMemo(() => t.bikePaths.routes || [], [t.bikePaths.routes]);
+
+  useEffect(() => {
+    // Keep filter valid when language switches and route sets differ.
+    if (filterRoute !== 'all' && !routes.some((route) => route.id === parseInt(filterRoute, 10))) {
+      setFilterRoute('all');
+    }
+  }, [filterRoute, routes]);
 
   const getDifficultyLabel = (difficulty) => {
     return t.bikePaths[difficulty] || difficulty;
@@ -28,9 +36,9 @@ const BikePathsPage = () => {
     }
   };
 
-  const filteredRoutes = filterRoute === 'all' 
-    ? t.bikePaths.routes 
-    : t.bikePaths.routes.filter(r => r.id === parseInt(filterRoute));
+  const filteredRoutes = filterRoute === 'all'
+    ? routes
+    : routes.filter((r) => r.id === parseInt(filterRoute, 10));
 
   return (
     <div className="pt-20" data-testid="bike-paths-page">
@@ -64,7 +72,7 @@ const BikePathsPage = () => {
             >
               {t.bikePaths.allRoutes}
             </button>
-            {t.bikePaths.routes.map((route) => (
+            {routes.map((route) => (
               <button
                 key={route.id}
                 onClick={() => setFilterRoute(route.id.toString())}
@@ -91,7 +99,7 @@ const BikePathsPage = () => {
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Carte des parcours vélo"
+              title={language === "fr" ? "Carte des parcours vélo" : "Bike routes map"}
             />
           </div>
         </div>
