@@ -14,8 +14,8 @@ export const HeroSection = () => {
 
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute -top-28 -right-28 w-72 h-72 bg-orange-500/10 rounded-full blur-xl" />
+        <div className="absolute -bottom-28 -left-28 w-72 h-72 bg-blue-500/10 rounded-full blur-xl" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
@@ -65,7 +65,7 @@ export const HeroSection = () => {
           {/* Image section with animation */}
           <div className="hidden lg:block animate-fade-in-right opacity-0" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}>
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-3xl blur-2xl opacity-30 transform rotate-3" />
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-3xl blur-lg opacity-20 transform rotate-2" />
               <div className="img-zoom rounded-3xl overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=500&h=400&fit=crop&q=60&auto=format" alt="Vélo électrique Artimon Bike" className="relative rounded-3xl shadow-2xl w-full object-cover" loading="lazy" decoding="async" width="500" height="400" />
               </div>

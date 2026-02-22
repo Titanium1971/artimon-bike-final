@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
 import { SEO_DATA } from "../constants";
@@ -16,12 +16,6 @@ const ContactSection = lazy(() => import("../components/sections/ContactSection"
 
 const HomePage = () => {
   const { language } = useLanguage();
-  const [showDeferredSections, setShowDeferredSections] = useState(false);
-
-  useEffect(() => {
-    const timeoutId = window.setTimeout(() => setShowDeferredSections(true), 300);
-    return () => window.clearTimeout(timeoutId);
-  }, []);
 
   useSEO({
     title: SEO_DATA.home[language].title,
@@ -35,17 +29,27 @@ const HomePage = () => {
       <HeroSection />
       <CitiesSection />
       <ServicesSection />
-      {showDeferredSections && (
-        <Suspense fallback={<div className="py-8" />}>
-          <PricingSection />
-          <ReviewsSection />
-          <PartnersSection />
-          <BlogSection />
-          <FAQSection />
-          <CTASection />
-          <ContactSection />
-        </Suspense>
-      )}
+      <Suspense
+        fallback={
+          <div aria-hidden="true" className="space-y-8 py-6">
+            <div className="min-h-[420px]" />
+            <div className="min-h-[480px]" />
+            <div className="min-h-[320px]" />
+            <div className="min-h-[480px]" />
+            <div className="min-h-[380px]" />
+            <div className="min-h-[260px]" />
+            <div className="min-h-[560px]" />
+          </div>
+        }
+      >
+        <PricingSection />
+        <ReviewsSection />
+        <PartnersSection />
+        <BlogSection />
+        <FAQSection />
+        <CTASection />
+        <ContactSection />
+      </Suspense>
     </>
   );
 };

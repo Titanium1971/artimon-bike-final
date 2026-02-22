@@ -109,7 +109,7 @@ function App() {
           </Suspense>
           <Navigation />
           <main>
-            <Suspense fallback={<div style={{minHeight:'60vh'}}></div>}>
+            <Suspense fallback={<div style={{ minHeight: "100vh" }} aria-hidden="true" />}>
             <Routes>
               {/* Main Pages */}
               <Route path="/" element={<HomePage />} />
