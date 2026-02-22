@@ -25,9 +25,15 @@ export const PartnersSection = () => {
             className="group bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all"
           >
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg">
-                PF
-              </div>
+              <img
+                src="/petit-fute-logo.png"
+                alt="Petit Futé"
+                className="w-14 h-14 object-contain rounded-xl bg-white p-1"
+                width="56"
+                height="56"
+                loading="lazy"
+                decoding="async"
+              />
               <div>
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-500 transition-colors">Petit Futé</h3>
                 <p className="text-sm text-gray-600">

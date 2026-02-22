@@ -50,15 +50,10 @@ const ScrollToTop = () => {
 
 // Main App
 function App() {
-  const [showCookieConsent, setShowCookieConsent] = useState(false);
-
-  useEffect(() => {
+  const [showCookieConsent, setShowCookieConsent] = useState(() => {
     const cookieChoice = localStorage.getItem("cookieConsent");
-    if (!cookieChoice) {
-      // Show immediately to avoid delayed layout instability on mobile audits.
-      setShowCookieConsent(true);
-    }
-  }, []);
+    return !cookieChoice;
+  });
 
   const handleCookieAccept = (preferences) => {
     localStorage.setItem("cookieConsent", JSON.stringify({ accepted: true, preferences }));
