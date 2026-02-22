@@ -49,7 +49,7 @@ export const PricingSection = () => {
         <div className="mt-8 text-center">
           <p className="text-gray-500 mb-6">{t.pricing.equipmentIncluded}</p>
           <a href={BUSINESS_INFO.lokkiUrl} target="_blank" rel="noopener noreferrer" className="btn-primary px-8 py-4 rounded-xl text-white font-semibold text-lg inline-flex items-center gap-2" data-testid="pricing-reservation-btn">
-            <img src="/logo.svg" alt="" className="w-6 h-6" style={{ filter: 'brightness(0) invert(1)' }} width="300" height="150" />
+            <img src="/logo.svg" alt="" className="w-6 h-6" style={{ filter: 'brightness(0) invert(1)' }} width="24" height="24" decoding="async" />
             Réserver sur la plateforme
           </a>
         </div>

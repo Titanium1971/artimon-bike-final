@@ -17,7 +17,7 @@ export const CTASection = () => {
           <p className="text-white/90 text-lg mb-8">{t.cta.description}</p>
           <div className="flex flex-wrap justify-center gap-4">
             <a href={BUSINESS_INFO.lokkiUrl} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-white text-orange-500 font-semibold rounded-xl hover:bg-gray-100 hover:scale-105 transition-all inline-flex items-center gap-2 shadow-lg hover:shadow-xl" data-testid="cta-reservation-btn">
-              <img src="/logo.svg" alt="" className="w-6 h-6" width="300" height="150" />
+              <img src="/logo.svg" alt="" className="w-6 h-6" width="24" height="24" decoding="async" />
               Réserver sur la plateforme
             </a>
             <a href={BUSINESS_INFO.phoneLink} className="px-8 py-4 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 hover:scale-105 transition-all inline-flex items-center gap-2 backdrop-blur-sm">

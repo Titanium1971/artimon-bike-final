@@ -24,7 +24,7 @@ export const ServicesSection = () => {
           {services.map((service, index) => (
             <div key={service.id} className="service-card bg-white rounded-2xl overflow-hidden shadow-lg card-hover" data-testid={`service-card-${service.id}`} style={{ animationDelay: `${index * 0.1}s` }}>
               <div className="relative h-48 img-zoom">
-                <img src={service.image} alt={service.title} className="w-full h-full object-cover" loading="lazy" />
+                <img src={service.image} alt={service.title} className="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="300" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-4 left-4 text-4xl">{service.icon}</div>
               </div>

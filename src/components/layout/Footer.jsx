@@ -19,6 +19,9 @@ export const Footer = () => {
                 src="/logo.svg" 
                 alt="Artimon Bike Logo" 
                 className="w-12 h-12 object-contain"
+                width="48"
+                height="48"
+                decoding="async"
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
               <div>

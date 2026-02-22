@@ -39,7 +39,7 @@ const VentePage = () => {
               <Link to="/contact" className="btn-primary px-8 py-4 rounded-xl text-white font-semibold inline-flex items-center gap-2">{t.salePage.contactUs}</Link>
             </div>
             <div>
-              <img src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=500&h=400&fit=crop&q=60&auto=format" alt="Vélos en vente" className="rounded-2xl shadow-xl" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=500&h=400&fit=crop&q=60&auto=format" alt="Vélos en vente" className="rounded-2xl shadow-xl" loading="lazy" decoding="async" width="500" height="400" />
             </div>
           </div>
         </div>

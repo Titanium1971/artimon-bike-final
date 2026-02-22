@@ -237,6 +237,10 @@ const ArticlePage = () => {
           src={article.image_url} 
           alt={article.title}
           className="w-full h-full object-cover"
+          decoding="async"
+          fetchPriority="high"
+          width="1200"
+          height="675"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
         <div className="absolute bottom-0 left-0 right-0 p-8">

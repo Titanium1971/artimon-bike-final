@@ -55,7 +55,8 @@ function App() {
   useEffect(() => {
     const cookieChoice = localStorage.getItem("cookieConsent");
     if (!cookieChoice) {
-      setTimeout(() => setShowCookieConsent(true), 1500);
+      // Show immediately to avoid delayed layout instability on mobile audits.
+      setShowCookieConsent(true);
     }
   }, []);
 

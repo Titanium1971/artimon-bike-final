@@ -348,7 +348,7 @@ const BikePathsPage = () => {
               className="px-8 py-4 bg-white text-orange-500 font-semibold rounded-xl hover:bg-gray-100 hover:scale-105 transition-all inline-flex items-center gap-2 shadow-lg"
               data-testid="parcours-cta-btn"
             >
-              <img src="/logo.svg" alt="" className="w-6 h-6" />
+              <img src="/logo.svg" alt="" className="w-6 h-6" width="24" height="24" decoding="async" />
               Réserver sur la plateforme
             </a>
             <a 

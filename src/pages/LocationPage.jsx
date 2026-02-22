@@ -41,7 +41,7 @@ const LocationPage = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {bikes.map((bike, index) => (
               <div key={bike.name} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                <div className="h-48 overflow-hidden"><img src={bike.image} alt={bike.name} className="w-full h-full object-cover" loading="lazy" /></div>
+                <div className="h-48 overflow-hidden"><img src={bike.image} alt={bike.name} className="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="300" /></div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <h3 className="text-xl font-bold text-gray-900">{bike.name}</h3>
