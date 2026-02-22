@@ -1,7 +1,10 @@
 const isDevelopment = process.env.NODE_ENV === "development";
+const PROD_BACKEND_FALLBACK = "https://artimon-backend.onrender.com";
 
 // In local dev, use CRA proxy to avoid CORS issues with the backend.
-export const API_URL = isDevelopment ? "" : (process.env.REACT_APP_BACKEND_URL || "");
+export const API_URL = isDevelopment
+  ? ""
+  : (process.env.REACT_APP_BACKEND_URL || PROD_BACKEND_FALLBACK);
 
 export const REDIRECTS = {
   "/nos-tarifs": "/tarifs",
