@@ -1,6 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import { API_URL } from "../constants";
 
+const isPublishedArticle = (article) => {
+  if (typeof article?.published === "boolean") return article.published;
+  return article?.status === "published";
+};
+
 // Tab icons
 const TabIcons = {
   dashboard: (
@@ -21,6 +26,11 @@ const TabIcons = {
   messages: (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  ),
+  reviews: (
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.28 3.939a1 1 0 00.95.69h4.14c.969 0 1.371 1.24.588 1.81l-3.35 2.433a1 1 0 00-.364 1.118l1.28 3.939c.3.921-.755 1.688-1.539 1.118l-3.35-2.433a1 1 0 00-1.176 0l-3.35 2.433c-.783.57-1.838-.197-1.539-1.118l1.28-3.939a1 1 0 00-.364-1.118L2.98 9.366c-.783-.57-.38-1.81.588-1.81h4.14a1 1 0 00.95-.69l1.39-3.939z" />
     </svg>
   ),
 };
@@ -336,6 +346,81 @@ const AnalyticsTab = ({ analyticsData, messages }) => {
   );
 };
 
+const ReviewsTab = ({ reviewsData, loading, error, onRefresh }) => {
+  const stats = reviewsData?.stats || {};
+  const reviews = reviewsData?.reviews || [];
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between bg-white rounded-xl shadow-sm p-4">
+        <div>
+          <h2 className="text-xl font-bold text-gray-900">Avis Google</h2>
+          <p className="text-sm text-gray-500">Pilotage des avis affichés sur le site</p>
+        </div>
+        <button
+          type="button"
+          onClick={onRefresh}
+          disabled={loading}
+          className="px-4 py-2 bg-orange-500 text-white rounded-lg font-medium hover:bg-orange-600 disabled:opacity-60 transition-colors"
+        >
+          {loading ? "Actualisation..." : "Actualiser"}
+        </button>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-orange-500">
+          <div className="text-3xl font-bold text-orange-500">{stats.total_reviews || 0}</div>
+          <div className="text-gray-600 text-sm">Avis total</div>
+        </div>
+        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-green-500">
+          <div className="text-3xl font-bold text-green-500">{stats.average_rating || 0}</div>
+          <div className="text-gray-600 text-sm">Note moyenne</div>
+        </div>
+        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-500">
+          <div className="text-3xl font-bold text-blue-500">{reviews.length}</div>
+          <div className="text-gray-600 text-sm">Avis chargés</div>
+        </div>
+        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-purple-500">
+          <div className="text-sm font-semibold text-gray-900 truncate">{stats.google_place_id || "-"}</div>
+          <div className="text-gray-600 text-sm">Place ID</div>
+        </div>
+      </div>
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-sm">
+          {error}
+        </div>
+      )}
+
+      <div className="bg-white rounded-xl shadow-sm p-6">
+        <h3 className="text-lg font-bold text-gray-900 mb-4">Derniers avis</h3>
+        <div className="space-y-3 max-h-[520px] overflow-y-auto">
+          {reviews.map((review) => (
+            <div key={review.id} className="border border-gray-200 rounded-lg p-4">
+              <div className="flex justify-between items-start gap-3">
+                <div>
+                  <div className="font-semibold text-gray-900">{review.author_name}</div>
+                  <div className="text-sm text-gray-500">{review.date}</div>
+                </div>
+                <div className="text-sm font-semibold text-orange-600">{review.rating}/5</div>
+              </div>
+              <p className="mt-2 text-sm text-gray-700">{review.text}</p>
+              {review.highlight && (
+                <div className="mt-2 text-xs text-orange-700 bg-orange-50 px-2 py-1 rounded-md inline-block">
+                  {review.highlight}
+                </div>
+              )}
+            </div>
+          ))}
+          {reviews.length === 0 && !loading && (
+            <div className="text-center py-8 text-gray-500">Aucun avis disponible</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Articles Tab
 const ArticlesTab = ({ articles, authHeader, onRefresh }) => {
   const [editingArticle, setEditingArticle] = useState(null);
@@ -352,7 +437,8 @@ const ArticlesTab = ({ articles, authHeader, onRefresh }) => {
     
     const articleData = {
       ...formData,
-      tags: formData.tags.split(",").map(t => t.trim()).filter(t => t)
+      tags: formData.tags.split(",").map(t => t.trim()).filter(t => t),
+      status: formData.published ? "published" : "draft"
     };
 
     try {
@@ -408,7 +494,7 @@ const ArticlesTab = ({ articles, authHeader, onRefresh }) => {
       image_url: article.image_url,
       category: article.category,
       tags: article.tags?.join(", ") || "",
-      published: article.published
+      published: isPublishedArticle(article)
     });
   };
 
@@ -485,8 +571,8 @@ const ArticlesTab = ({ articles, authHeader, onRefresh }) => {
                   <h3 className="font-semibold text-gray-900 truncate">{article.title}</h3>
                   <p className="text-sm text-gray-500 mt-1 line-clamp-2">{article.excerpt}</p>
                   <div className="flex items-center gap-2 mt-2 flex-wrap">
-                    <span className={`px-2 py-0.5 text-xs rounded-full ${article.published ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
-                      {article.published ? 'Publié' : 'Brouillon'}
+                    <span className={`px-2 py-0.5 text-xs rounded-full ${isPublishedArticle(article) ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                      {isPublishedArticle(article) ? 'Publié' : 'Brouillon'}
                     </span>
                     <span className="text-xs text-gray-400">{new Date(article.created_at).toLocaleDateString('fr-FR')}</span>
                     {article.tags?.slice(0, 2).map((tag) => (
@@ -677,6 +763,9 @@ const AdminPage = () => {
   const [stats, setStats] = useState(null);
   const [analyticsData, setAnalyticsData] = useState(null);
   const [readMessages, setReadMessages] = useState(new Set());
+  const [reviewsData, setReviewsData] = useState(null);
+  const [reviewsError, setReviewsError] = useState("");
+  const [refreshAt, setRefreshAt] = useState(null);
 
   const authHeader = authToken ? `Bearer ${authToken}` : "";
   const messages = analyticsData?.recent_contacts || [];
@@ -745,8 +834,25 @@ const AdminPage = () => {
       if (articlesRes.ok) setArticles(await articlesRes.json());
       if (statsRes.ok) setStats(await statsRes.json());
       if (analyticsRes.ok) setAnalyticsData(await analyticsRes.json());
+      await fetchReviews();
+      setRefreshAt(new Date());
     } catch (err) {
       console.error("Error fetching data:", err);
+    }
+  };
+
+  const fetchReviews = async () => {
+    try {
+      setReviewsError("");
+      const response = await fetch(`${API_URL}/api/reviews?limit=20`);
+      if (!response.ok) {
+        setReviewsError("Impossible de charger les avis Google");
+        return;
+      }
+      const data = await response.json();
+      setReviewsData(data);
+    } catch (err) {
+      setReviewsError("Erreur de connexion lors du chargement des avis");
     }
   };
 
@@ -762,6 +868,8 @@ const AdminPage = () => {
     setArticles([]);
     setStats(null);
     setAnalyticsData(null);
+    setReviewsData(null);
+    setReviewsError("");
   };
 
   // Login Page
@@ -798,24 +906,36 @@ const AdminPage = () => {
     { id: "analytics", label: "Analytics", icon: TabIcons.analytics },
     { id: "articles", label: "Articles", icon: TabIcons.articles },
     { id: "messages", label: "Messages", icon: TabIcons.messages, badge: unreadCount },
+    { id: "reviews", label: "Avis Google", icon: TabIcons.reviews },
   ];
 
   return (
     <div className="pt-20 min-h-screen bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-6 gap-4">
           <div className="flex items-center gap-4">
             <img src="/logo.svg" alt="Artimon Bike" className="w-12 h-12" data-testid="admin-logo" />
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Panneau d'administration</h1>
-              <p className="text-sm text-gray-500">Gérez votre contenu et vos messages</p>
+              <p className="text-sm text-gray-500">
+                Gérez votre contenu, vos messages et vos avis Google
+                {refreshAt && (
+                  <span className="ml-2 text-gray-400">• Mise à jour {refreshAt.toLocaleTimeString("fr-FR")}</span>
+                )}
+              </p>
             </div>
           </div>
-          <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-white rounded-lg transition-colors" data-testid="admin-logout-button">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
-            Déconnexion
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={handleRefresh} className="flex items-center gap-2 px-4 py-2 text-orange-700 bg-orange-100 hover:bg-orange-200 rounded-lg transition-colors">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+              Actualiser
+            </button>
+            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-white rounded-lg transition-colors" data-testid="admin-logout-button">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+              Déconnexion
+            </button>
+          </div>
         </div>
 
         {/* Tabs */}
@@ -854,6 +974,14 @@ const AdminPage = () => {
             onRefresh={handleRefresh}
             readMessages={readMessages}
             onMarkAsRead={markAsRead}
+          />
+        )}
+        {activeTab === "reviews" && (
+          <ReviewsTab
+            reviewsData={reviewsData}
+            loading={false}
+            error={reviewsError}
+            onRefresh={handleRefresh}
           />
         )}
       </div>
