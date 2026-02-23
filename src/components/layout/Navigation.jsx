@@ -38,12 +38,20 @@ export const Navigation = () => {
     { name: t.nav.contact, path: "/contact" },
   ];
 
+  const handleLogoClick = (e) => {
+    if (isHomePage) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
     <>
       <nav className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${shouldShowDarkNav ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-transparent"}`} data-testid="main-navigation">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <Link to="/" className="flex items-center gap-3" data-testid="logo-link">
+            <Link to="/" onClick={handleLogoClick} className="flex items-center gap-3" data-testid="logo-link">
               <img 
                 src="/logo.svg" 
                 alt="Artimon Bike Logo" 
@@ -60,11 +68,15 @@ export const Navigation = () => {
             </Link>
 
             <div className="hidden lg:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <Link key={link.path} to={link.path} className={`nav-link font-medium transition-colors ${shouldShowDarkNav ? "text-gray-700 hover:text-orange-500" : "text-white hover:text-orange-300"} ${location.pathname === link.path ? "text-orange-500" : ""}`}>
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.path;
+                const activeClass = isActive ? (shouldShowDarkNav ? "text-orange-500" : "text-white") : "";
+                return (
+                <Link key={link.path} to={link.path} className={`nav-link font-medium transition-colors ${shouldShowDarkNav ? "text-gray-700 hover:text-orange-500" : "text-white hover:text-orange-300"} ${activeClass}`}>
                   {link.name}
                 </Link>
-              ))}
+                );
+              })}
             </div>
 
             <div className="hidden lg:flex items-center gap-6">

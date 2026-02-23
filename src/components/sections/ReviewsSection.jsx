@@ -8,6 +8,7 @@ export const ReviewsSection = () => {
   const [rating, setRating] = useState(BUSINESS_INFO.rating);
   const [totalReviews, setTotalReviews] = useState(BUSINESS_INFO.reviewCount);
   const [loading, setLoading] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState(null);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -18,6 +19,7 @@ export const ReviewsSection = () => {
           setReviews(data.reviews || []);
           setRating(data.rating || BUSINESS_INFO.rating);
           setTotalReviews(data.total_reviews || BUSINESS_INFO.reviewCount);
+          setLastUpdated(new Date());
         }
       } catch (error) {
         console.log("Using fallback reviews");
@@ -25,7 +27,10 @@ export const ReviewsSection = () => {
         setLoading(false);
       }
     };
+
     fetchReviews();
+    const intervalId = window.setInterval(fetchReviews, 5 * 60 * 1000);
+    return () => window.clearInterval(intervalId);
   }, []);
   
   const renderStars = (rating) => {
@@ -53,6 +58,11 @@ export const ReviewsSection = () => {
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">{t.reviews.description}</p>
           {loading && <div className="mt-4 text-orange-500">Chargement des avis...</div>}
+          {!loading && lastUpdated && (
+            <div className="mt-3 text-xs text-gray-500">
+              Mis a jour en direct: {lastUpdated.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-16 p-8 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-2xl border border-orange-100">
