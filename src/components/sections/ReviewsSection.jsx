@@ -90,7 +90,7 @@ export const ReviewsSection = () => {
     };
 
     fetchReviews();
-    const intervalId = window.setInterval(fetchReviews, 5 * 60 * 1000);
+    const intervalId = window.setInterval(fetchReviews, 15 * 60 * 1000);
     return () => window.clearInterval(intervalId);
   }, []);
   
