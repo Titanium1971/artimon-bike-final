@@ -57,6 +57,17 @@ export const ReviewsSection = () => {
         }
       }
 
+      if (hasLoadedDynamicData && reviews.length === 0) {
+        try {
+          const googleData = await fetchGooglePlaceReviewsDirect();
+          if (googleData?.reviews?.length) {
+            setReviews(googleData.reviews);
+          }
+        } catch (error) {
+          // Keep translated fallback cards if detailed reviews are not accessible.
+        }
+      }
+
       if (!hasLoadedDynamicData) {
         try {
           const response = await fetch(`${API_URL}/api/reviews`);
@@ -100,9 +111,11 @@ export const ReviewsSection = () => {
     ));
   };
 
-  const displayReviews = reviews.length > 0 ? reviews.map((r, i) => ({
+  const displayReviews = reviews.length > 0 ? [...reviews]
+    .sort((a, b) => (b.time_value || 0) - (a.time_value || 0))
+    .map((r, i) => ({
     name: r.author_name,
-    initials: r.author_name.split(' ').map(n => n[0]).join(''),
+    initials: (r.author_name || "Client").split(' ').map(n => n[0]).join(''),
     date: r.time,
     rating: r.rating,
     text: r.text,
@@ -121,7 +134,7 @@ export const ReviewsSection = () => {
           {loading && <div className="mt-4 text-orange-500">Chargement des avis...</div>}
           {!loading && lastUpdated && (
             <div className="mt-3 text-xs text-gray-500">
-              Mis a jour {dataSource === "fallback" ? "locale" : "en direct"}: {lastUpdated.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })} ({dataSource === "google-live" ? "source: Google live" : dataSource === "backend-live" ? "source: backend" : "source: locale"})
+              Mis a jour {dataSource === "fallback" ? "locale" : "en direct"}: {lastUpdated.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
             </div>
           )}
         </div>

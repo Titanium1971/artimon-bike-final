@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { BUSINESS_INFO } from "../../constants";
 import { StarIcon, ChevronDownIcon } from "../../icons";
+import { useLiveGoogleReviewStats } from "../../hooks/useLiveGoogleReviewStats";
 
 export const HeroSection = () => {
   const { t } = useLanguage();
+  const { rating, totalReviews, googleReviewUrl } = useLiveGoogleReviewStats();
   
   return (
     <section className="relative min-h-screen flex items-center" data-testid="hero-section">
@@ -52,12 +54,12 @@ export const HeroSection = () => {
             <div className="flex items-center gap-4 animate-fade-in-up opacity-0" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <StarIcon key={star} className={`w-5 h-5 ${star <= Math.floor(BUSINESS_INFO.rating) ? "text-yellow-400" : "text-gray-500"}`} filled={star <= Math.floor(BUSINESS_INFO.rating)} />
+                  <StarIcon key={star} className={`w-5 h-5 ${star <= Math.floor(rating) ? "text-yellow-400" : "text-gray-500"}`} filled={star <= Math.floor(rating)} />
                 ))}
               </div>
-              <span className="text-white font-semibold">{BUSINESS_INFO.rating}/5</span>
-              <a href={BUSINESS_INFO.googleReviewUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-colors link-underline">
-                ({BUSINESS_INFO.reviewCount} {t.hero.reviews})
+              <span className="text-white font-semibold">{rating}/5</span>
+              <a href={googleReviewUrl || BUSINESS_INFO.googleReviewUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-400 transition-colors link-underline">
+                ({totalReviews} {t.hero.reviews})
               </a>
             </div>
           </div>

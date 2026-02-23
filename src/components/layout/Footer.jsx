@@ -5,9 +5,11 @@ import {
   PhoneIcon, MapPinIcon, ClockIcon, StarIcon,
   FacebookIcon, InstagramIcon, WhatsAppIcon 
 } from "../../icons";
+import { useLiveGoogleReviewStats } from "../../hooks/useLiveGoogleReviewStats";
 
 export const Footer = () => {
   const { t } = useLanguage();
+  const { rating, totalReviews, googleReviewUrl } = useLiveGoogleReviewStats();
   
   return (
     <footer className="bg-gray-900 text-white" data-testid="footer">
@@ -79,9 +81,9 @@ export const Footer = () => {
               <li><Link to="/faq" className="text-gray-400 hover:text-orange-500 transition-colors">FAQ</Link></li>
               <li><Link to="/blog" className="text-gray-400 hover:text-orange-500 transition-colors">{t.nav.blog}</Link></li>
               <li>
-                <a href={BUSINESS_INFO.googleReviewUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-orange-500 transition-colors">
+                <a href={googleReviewUrl || BUSINESS_INFO.googleReviewUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-orange-500 transition-colors">
                   <StarIcon className="w-4 h-4 text-yellow-400" />
-                  {BUSINESS_INFO.rating}/5 ({BUSINESS_INFO.reviewCount} {t.hero.reviews})
+                  {rating}/5 ({totalReviews} {t.hero.reviews})
                 </a>
               </li>
               <li><Link to="/admin" className="text-gray-400 hover:text-orange-500 transition-colors">{t.nav.espacePro}</Link></li>

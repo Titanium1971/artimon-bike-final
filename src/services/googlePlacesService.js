@@ -63,6 +63,15 @@ const normalizeRestReviewDate = (publishTime) => {
   }
 };
 
+const getRestReviewTimestamp = (publishTime) => {
+  if (!publishTime) {
+    return 0;
+  }
+
+  const timestamp = Date.parse(publishTime);
+  return Number.isFinite(timestamp) ? Math.floor(timestamp / 1000) : 0;
+};
+
 export const fetchGooglePlaceReviewsRest = async () => {
   const { apiKey, placeId } = getConfig();
   if (!apiKey || !placeId) {
@@ -86,6 +95,7 @@ export const fetchGooglePlaceReviewsRest = async () => {
     rating: review.rating || 0,
     text: review.originalText?.text || review.text?.text || "",
     time: review.relativePublishTimeDescription || normalizeRestReviewDate(review.publishTime),
+    time_value: getRestReviewTimestamp(review.publishTime),
   }));
 
   return {
@@ -124,6 +134,7 @@ export const fetchGooglePlaceReviewsDirect = async () => {
           rating: review.rating || 0,
           text: review.text || "",
           time: normalizeReviewDate(review),
+          time_value: typeof review.time === "number" ? review.time : 0,
         }));
 
         resolve({
