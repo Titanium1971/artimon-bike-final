@@ -19,8 +19,10 @@ export const ReviewsSection = () => {
 
       try {
         const googleRestData = await fetchGooglePlaceReviewsRest();
-        if (googleRestData?.reviews?.length) {
-          setReviews(googleRestData.reviews);
+        if (googleRestData && (googleRestData.total_reviews || googleRestData.rating)) {
+          if (googleRestData?.reviews?.length) {
+            setReviews(googleRestData.reviews);
+          }
           setRating(googleRestData.rating || BUSINESS_INFO.rating);
           setTotalReviews(googleRestData.total_reviews || BUSINESS_INFO.reviewCount);
           if (googleRestData.google_url) {
@@ -37,8 +39,10 @@ export const ReviewsSection = () => {
       if (!hasLoadedDynamicData) {
         try {
           const googleData = await fetchGooglePlaceReviewsDirect();
-          if (googleData?.reviews?.length) {
-            setReviews(googleData.reviews);
+          if (googleData && (googleData.total_reviews || googleData.rating)) {
+            if (googleData?.reviews?.length) {
+              setReviews(googleData.reviews);
+            }
             setRating(googleData.rating || BUSINESS_INFO.rating);
             setTotalReviews(googleData.total_reviews || BUSINESS_INFO.reviewCount);
             if (googleData.google_url) {
