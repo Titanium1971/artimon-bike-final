@@ -70,14 +70,11 @@ export const fetchGooglePlaceReviewsRest = async () => {
   }
 
   const placeResourceName = placeId.startsWith("places/") ? placeId : `places/${placeId}`;
-  const endpoint = `https://places.googleapis.com/v1/${placeResourceName}?languageCode=fr`;
+  const endpoint =
+    `https://places.googleapis.com/v1/${placeResourceName}` +
+    `?languageCode=fr&fields=rating,userRatingCount,reviews,googleMapsUri&key=${encodeURIComponent(apiKey)}`;
 
-  const response = await fetch(endpoint, {
-    headers: {
-      "X-Goog-Api-Key": apiKey,
-      "X-Goog-FieldMask": "rating,userRatingCount,reviews,googleMapsUri",
-    },
-  });
+  const response = await fetch(endpoint);
 
   if (!response.ok) {
     throw new Error(`Places REST failed with status ${response.status}`);
