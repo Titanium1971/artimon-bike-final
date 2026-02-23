@@ -69,13 +69,13 @@ export const fetchGooglePlaceReviewsRest = async () => {
     return null;
   }
 
-  const endpoint = `https://places.googleapis.com/v1/places/${encodeURIComponent(
-    placeId
-  )}?languageCode=fr&fields=rating,userRatingCount,reviews,googleMapsUri`;
+  const placeResourceName = placeId.startsWith("places/") ? placeId : `places/${placeId}`;
+  const endpoint = `https://places.googleapis.com/v1/${placeResourceName}?languageCode=fr`;
 
   const response = await fetch(endpoint, {
     headers: {
       "X-Goog-Api-Key": apiKey,
+      "X-Goog-FieldMask": "rating,userRatingCount,reviews,googleMapsUri",
     },
   });
 
