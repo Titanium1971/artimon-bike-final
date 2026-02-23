@@ -72,7 +72,7 @@ export const fetchGooglePlaceReviewsRest = async () => {
   const placeResourceName = placeId.startsWith("places/") ? placeId : `places/${placeId}`;
   const endpoint =
     `https://places.googleapis.com/v1/${placeResourceName}` +
-    `?languageCode=fr&fields=rating,userRatingCount,reviews,googleMapsUri&key=${encodeURIComponent(apiKey)}`;
+    `?languageCode=fr&fields=rating,userRatingCount,googleMapsUri&key=${encodeURIComponent(apiKey)}`;
 
   const response = await fetch(endpoint);
 
