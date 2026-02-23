@@ -64,7 +64,7 @@ export const ReviewsSection = () => {
             const data = await response.json();
             setReviews(data.reviews || []);
             setRating(data.rating || BUSINESS_INFO.rating);
-            setTotalReviews(data.total_reviews || data.stats?.total_reviews || BUSINESS_INFO.reviewCount);
+            setTotalReviews(data.total_reviews || BUSINESS_INFO.reviewCount);
             if (data.google_url) {
               setGoogleReviewUrl(data.google_url);
             }
