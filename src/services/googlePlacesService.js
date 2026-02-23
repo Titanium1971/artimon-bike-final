@@ -51,6 +51,55 @@ const normalizeReviewDate = (review) => {
   return "";
 };
 
+const normalizeRestReviewDate = (publishTime) => {
+  if (!publishTime) {
+    return "";
+  }
+
+  try {
+    return new Date(publishTime).toLocaleDateString("fr-FR");
+  } catch (error) {
+    return "";
+  }
+};
+
+export const fetchGooglePlaceReviewsRest = async () => {
+  const { apiKey, placeId } = getConfig();
+  if (!apiKey || !placeId) {
+    return null;
+  }
+
+  const endpoint = `https://places.googleapis.com/v1/places/${encodeURIComponent(
+    placeId
+  )}?languageCode=fr&fields=rating,userRatingCount,reviews,googleMapsUri`;
+
+  const response = await fetch(endpoint, {
+    headers: {
+      "X-Goog-Api-Key": apiKey,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Places REST failed with status ${response.status}`);
+  }
+
+  const data = await response.json();
+  const normalizedReviews = (data.reviews || []).slice(0, 6).map((review) => ({
+    author_name: review.authorAttribution?.displayName || "Client",
+    rating: review.rating || 0,
+    text: review.originalText?.text || review.text?.text || "",
+    time: review.relativePublishTimeDescription || normalizeRestReviewDate(review.publishTime),
+  }));
+
+  return {
+    source: "google-places-rest",
+    rating: data.rating,
+    total_reviews: data.userRatingCount,
+    google_url: data.googleMapsUri,
+    reviews: normalizedReviews,
+  };
+};
+
 export const fetchGooglePlaceReviewsDirect = async () => {
   const { apiKey, placeId } = getConfig();
   if (!apiKey || !placeId) {
@@ -91,4 +140,3 @@ export const fetchGooglePlaceReviewsDirect = async () => {
     );
   });
 };
-

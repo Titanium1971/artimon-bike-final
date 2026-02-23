@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { API_URL, BUSINESS_INFO } from "../../constants";
-import { fetchGooglePlaceReviewsDirect } from "../../services/googlePlacesService";
+import { fetchGooglePlaceReviewsDirect, fetchGooglePlaceReviewsRest } from "../../services/googlePlacesService";
 
 export const ReviewsSection = () => {
   const { t } = useLanguage();
@@ -18,20 +18,39 @@ export const ReviewsSection = () => {
       let hasLoadedDynamicData = false;
 
       try {
-        const googleData = await fetchGooglePlaceReviewsDirect();
-        if (googleData?.reviews?.length) {
-          setReviews(googleData.reviews);
-          setRating(googleData.rating || BUSINESS_INFO.rating);
-          setTotalReviews(googleData.total_reviews || BUSINESS_INFO.reviewCount);
-          if (googleData.google_url) {
-            setGoogleReviewUrl(googleData.google_url);
+        const googleRestData = await fetchGooglePlaceReviewsRest();
+        if (googleRestData?.reviews?.length) {
+          setReviews(googleRestData.reviews);
+          setRating(googleRestData.rating || BUSINESS_INFO.rating);
+          setTotalReviews(googleRestData.total_reviews || BUSINESS_INFO.reviewCount);
+          if (googleRestData.google_url) {
+            setGoogleReviewUrl(googleRestData.google_url);
           }
           setLastUpdated(new Date());
           setDataSource("google-live");
           hasLoadedDynamicData = true;
         }
       } catch (error) {
-        console.log("Google Places direct unavailable, fallback to backend API");
+        console.warn("Google Places REST unavailable:", error?.message || error);
+      }
+
+      if (!hasLoadedDynamicData) {
+        try {
+          const googleData = await fetchGooglePlaceReviewsDirect();
+          if (googleData?.reviews?.length) {
+            setReviews(googleData.reviews);
+            setRating(googleData.rating || BUSINESS_INFO.rating);
+            setTotalReviews(googleData.total_reviews || BUSINESS_INFO.reviewCount);
+            if (googleData.google_url) {
+              setGoogleReviewUrl(googleData.google_url);
+            }
+            setLastUpdated(new Date());
+            setDataSource("google-live");
+            hasLoadedDynamicData = true;
+          }
+        } catch (error) {
+          console.warn("Google Places JS SDK unavailable:", error?.message || error);
+        }
       }
 
       if (!hasLoadedDynamicData) {
@@ -47,10 +66,20 @@ export const ReviewsSection = () => {
             }
             setLastUpdated(new Date());
             setDataSource("backend-live");
+            hasLoadedDynamicData = true;
           }
         } catch (error) {
           console.log("Using fallback reviews");
         }
+      }
+
+      if (!hasLoadedDynamicData) {
+        setDataSource("fallback");
+        setGoogleReviewUrl(BUSINESS_INFO.googleReviewUrl);
+        setRating(BUSINESS_INFO.rating);
+        setTotalReviews(BUSINESS_INFO.reviewCount);
+        setLastUpdated(new Date());
+        console.warn("Dynamic review fetch failed: REST + SDK + backend.");
       }
 
       setLoading(false);
