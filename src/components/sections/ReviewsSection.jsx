@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { API_URL, BUSINESS_INFO } from "../../constants";
+import { fetchGooglePlaceReviewsDirect } from "../../services/googlePlacesService";
 
 export const ReviewsSection = () => {
   const { t } = useLanguage();
@@ -9,23 +10,50 @@ export const ReviewsSection = () => {
   const [totalReviews, setTotalReviews] = useState(BUSINESS_INFO.reviewCount);
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(null);
+  const [googleReviewUrl, setGoogleReviewUrl] = useState(BUSINESS_INFO.googleReviewUrl);
+  const [dataSource, setDataSource] = useState("fallback");
 
   useEffect(() => {
     const fetchReviews = async () => {
+      let hasLoadedDynamicData = false;
+
       try {
-        const response = await fetch(`${API_URL}/api/reviews`);
-        if (response.ok) {
-          const data = await response.json();
-          setReviews(data.reviews || []);
-          setRating(data.rating || BUSINESS_INFO.rating);
-          setTotalReviews(data.total_reviews || BUSINESS_INFO.reviewCount);
+        const googleData = await fetchGooglePlaceReviewsDirect();
+        if (googleData?.reviews?.length) {
+          setReviews(googleData.reviews);
+          setRating(googleData.rating || BUSINESS_INFO.rating);
+          setTotalReviews(googleData.total_reviews || BUSINESS_INFO.reviewCount);
+          if (googleData.google_url) {
+            setGoogleReviewUrl(googleData.google_url);
+          }
           setLastUpdated(new Date());
+          setDataSource("google-live");
+          hasLoadedDynamicData = true;
         }
       } catch (error) {
-        console.log("Using fallback reviews");
-      } finally {
-        setLoading(false);
+        console.log("Google Places direct unavailable, fallback to backend API");
       }
+
+      if (!hasLoadedDynamicData) {
+        try {
+          const response = await fetch(`${API_URL}/api/reviews`);
+          if (response.ok) {
+            const data = await response.json();
+            setReviews(data.reviews || []);
+            setRating(data.rating || BUSINESS_INFO.rating);
+            setTotalReviews(data.total_reviews || BUSINESS_INFO.reviewCount);
+            if (data.google_url) {
+              setGoogleReviewUrl(data.google_url);
+            }
+            setLastUpdated(new Date());
+            setDataSource("backend-live");
+          }
+        } catch (error) {
+          console.log("Using fallback reviews");
+        }
+      }
+
+      setLoading(false);
     };
 
     fetchReviews();
@@ -60,7 +88,7 @@ export const ReviewsSection = () => {
           {loading && <div className="mt-4 text-orange-500">Chargement des avis...</div>}
           {!loading && lastUpdated && (
             <div className="mt-3 text-xs text-gray-500">
-              Mis a jour en direct: {lastUpdated.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
+              Mis a jour {dataSource === "fallback" ? "locale" : "en direct"}: {lastUpdated.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
             </div>
           )}
         </div>
@@ -76,7 +104,7 @@ export const ReviewsSection = () => {
             <div className="text-2xl font-semibold text-gray-900">{totalReviews}</div>
             <div className="text-gray-500">{t.reviews.basedOn}</div>
             <a 
-              href={BUSINESS_INFO.googleReviewUrl} 
+              href={googleReviewUrl} 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 mt-3 px-4 py-2 bg-white border border-orange-200 rounded-full text-orange-600 hover:bg-orange-50 transition-colors text-sm font-medium"
