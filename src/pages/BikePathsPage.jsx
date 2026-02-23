@@ -293,6 +293,18 @@ const BikePathsPage = () => {
                           >
                             {t.bikePaths.launchItinerary}
                           </a>
+                          {route.returnUrl && (
+                            <a
+                              href={route.returnUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold transition-all hover:scale-105 border-2"
+                              style={{ borderColor: route.color, color: route.color }}
+                              data-testid={`return-btn-${route.id}`}
+                            >
+                              {t.bikePaths.returnItinerary}
+                            </a>
+                          )}
                           <a
                             href={route.viewUrl}
                             target="_blank"

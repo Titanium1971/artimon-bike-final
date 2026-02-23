@@ -111,6 +111,7 @@ export const translations = {
       mapTitle: "Carte des parcours",
       allRoutes: "Tous les parcours",
       launchItinerary: "🚴🚴 Lancer l'itinéraire",
+      returnItinerary: "↩️ Itinéraire retour",
       viewOnMap: "📍📍 Voir sur la carte",
       difficulty: "Difficulté",
       distance: "Distance",
@@ -173,6 +174,7 @@ export const translations = {
           startPoint: "Artimon Bike - Port de Marseillan",
           recommendedBike: "Tout type de vélo",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9PW2%2BMM+S%C3%A8te&waypoints=8GQQ%2BR7+Marseillan%7C9J88%2BHC+S%C3%A8te%7C9MVR%2BCX+S%C3%A8te&travelmode=bicycling&dir_action=navigate",
+          returnUrl: "https://www.google.com/maps/dir/?api=1&origin=9PW2%2BMM+S%C3%A8te&destination=9G2M%2BPG+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/9G2M%2BPG+Marseillan/8GQQ%2BR7+Marseillan/9J88%2BHC+S%C3%A8te/9MVR%2BCX+S%C3%A8te/9PW2%2BMM+S%C3%A8te/@43.37,3.62,13z/data=!4m2!4m1!3e1"
         },
         {
@@ -195,6 +197,7 @@ export const translations = {
           startPoint: "Artimon Bike - Port de Marseillan",
           recommendedBike: "Tout type de vélo",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=8F79%2BHJ+Agde&waypoints=8GQQ%2BR7+Marseillan%7C8F7X%2BMG+Agde%7C8FC9%2B45+Agde&travelmode=bicycling&dir_action=navigate",
+          returnUrl: "https://www.google.com/maps/dir/?api=1&origin=8F79%2BHJ+Agde&destination=9G2M%2BPG+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/9G2M%2BPG+Marseillan/8GQQ%2BR7+Marseillan/8F7X%2BMG+Agde/8FC9%2B45+Agde/8F79%2BHJ+Agde/@43.33,3.5,14z/data=!4m2!4m1!3e1"
         },
         {
@@ -217,6 +220,7 @@ export const translations = {
           startPoint: "Artimon Bike - Port de Marseillan",
           recommendedBike: "VTC ou Vélo électrique",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=CMW6%2BPP+Bouzigues&waypoints=9HX9%2B62+M%C3%A8ze%7CCJC4%2BXC+M%C3%A8ze%7CCMW5%2BRQ+Bouzigues&travelmode=bicycling&dir_action=navigate",
+          returnUrl: "https://www.google.com/maps/dir/?api=1&origin=CMW6%2BPP+Bouzigues&destination=9G2M%2BPG+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/9G2M%2BPG+Marseillan/9HX9%2B62+M%C3%A8ze/CJC4%2BXC+M%C3%A8ze/CMW5%2BRQ+Bouzigues/CMW6%2BPP+Bouzigues/@43.4,3.6,13z/data=!4m2!4m1!3e1"
         },
         {
@@ -237,6 +241,7 @@ export const translations = {
           startPoint: "Artimon Bike - Port de Marseillan",
           recommendedBike: "Tout type de vélo (idéal familles)",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=8GQQ%2BR7+Marseillan&travelmode=bicycling&dir_action=navigate",
+          returnUrl: "https://www.google.com/maps/dir/?api=1&origin=8GQQ%2BR7+Marseillan&destination=9G2M%2BPG+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/9G2M%2BPG+Marseillan/8GQQ%2BR7+Marseillan/@43.36,3.55,15z/data=!4m2!4m1!3e1"
         },
         {
@@ -446,6 +451,7 @@ export const translations = {
       mapTitle: "Route map",
       allRoutes: "All routes",
       launchItinerary: "🚴🚴 Launch itinerary",
+      returnItinerary: "↩️ Return itinerary",
       viewOnMap: "📍📍 View on map",
       difficulty: "Difficulty",
       distance: "Distance",
@@ -508,6 +514,7 @@ export const translations = {
           startPoint: "Artimon Bike - Marseillan Harbor",
           recommendedBike: "Any bike type",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9PW2%2BMM+S%C3%A8te&waypoints=8GQQ%2BR7+Marseillan%7C9J88%2BHC+S%C3%A8te%7C9MVR%2BCX+S%C3%A8te&travelmode=bicycling&dir_action=navigate",
+          returnUrl: "https://www.google.com/maps/dir/?api=1&origin=9PW2%2BMM+S%C3%A8te&destination=9G2M%2BPG+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/9G2M%2BPG+Marseillan/8GQQ%2BR7+Marseillan/9J88%2BHC+S%C3%A8te/9MVR%2BCX+S%C3%A8te/9PW2%2BMM+S%C3%A8te/@43.37,3.62,13z/data=!4m2!4m1!3e1"
         },
         {
@@ -530,6 +537,7 @@ export const translations = {
           startPoint: "Artimon Bike - Marseillan Harbor",
           recommendedBike: "Any bike type",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=8F79%2BHJ+Agde&waypoints=8GQQ%2BR7+Marseillan%7C8F7X%2BMG+Agde%7C8FC9%2B45+Agde&travelmode=bicycling&dir_action=navigate",
+          returnUrl: "https://www.google.com/maps/dir/?api=1&origin=8F79%2BHJ+Agde&destination=9G2M%2BPG+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/9G2M%2BPG+Marseillan/8GQQ%2BR7+Marseillan/8F7X%2BMG+Agde/8FC9%2B45+Agde/8F79%2BHJ+Agde/@43.33,3.5,14z/data=!4m2!4m1!3e1"
         },
         {
@@ -552,6 +560,7 @@ export const translations = {
           startPoint: "Artimon Bike - Marseillan Harbor",
           recommendedBike: "Hybrid or Electric bike",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=CMW6%2BPP+Bouzigues&waypoints=9HX9%2B62+M%C3%A8ze%7CCJC4%2BXC+M%C3%A8ze%7CCMW5%2BRQ+Bouzigues&travelmode=bicycling&dir_action=navigate",
+          returnUrl: "https://www.google.com/maps/dir/?api=1&origin=CMW6%2BPP+Bouzigues&destination=9G2M%2BPG+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/9G2M%2BPG+Marseillan/9HX9%2B62+M%C3%A8ze/CJC4%2BXC+M%C3%A8ze/CMW5%2BRQ+Bouzigues/CMW6%2BPP+Bouzigues/@43.4,3.6,13z/data=!4m2!4m1!3e1"
         },
         {
@@ -572,6 +581,7 @@ export const translations = {
           startPoint: "Artimon Bike - Marseillan Harbor",
           recommendedBike: "Any bike (ideal for families)",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=8GQQ%2BR7+Marseillan&travelmode=bicycling&dir_action=navigate",
+          returnUrl: "https://www.google.com/maps/dir/?api=1&origin=8GQQ%2BR7+Marseillan&destination=9G2M%2BPG+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/9G2M%2BPG+Marseillan/8GQQ%2BR7+Marseillan/@43.36,3.55,15z/data=!4m2!4m1!3e1"
         },
         {
