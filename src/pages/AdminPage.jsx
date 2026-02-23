@@ -432,8 +432,8 @@ const ArticlesTab = ({ articles, authHeader, onRefresh }) => {
 
     try {
       const url = editingArticle 
-        ? `${API_URL}/api/blog/${editingArticle.slug}`
-        : `${API_URL}/api/blog`;
+        ? `${API_URL}/api/admin/articles/${editingArticle.id}`
+        : `${API_URL}/api/admin/articles`;
       const method = editingArticle ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -450,7 +450,12 @@ const ArticlesTab = ({ articles, authHeader, onRefresh }) => {
         setFormData({ title: "", slug: "", excerpt: "", content: "", image_url: "", category: "Actualités", tags: "", published: true });
         onRefresh();
       } else {
-        const err = await response.json();
+        let err;
+        try {
+          err = await response.json();
+        } catch {
+          err = {};
+        }
         setError(err.detail || "Erreur lors de la sauvegarde");
       }
     } catch (err) {
@@ -460,10 +465,10 @@ const ArticlesTab = ({ articles, authHeader, onRefresh }) => {
     }
   };
 
-  const handleDelete = async (slug) => {
+  const handleDelete = async (articleId) => {
     if (!window.confirm("Supprimer cet article ?")) return;
     try {
-      const response = await fetch(`${API_URL}/api/blog/${slug}`, {
+      const response = await fetch(`${API_URL}/api/admin/articles/${articleId}`, {
         method: "DELETE",
         headers: { "Authorization": authHeader }
       });
@@ -573,7 +578,7 @@ const ArticlesTab = ({ articles, authHeader, onRefresh }) => {
                   <button onClick={() => startEdit(article)} className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors" title="Modifier">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                   </button>
-                  <button onClick={() => handleDelete(article.slug)} className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer">
+                  <button onClick={() => handleDelete(article.id)} className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                   </button>
                 </div>
@@ -817,7 +822,7 @@ const AdminPage = () => {
     try {
       const headers = { "Authorization": `Bearer ${token}` };
       const [articlesRes, statsRes, analyticsRes] = await Promise.all([
-        fetch(`${API_URL}/api/blog?published_only=false`, { headers }),
+        fetch(`${API_URL}/api/admin/articles`, { headers }),
         fetch(`${API_URL}/api/admin/stats`, { headers }),
         fetch(`${API_URL}/api/analytics/stats`, { headers })
       ]);
