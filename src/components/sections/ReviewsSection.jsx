@@ -111,7 +111,7 @@ export const ReviewsSection = () => {
     ));
   };
 
-  const displayReviews = reviews.length > 0 ? [...reviews]
+  const dynamicFiveStarReviews = reviews.length > 0 ? [...reviews]
     .filter((r) => Number(r.rating) === 5)
     .sort((a, b) => (b.time_value || 0) - (a.time_value || 0))
     .map((r, i) => ({
@@ -123,6 +123,19 @@ export const ReviewsSection = () => {
     type: r.rating >= 4 ? 'positive' : 'neutral',
     highlight: r.rating === 5 ? "Excellent !" : "Bon avis"
   })) : [];
+
+  const fallbackFiveStarReviews = (t.reviews.reviewsList || [])
+    .filter((r) => Number(r.rating) === 5)
+    .map((r) => ({
+      ...r,
+      initials: r.initials || (r.name || "Client").split(' ').map(n => n[0]).join(''),
+      type: "positive",
+      highlight: r.highlight || "Excellent !",
+    }));
+
+  const existingReviewKeys = new Set(dynamicFiveStarReviews.map((r) => `${r.name}|${r.text}`));
+  const fillerReviews = fallbackFiveStarReviews.filter((r) => !existingReviewKeys.has(`${r.name}|${r.text}`));
+  const displayReviews = [...dynamicFiveStarReviews, ...fillerReviews].slice(0, 6);
 
   return (
     <section className="py-24 bg-white" data-testid="reviews-section">

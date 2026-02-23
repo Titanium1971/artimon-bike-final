@@ -334,6 +334,7 @@ export const translations = {
           startPoint: "Artimon Bike - Port de Marseillan",
           recommendedBike: "Tout type de vélo (idéal familles)",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9G2M%2BPG+Marseillan&waypoints=8H84%2BM4+Marseillan%7C9PW2%2BMM+S%C3%A8te&travelmode=bicycling&dir_action=navigate",
+          returnUrl: "https://www.google.com/maps/dir/?api=1&origin=9PW2%2BMM+S%C3%A8te&destination=9G2M%2BPG+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Marseillan-Plage/S%C3%A8te/Artimon+Bike+Marseillan/@43.37,3.62,12z/data=!4m2!4m1!3e1"
         }
       ]
@@ -674,6 +675,7 @@ export const translations = {
           startPoint: "Artimon Bike - Marseillan Harbor",
           recommendedBike: "Any bike (great for families)",
           launchUrl: "https://www.google.com/maps/dir/?api=1&destination=9G2M%2BPG+Marseillan&waypoints=8H84%2BM4+Marseillan%7C9PW2%2BMM+S%C3%A8te&travelmode=bicycling&dir_action=navigate",
+          returnUrl: "https://www.google.com/maps/dir/?api=1&origin=9PW2%2BMM+S%C3%A8te&destination=9G2M%2BPG+Marseillan&travelmode=bicycling&dir_action=navigate",
           viewUrl: "https://www.google.com/maps/dir/Artimon+Bike+Marseillan/Marseillan-Plage/S%C3%A8te/Artimon+Bike+Marseillan/@43.37,3.62,12z/data=!4m2!4m1!3e1"
         }
       ]
