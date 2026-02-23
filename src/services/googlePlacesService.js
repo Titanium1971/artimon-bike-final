@@ -66,7 +66,7 @@ const normalizeRestReviewDate = (publishTime) => {
 export const fetchGooglePlaceReviewsRest = async () => {
   const { apiKey, placeId } = getConfig();
   if (!apiKey || !placeId) {
-    return null;
+    throw new Error("Missing Google Places env vars (REACT_APP_GOOGLE_PLACES_API_KEY / REACT_APP_GOOGLE_PLACE_ID)");
   }
 
   const placeResourceName = placeId.startsWith("places/") ? placeId : `places/${placeId}`;
@@ -100,7 +100,7 @@ export const fetchGooglePlaceReviewsRest = async () => {
 export const fetchGooglePlaceReviewsDirect = async () => {
   const { apiKey, placeId } = getConfig();
   if (!apiKey || !placeId) {
-    return null;
+    throw new Error("Missing Google Places env vars (REACT_APP_GOOGLE_PLACES_API_KEY / REACT_APP_GOOGLE_PLACE_ID)");
   }
 
   const google = await loadGoogleMapsPlacesSdk(apiKey);

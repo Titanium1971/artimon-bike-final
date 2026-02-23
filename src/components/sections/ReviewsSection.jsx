@@ -64,7 +64,7 @@ export const ReviewsSection = () => {
             const data = await response.json();
             setReviews(data.reviews || []);
             setRating(data.rating || BUSINESS_INFO.rating);
-            setTotalReviews(data.total_reviews || BUSINESS_INFO.reviewCount);
+            setTotalReviews(data.total_reviews || data.stats?.total_reviews || BUSINESS_INFO.reviewCount);
             if (data.google_url) {
               setGoogleReviewUrl(data.google_url);
             }
@@ -121,7 +121,7 @@ export const ReviewsSection = () => {
           {loading && <div className="mt-4 text-orange-500">Chargement des avis...</div>}
           {!loading && lastUpdated && (
             <div className="mt-3 text-xs text-gray-500">
-              Mis a jour {dataSource === "fallback" ? "locale" : "en direct"}: {lastUpdated.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
+              Mis a jour {dataSource === "fallback" ? "locale" : "en direct"}: {lastUpdated.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })} ({dataSource === "google-live" ? "source: Google live" : dataSource === "backend-live" ? "source: backend" : "source: locale"})
             </div>
           )}
         </div>
