@@ -4,7 +4,7 @@ import { API_URL, BUSINESS_INFO } from "../../constants";
 import { fetchGooglePlaceReviewsDirect, fetchGooglePlaceReviewsRest } from "../../services/googlePlacesService";
 
 export const ReviewsSection = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(BUSINESS_INFO.rating);
   const [totalReviews, setTotalReviews] = useState(BUSINESS_INFO.reviewCount);
@@ -73,7 +73,6 @@ export const ReviewsSection = () => {
           const response = await fetch(`${API_URL}/api/reviews`);
           if (response.ok) {
             const data = await response.json();
-            setReviews(data.reviews || []);
             setRating(data.rating || BUSINESS_INFO.rating);
             setTotalReviews(data.total_reviews || BUSINESS_INFO.reviewCount);
             if (data.google_url) {
@@ -93,6 +92,7 @@ export const ReviewsSection = () => {
         setGoogleReviewUrl(BUSINESS_INFO.googleReviewUrl);
         setRating(BUSINESS_INFO.rating);
         setTotalReviews(BUSINESS_INFO.reviewCount);
+        setReviews([]);
         setLastUpdated(new Date());
         console.warn("Dynamic review fetch failed: REST + SDK + backend.");
       }
@@ -112,6 +112,7 @@ export const ReviewsSection = () => {
   };
 
   const displayReviews = reviews.length > 0 ? [...reviews]
+    .filter((r) => Number(r.rating) === 5)
     .sort((a, b) => (b.time_value || 0) - (a.time_value || 0))
     .map((r, i) => ({
     name: r.author_name,
@@ -121,7 +122,7 @@ export const ReviewsSection = () => {
     text: r.text,
     type: r.rating >= 4 ? 'positive' : 'neutral',
     highlight: r.rating === 5 ? "Excellent !" : "Bon avis"
-  })) : t.reviews.reviewsList;
+  })) : [];
 
   return (
     <section className="py-24 bg-white" data-testid="reviews-section">
@@ -215,6 +216,13 @@ export const ReviewsSection = () => {
               </div>
             </div>
           ))}
+          {!loading && displayReviews.length === 0 && (
+            <div className="md:col-span-3 bg-gray-50 border border-gray-200 rounded-2xl p-6 text-center text-gray-600">
+              {language === "fr"
+                ? "Aucun avis Google 5 etoiles recent disponible pour le moment."
+                : "No recent 5-star Google reviews available at the moment."}
+            </div>
+          )}
         </div>
 
         <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-8 text-white">
