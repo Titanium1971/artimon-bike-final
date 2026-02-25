@@ -2,7 +2,7 @@ import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
 import { SEO_DATA, BUSINESS_INFO } from "../constants";
 import { CheckIcon } from "../icons";
-import { PricingSection, CTASection } from "../components/sections";
+import { PricingSection, CTASection, LocalAreasSection } from "../components/sections";
 
 const LocationPage = () => {
   const { t, language } = useLanguage();
@@ -35,6 +35,8 @@ const LocationPage = () => {
           </div>
         </div>
       </section>
+
+      <LocalAreasSection />
 
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
