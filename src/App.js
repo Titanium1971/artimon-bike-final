@@ -134,7 +134,10 @@ function App() {
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<ArticlePage />} />
               {/* Local SEO landing pages (FR) */}
-              <Route path="/location-velo-:slug" element={<LocationAreaPage />} />
+              <Route path="/location-velo-marseillan" element={<LocationAreaPage areaSlug="marseillan" />} />
+              <Route path="/location-velo-agde" element={<LocationAreaPage areaSlug="agde" />} />
+              <Route path="/location-velo-sete" element={<LocationAreaPage areaSlug="sete" />} />
+              <Route path="/location-velo-meze" element={<LocationAreaPage areaSlug="meze" />} />
               {/* English Routes (/en/*) */}
               <Route path="/en" element={<WithLang lang="en"><HomePage /></WithLang>} />
               <Route path="/en/" element={<WithLang lang="en"><HomePage /></WithLang>} />
@@ -148,7 +151,10 @@ function App() {
               <Route path="/en/blog" element={<WithLang lang="en"><BlogPage /></WithLang>} />
               <Route path="/en/blog/:slug" element={<WithLang lang="en"><ArticlePage /></WithLang>} />
               {/* Local SEO landing pages (EN) */}
-              <Route path="/en/bike-rental-:slug" element={<WithLang lang="en"><LocationAreaPage /></WithLang>} />
+              <Route path="/en/bike-rental-marseillan" element={<WithLang lang="en"><LocationAreaPage areaSlug="marseillan" /></WithLang>} />
+              <Route path="/en/bike-rental-agde" element={<WithLang lang="en"><LocationAreaPage areaSlug="agde" /></WithLang>} />
+              <Route path="/en/bike-rental-sete" element={<WithLang lang="en"><LocationAreaPage areaSlug="sete" /></WithLang>} />
+              <Route path="/en/bike-rental-meze" element={<WithLang lang="en"><LocationAreaPage areaSlug="meze" /></WithLang>} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
               <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
