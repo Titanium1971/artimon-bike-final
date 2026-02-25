@@ -319,10 +319,10 @@ export default function LocationAreaPage({ areaSlug }) {
   const contactUrl = isEnglishPath ? "/en/contact" : "/contact";
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white pt-20">
       <StructuredData areaKey={slug} lang={effectiveLang} />
 
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900">
           {data.h1}
         </h1>
