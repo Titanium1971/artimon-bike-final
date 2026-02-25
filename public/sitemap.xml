@@ -169,4 +169,34 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Pages locales SEO -->
+  <url>
+    <loc>https://www.artimonbike.com/location-velo-marseillan</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/location-velo-marseillan"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/bike-rental-marseillan"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.artimonbike.com/location-velo-agde</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/location-velo-agde"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/bike-rental-agde"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.artimonbike.com/location-velo-sete</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/location-velo-sete"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/bike-rental-sete"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.artimonbike.com/location-velo-meze</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/location-velo-meze"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/bike-rental-meze"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
