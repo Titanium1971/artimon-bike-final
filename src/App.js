@@ -3,7 +3,7 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 // Context & Layout
-import { LanguageProvider } from "./contexts/LanguageContext";
+import { LanguageProvider, useLanguage } from "./contexts/LanguageContext";
 import { Navigation } from "./components/layout/Navigation";
 import { Footer } from "./components/layout/Footer";
 import { CookieConsent } from "./components/ui/CookieConsent";
@@ -46,6 +46,16 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
+};
+
+
+// Force language for a route (used for /en/* paths)
+const WithLang = ({ lang, children }) => {
+  const { setLanguage } = useLanguage();
+  useEffect(() => {
+    setLanguage(lang);
+  }, [lang, setLanguage]);
+  return children;
 };
 
 // Main App
@@ -122,6 +132,17 @@ function App() {
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<ArticlePage />} />
+              {/* English Routes (/en/*) */}
+              <Route path="/en" element={<WithLang lang="en"><HomePage /></WithLang>} />
+              <Route path="/en/location" element={<WithLang lang="en"><LocationPage /></WithLang>} />
+              <Route path="/en/reparation" element={<WithLang lang="en"><ReparationPage /></WithLang>} />
+              <Route path="/en/vente" element={<WithLang lang="en"><VentePage /></WithLang>} />
+              <Route path="/en/parcours" element={<WithLang lang="en"><BikePathsPage /></WithLang>} />
+              <Route path="/en/tarifs" element={<WithLang lang="en"><TarifsPage /></WithLang>} />
+              <Route path="/en/contact" element={<WithLang lang="en"><ContactPage /></WithLang>} />
+              <Route path="/en/faq" element={<WithLang lang="en"><FAQPage /></WithLang>} />
+              <Route path="/en/blog" element={<WithLang lang="en"><BlogPage /></WithLang>} />
+              <Route path="/en/blog/:slug" element={<WithLang lang="en"><ArticlePage /></WithLang>} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
               <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
