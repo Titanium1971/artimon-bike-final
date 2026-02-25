@@ -42,6 +42,30 @@ const ReparationPage = () => {
           </div>
         </div>
       </section>
+      {language === "en" && (
+        <section className="py-12 bg-gray-50 border-y border-gray-100">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-gray-900">Professional bike repair service in Marseillan</h2>
+            <p className="mt-4 text-gray-700 leading-relaxed">
+              We repair everyday bikes, e-bikes and MTB models for local riders and visitors. Typical requests include
+              puncture repairs, brake adjustments, drivetrain tuning and full safety checks before long rides around
+              Etang de Thau.
+            </p>
+            <p className="mt-3 text-gray-700 leading-relaxed">
+              If your bike needs urgent maintenance during your trip, call us and we will prioritize quick diagnostics.
+              For larger repairs, we provide clear recommendations and realistic timelines.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a href="/en/contact" className="inline-flex items-center rounded-lg bg-orange-600 px-4 py-2 text-white font-semibold hover:bg-orange-700 transition">
+                Request a repair
+              </a>
+              <a href="/en/location" className="inline-flex items-center rounded-lg border border-orange-600 px-4 py-2 text-orange-700 font-semibold hover:bg-orange-50 transition">
+                Need a rental bike?
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
       <CTASection />
       <ContactSection />
     </div>
