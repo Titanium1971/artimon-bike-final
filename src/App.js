@@ -22,6 +22,7 @@ const ArticlePage = lazy(() => import("./pages/ArticlePage"));
 const AdminPage = lazy(() => import("./pages/AdminPage"));
 const MentionsLegalesPage = lazy(() => import("./pages/MentionsLegalesPage"));
 const PolitiqueConfidentialitePage = lazy(() => import("./pages/PolitiqueConfidentialitePage"));
+const LocationAreaPage = lazy(() => import("./pages/LocationAreaPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const GoogleAnalytics = lazy(() => import("./components/GoogleAnalytics"));
 
@@ -132,8 +133,11 @@ function App() {
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<ArticlePage />} />
+              {/* Local SEO landing pages (FR) */}
+              <Route path="/location-velo-:slug" element={<LocationAreaPage />} />
               {/* English Routes (/en/*) */}
               <Route path="/en" element={<WithLang lang="en"><HomePage /></WithLang>} />
+              <Route path="/en/" element={<WithLang lang="en"><HomePage /></WithLang>} />
               <Route path="/en/location" element={<WithLang lang="en"><LocationPage /></WithLang>} />
               <Route path="/en/reparation" element={<WithLang lang="en"><ReparationPage /></WithLang>} />
               <Route path="/en/vente" element={<WithLang lang="en"><VentePage /></WithLang>} />
@@ -143,6 +147,8 @@ function App() {
               <Route path="/en/faq" element={<WithLang lang="en"><FAQPage /></WithLang>} />
               <Route path="/en/blog" element={<WithLang lang="en"><BlogPage /></WithLang>} />
               <Route path="/en/blog/:slug" element={<WithLang lang="en"><ArticlePage /></WithLang>} />
+              {/* Local SEO landing pages (EN) */}
+              <Route path="/en/bike-rental-:slug" element={<WithLang lang="en"><LocationAreaPage /></WithLang>} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
               <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
