@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.artimonbike.com/en/bike-rental-marseillan</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/location-velo-marseillan"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/bike-rental-marseillan"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.artimonbike.com/en/bike-rental-agde</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/location-velo-agde"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/bike-rental-agde"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.artimonbike.com/en/bike-rental-sete</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/location-velo-sete"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/bike-rental-sete"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.artimonbike.com/en/bike-rental-meze</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.artimonbike.com/location-velo-meze"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.artimonbike.com/en/bike-rental-meze"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

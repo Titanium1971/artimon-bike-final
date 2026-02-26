@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useParams, useLocation, Navigate } from "react-router-dom";
+import { useParams, useLocation, Navigate, Link } from "react-router-dom";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
 
@@ -19,6 +19,20 @@ import { useSEO } from "../hooks/useSEO";
  */
 
 const SITE = "https://www.artimonbike.com";
+const AREA_PATHS = {
+  fr: {
+    marseillan: "/location-velo-marseillan",
+    agde: "/location-velo-agde",
+    sete: "/location-velo-sete",
+    meze: "/location-velo-meze"
+  },
+  en: {
+    marseillan: "/en/bike-rental-marseillan",
+    agde: "/en/bike-rental-agde",
+    sete: "/en/bike-rental-sete",
+    meze: "/en/bike-rental-meze"
+  }
+};
 
 const AREAS = {
   marseillan: {
@@ -289,7 +303,7 @@ function StructuredData({ areaKey, lang }) {
 
 export default function LocationAreaPage({ areaSlug }) {
   const { slug: slugFromParams } = useParams();
-  const { language } = useLanguage();
+  const { setLanguage } = useLanguage();
   const location = useLocation();
 
   const isEnglishPath = location.pathname.startsWith("/en/");
@@ -317,12 +331,35 @@ export default function LocationAreaPage({ areaSlug }) {
 
   const pricingUrl = isEnglishPath ? "/en/tarifs" : "/tarifs";
   const contactUrl = isEnglishPath ? "/en/contact" : "/contact";
+  const frUrl = AREA_PATHS.fr[slug];
+  const enUrl = AREA_PATHS.en[slug];
 
   return (
     <main className="min-h-screen bg-white pt-20">
       <StructuredData areaKey={slug} lang={effectiveLang} />
 
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
+        <div className="mb-5 inline-flex items-center rounded-lg border border-gray-200 bg-white p-1 text-sm font-semibold">
+          <Link
+            to={frUrl}
+            onClick={() => setLanguage("fr")}
+            className={`rounded-md px-3 py-1.5 transition ${
+              !isEnglishPath ? "bg-orange-600 text-white" : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            FR
+          </Link>
+          <Link
+            to={enUrl}
+            onClick={() => setLanguage("en")}
+            className={`rounded-md px-3 py-1.5 transition ${
+              isEnglishPath ? "bg-orange-600 text-white" : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            EN
+          </Link>
+        </div>
+
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900">
           {data.h1}
         </h1>
