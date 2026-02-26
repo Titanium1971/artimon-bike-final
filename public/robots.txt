@@ -8,7 +8,7 @@ Disallow: /admin
 Disallow: /*.json$
 
 # Permettre l'accès au sitemap
-Allow: /sitemap.xml
+Allow: /api/sitemap.xml
 
 # Crawl-delay pour les bots agressifs
 User-agent: AhrefsBot
@@ -26,8 +26,8 @@ Disallow: /
 User-agent: BLEXBot
 Disallow: /
 
-# Sitemap principal
-Sitemap: https://www.artimonbike.com/sitemap.xml
+# Sitemaps
+Sitemap: https://www.artimonbike.com/api/sitemap.xml
 
 # Host canonique
 Host: https://www.artimonbike.com
