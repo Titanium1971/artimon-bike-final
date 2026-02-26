@@ -8,4 +8,3 @@ export { ReviewsSection } from './ReviewsSection';
 export { ContactSection } from './ContactSection';
 export { CTASection } from './CTASection';
 export { PartnersSection } from './PartnersSection';
-export { LocalAreasSection } from './LocalAreasSection';
