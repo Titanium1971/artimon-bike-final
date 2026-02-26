@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
 import { SEO_DATA } from "../constants";
@@ -11,6 +12,35 @@ const FAQPage = () => {
     keywords: SEO_DATA.faq[language].keywords,
     canonical: "https://www.artimonbike.com/faq"
   });
+
+  const faqSchema = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: (t.faq.questions || []).map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a
+      }
+    }))
+  }), [t.faq.questions]);
+
+  useEffect(() => {
+    const scriptId = "faq-jsonld";
+    let script = document.getElementById(scriptId);
+    if (!script) {
+      script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.id = scriptId;
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(faqSchema);
+    return () => {
+      const current = document.getElementById(scriptId);
+      if (current) current.remove();
+    };
+  }, [faqSchema]);
 
   return (
     <div className="pt-20">
