@@ -56,33 +56,6 @@ const HomePage = () => {
       <CitiesSection />
       <LocalAreasSection />
       <ServicesSection />
-      {language === "en" && (
-        <section className="py-16 bg-white">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900">
-              Bike rental around Etang de Thau: local service from Marseillan
-            </h2>
-            <p className="mt-4 text-gray-700 leading-relaxed">
-              Artimon Bike provides bike rental, repair and sales in Marseillan, with easy access to Agde,
-              Sete and Meze. We help visitors and local riders choose the right bike for lagoon routes,
-              beaches, canals and family rides. Our fleet includes e-bikes, hybrid bikes and MTB options,
-              with practical equipment for safe day trips.
-            </p>
-            <p className="mt-3 text-gray-700 leading-relaxed">
-              If you are planning a short ride or a full-day loop, start with our local rental page and route
-              recommendations. You can also check pricing and contact us directly for availability and route advice.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href="/en/location" className="inline-flex items-center rounded-lg bg-orange-600 px-4 py-2 text-white font-semibold hover:bg-orange-700 transition">
-                Bike rental in Marseillan
-              </a>
-              <a href="/en/parcours" className="inline-flex items-center rounded-lg border border-orange-600 px-4 py-2 text-orange-700 font-semibold hover:bg-orange-50 transition">
-                Bike routes around Etang de Thau
-              </a>
-            </div>
-          </div>
-        </section>
-      )}
       {showDeferredSections ? (
         <Suspense
           fallback={

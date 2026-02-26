@@ -22,30 +22,6 @@ const FAQPage = () => {
           </div>
         </div>
       </section>
-      {language === "en" && (
-        <section className="py-12 bg-white border-b border-gray-100">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-gray-900">Frequently asked questions about bike hire in Marseillan</h2>
-            <p className="mt-4 text-gray-700 leading-relaxed">
-              This FAQ helps visitors plan bike rental around Marseillan, Agde, Sete and Meze. We cover practical
-              topics such as required documents, included equipment, booking timing, puncture support and route tips.
-              If you are visiting the region for a short stay, we recommend booking in advance during high season.
-            </p>
-            <p className="mt-3 text-gray-700 leading-relaxed">
-              For specific requests (family setup, electric range, custom itinerary), contact our team directly and
-              we will suggest the most suitable option for your trip.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <a href="/en/contact" className="inline-flex items-center rounded-lg bg-orange-600 px-4 py-2 text-white font-semibold hover:bg-orange-700 transition">
-                Contact us
-              </a>
-              <a href="/en/location" className="inline-flex items-center rounded-lg border border-orange-600 px-4 py-2 text-orange-700 font-semibold hover:bg-orange-50 transition">
-                See bike rental options
-              </a>
-            </div>
-          </div>
-        </section>
-      )}
       <FAQSection showFull />
       <CTASection />
     </div>

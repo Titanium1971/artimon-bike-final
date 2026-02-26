@@ -38,31 +38,6 @@ const LocationPage = () => {
 
       <LocalAreasSection />
 
-      {language === "en" && (
-        <section className="py-12 bg-gray-50 border-y border-gray-100">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-gray-900">Bike hire in Marseillan, Agde, Sete and Meze</h2>
-            <p className="mt-4 text-gray-700 leading-relaxed">
-              Our rental service is designed for travelers who want to explore the best cycling routes around
-              Etang de Thau. You can choose an e-bike for longer rides, a hybrid bike for mixed roads, or an MTB
-              for more sportive routes. We provide practical advice depending on weather, distance and family needs.
-            </p>
-            <p className="mt-3 text-gray-700 leading-relaxed">
-              Most customers combine city and seaside rides in one day. If you need help choosing the best setup,
-              contact us before booking and we will recommend a route and bike category adapted to your level.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <a href="/en/tarifs" className="inline-flex items-center rounded-lg bg-orange-600 px-4 py-2 text-white font-semibold hover:bg-orange-700 transition">
-                See rental prices
-              </a>
-              <a href="/en/contact" className="inline-flex items-center rounded-lg border border-orange-600 px-4 py-2 text-orange-700 font-semibold hover:bg-orange-50 transition">
-                Contact Artimon Bike
-              </a>
-            </div>
-          </div>
-        </section>
-      )}
-
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
