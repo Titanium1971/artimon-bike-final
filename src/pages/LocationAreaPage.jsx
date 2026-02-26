@@ -287,8 +287,8 @@ function StructuredData({ areaKey, lang }) {
   );
 }
 
-export default function LocationAreaPage({ areaSlug }) {
-  const { slug: slugFromParams } = useParams();
+export default function LocationAreaPage() {
+  const { slug } = useParams();
   const { language } = useLanguage();
   const location = useLocation();
 
@@ -299,7 +299,6 @@ export default function LocationAreaPage({ areaSlug }) {
   // If you already enforce language in routes, this is harmless.
   const effectiveLang = lang;
 
-  const slug = areaSlug || slugFromParams;
   const data = useMemo(() => AREAS[slug]?.[effectiveLang], [slug, effectiveLang]);
 
   if (!data) {
