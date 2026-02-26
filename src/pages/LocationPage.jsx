@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
 import { SEO_DATA, BUSINESS_INFO } from "../constants";
@@ -24,6 +25,67 @@ const LocationPage = () => {
       tandem: "https://images.pexels.com/photos/17169173/pexels-photo-17169173.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     }[key]
   }));
+
+  const productSchema = useMemo(() => {
+    const baseUrl = language === "en" ? "https://www.artimonbike.com/en/location" : "https://www.artimonbike.com/location";
+    const parsePrice = (value) => {
+      const normalized = String(value || "").replace(",", ".").match(/[0-9]+(?:\.[0-9]+)?/);
+      return normalized ? normalized[0] : "0";
+    };
+
+    return {
+      "@context": "https://schema.org",
+      "@graph": bikes.map((bike) => ({
+        "@type": "Product",
+        name: bike.name,
+        image: [bike.image],
+        description: bike.features?.join(", "),
+        brand: {
+          "@type": "Brand",
+          name: "Artimon Bike"
+        },
+        category: language === "en" ? "Bike rental" : "Location de vélo",
+        sku: bike.name.toLowerCase().replace(/\s+/g, "-"),
+        offers: {
+          "@type": "Offer",
+          url: baseUrl,
+          priceCurrency: "EUR",
+          price: parsePrice(bike.price),
+          availability: "https://schema.org/InStock",
+          eligibleRegion: {
+            "@type": "Country",
+            name: "FR"
+          },
+          seller: {
+            "@type": "LocalBusiness",
+            name: "Artimon Bike"
+          }
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: String(BUSINESS_INFO.rating),
+          reviewCount: String(BUSINESS_INFO.reviewCount)
+        }
+      }))
+    };
+  }, [bikes, language]);
+
+  useEffect(() => {
+    const scriptId = "location-products-jsonld";
+    let script = document.getElementById(scriptId);
+    if (!script) {
+      script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.id = scriptId;
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(productSchema);
+
+    return () => {
+      const current = document.getElementById(scriptId);
+      if (current) current.remove();
+    };
+  }, [productSchema]);
 
   return (
     <div className="pt-20">
