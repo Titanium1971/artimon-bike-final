@@ -3,7 +3,7 @@ import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
 import { SEO_DATA } from "../constants";
 import {
-  HeroSection, CitiesSection, LocalAreasSection, ServicesSection
+  HeroSection, CitiesSection, ServicesSection
 } from "../components/sections";
 
 const PricingSection = lazy(() => import("../components/sections/PricingSection").then((module) => ({ default: module.PricingSection })));
@@ -54,7 +54,6 @@ const HomePage = () => {
     <>
       <HeroSection />
       <CitiesSection />
-      <LocalAreasSection />
       <ServicesSection />
       {showDeferredSections ? (
         <Suspense
