@@ -71,11 +71,6 @@ export const LocalAreasSection = () => {
           })}
         </ul>
 
-        <div className="mt-6 text-sm text-gray-500">
-          {language === "fr"
-            ? "Astuce : ces liens internes aident Google à découvrir et indexer vos pages locales."
-            : "Tip: internal links help Google discover and index local pages."}
-        </div>
       </div>
     </section>
   );
