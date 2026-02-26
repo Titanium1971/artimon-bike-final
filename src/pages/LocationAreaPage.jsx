@@ -367,6 +367,11 @@ export default function LocationAreaPage({ areaSlug }) {
           ))}
         </div>
 
+        <div className="mt-12 text-sm text-gray-500">
+          {effectiveLang === "fr"
+            ? "Astuce SEO : ces pages locales améliorent votre visibilité sur les recherches 'location vélo + ville'."
+            : "SEO tip: local pages help you rank for 'bike rental + city' searches."}
+        </div>
       </section>
     </main>
   );
