@@ -49,6 +49,18 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Keep language aligned with route prefix to avoid mixed FR/EN schema/content on same URL.
+const RouteLanguageSync = () => {
+  const { pathname } = useLocation();
+  const { setLanguage } = useLanguage();
+
+  useEffect(() => {
+    setLanguage(pathname.startsWith("/en") ? "en" : "fr");
+  }, [pathname, setLanguage]);
+
+  return null;
+};
+
 
 // Force language for a route (used for /en/* paths)
 const WithLang = ({ lang, children }) => {
@@ -114,6 +126,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <ScrollToTop />
+          <RouteLanguageSync />
           <RedirectHandler />
           <Suspense fallback={null}>
             {gaEnabled && <GoogleAnalytics />}
