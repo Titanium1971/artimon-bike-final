@@ -51,6 +51,7 @@ const LocationPage = () => {
           url: baseUrl,
           priceCurrency: "EUR",
           price: parsePrice(bike.price),
+          priceValidUntil: `${new Date().getFullYear() + 1}-12-31`,
           availability: "https://schema.org/InStock",
           eligibleRegion: {
             "@type": "Country",
