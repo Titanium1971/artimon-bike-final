@@ -27,7 +27,7 @@ User-agent: BLEXBot
 Disallow: /
 
 # Sitemaps
-Sitemap: https://www.artimonbike.com/api/sitemap.xml
+Sitemap: https://www.artimonbike.com/sitemap.xml
 Sitemap: https://www.artimonbike.com/sitemap-local-en.xml
 
 # Host canonique
