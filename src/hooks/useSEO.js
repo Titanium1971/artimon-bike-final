@@ -29,10 +29,45 @@ export const useSEO = ({ title, description, canonical, keywords }) => {
     const origin = window.location.origin;
     const pathname = window.location.pathname; // already excludes query/hash
     const currentCanonical = `${origin}${pathname}`;
+    const localAreaToEn = {
+      "/location-velo-marseillan": "/en/bike-rental-marseillan",
+      "/location-velo-agde": "/en/bike-rental-agde",
+      "/location-velo-sete": "/en/bike-rental-sete",
+      "/location-velo-meze": "/en/bike-rental-meze"
+    };
+    const localAreaToFr = Object.fromEntries(
+      Object.entries(localAreaToEn).map(([frPath, enPath]) => [enPath, frPath])
+    );
 
     // If we are on an EN route, force canonical to the EN URL.
     const resolvedCanonical =
       pathname.startsWith('/en') ? currentCanonical : (canonical || currentCanonical);
+
+    // Compute FR/EN alternates to help Google index each language URL correctly.
+    let frPath = pathname;
+    let enPath = pathname;
+    if (pathname in localAreaToEn) {
+      frPath = pathname;
+      enPath = localAreaToEn[pathname];
+    } else if (pathname in localAreaToFr) {
+      frPath = localAreaToFr[pathname];
+      enPath = pathname;
+    } else if (pathname === "/en" || pathname === "/en/") {
+      frPath = "/";
+      enPath = "/en/";
+    } else if (pathname.startsWith('/en/')) {
+      frPath = pathname.replace(/^\/en/, '') || "/";
+      enPath = pathname;
+    } else {
+      frPath = pathname || "/";
+      enPath = pathname === "/" ? "/en/" : `/en${pathname}`;
+    }
+
+    const alternates = [
+      { hreflang: "fr", href: `${origin}${frPath}` },
+      { hreflang: "en", href: `${origin}${enPath}` },
+      { hreflang: "x-default", href: `${origin}${frPath}` }
+    ];
 
     // OpenGraph
     let ogTitle = document.querySelector('meta[property="og:title"]');
@@ -58,5 +93,19 @@ export const useSEO = ({ title, description, canonical, keywords }) => {
       document.head.appendChild(canonicalLink);
     }
     canonicalLink.setAttribute('href', resolvedCanonical);
+
+    // Alternate hreflang links (managed by script to avoid duplicates)
+    document
+      .querySelectorAll('link[rel="alternate"][data-seo-managed="true"]')
+      .forEach((node) => node.remove());
+
+    alternates.forEach(({ hreflang, href }) => {
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', hreflang);
+      link.setAttribute('href', href);
+      link.setAttribute('data-seo-managed', 'true');
+      document.head.appendChild(link);
+    });
   }, [title, description, canonical, keywords]);
 };
