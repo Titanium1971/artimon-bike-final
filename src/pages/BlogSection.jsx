@@ -5,6 +5,7 @@ import { API_URL, FALLBACK_BLOG_ARTICLES } from "../constants";
 
 const BlogSection = () => {
   const { language } = useLanguage();
+  const blogBasePath = language === "en" ? "/en/blog" : "/blog";
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -56,7 +57,7 @@ const BlogSection = () => {
           {articles.map((article) => (
             <Link 
               key={article.id}
-              to={`/blog/${article.slug}`}
+              to={`${blogBasePath}/${article.slug}`}
               className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow group"
             >
               <div className="aspect-video overflow-hidden">
@@ -74,7 +75,7 @@ const BlogSection = () => {
                 <div className="flex items-center gap-2 text-sm text-orange-500 mb-3">
                   <span>{article.category}</span>
                   <span>•</span>
-                  <span>{new Date(article.created_at).toLocaleDateString('fr-FR')}</span>
+                  <span>{new Date(article.created_at).toLocaleDateString(language === "en" ? "en-US" : "fr-FR")}</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-500 transition-colors line-clamp-2">
                   {article.title}
@@ -87,7 +88,7 @@ const BlogSection = () => {
 
         <div className="text-center mt-12">
           <Link 
-            to="/blog"
+            to={blogBasePath}
             className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transition-colors"
           >
             {language === 'fr' ? 'Voir tous les articles' : 'View all articles'}

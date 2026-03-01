@@ -6,7 +6,7 @@ import { PhoneIcon, MenuIcon, CloseIcon, WhatsAppIcon } from "../../icons";
 import { LanguageSwitcher } from "../ui/LanguageSwitcher";
 
 export const Navigation = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -27,15 +27,16 @@ export const Navigation = () => {
 
   useEffect(() => { setIsMobileMenuOpen(false); }, [location]);
 
+  const prefix = language === "en" ? "/en" : "";
   const navLinks = [
-    { name: t.nav.home, path: "/" },
-    { name: t.nav.rental, path: "/location" },
-    { name: t.nav.repair, path: "/reparation" },
-    { name: t.nav.sale, path: "/vente" },
-    { name: t.nav.routes, path: "/parcours" },
-    { name: t.nav.prices, path: "/tarifs" },
-    { name: t.nav.blog, path: "/blog" },
-    { name: t.nav.contact, path: "/contact" },
+    { name: t.nav.home, path: language === "en" ? "/en/" : "/" },
+    { name: t.nav.rental, path: `${prefix}/location` },
+    { name: t.nav.repair, path: `${prefix}/reparation` },
+    { name: t.nav.sale, path: `${prefix}/vente` },
+    { name: t.nav.routes, path: `${prefix}/parcours` },
+    { name: t.nav.prices, path: `${prefix}/tarifs` },
+    { name: t.nav.blog, path: `${prefix}/blog` },
+    { name: t.nav.contact, path: `${prefix}/contact` },
   ];
 
   const handleLogoClick = (e) => {

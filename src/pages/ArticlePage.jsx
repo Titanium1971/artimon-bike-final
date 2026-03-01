@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
 import { API_URL, FALLBACK_BLOG_ARTICLES } from "../constants";
@@ -76,10 +76,12 @@ const ArticlePage = () => {
   const { slug } = useParams();
   const { language } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
   const [article, setArticle] = useState(null);
   const [allArticles, setAllArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const blogBasePath = language === "en" ? "/en/blog" : "/blog";
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -148,14 +150,14 @@ const ArticlePage = () => {
 
     const translatedArticle = findTranslatedArticle(article, allArticles, language);
     if (translatedArticle?.slug && translatedArticle.slug !== slug) {
-      navigate(`/blog/${translatedArticle.slug}`, { replace: true });
+      navigate(`${blogBasePath}/${translatedArticle.slug}`, { replace: true });
     }
-  }, [article, allArticles, language, navigate, slug]);
+  }, [article, allArticles, language, navigate, slug, blogBasePath]);
 
   useSEO({
     title: article ? `${article.title} | Artimon Bike` : "Article | Artimon Bike",
     description: article?.excerpt || "",
-    canonical: `https://www.artimonbike.com/blog/${slug}`
+    canonical: `https://www.artimonbike.com${location.pathname}`
   });
 
   if (loading) {
@@ -178,7 +180,7 @@ const ArticlePage = () => {
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             {language === "fr" ? "Article non trouvé" : "Article not found"}
           </h1>
-          <Link to="/blog" className="text-orange-500 hover:underline">
+          <Link to={blogBasePath} className="text-orange-500 hover:underline">
             {language === "fr" ? "Retour au blog" : "Back to blog"}
           </Link>
         </div>
@@ -286,7 +288,7 @@ const ArticlePage = () => {
             {/* Back to Blog */}
             <div className="mt-8 pt-8 border-t border-gray-200">
               <Link 
-                to="/blog"
+                to={blogBasePath}
                 className="inline-flex items-center gap-2 text-orange-500 hover:text-orange-600 font-medium"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

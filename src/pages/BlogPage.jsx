@@ -7,6 +7,7 @@ import { CTASection } from "../components/sections";
 
 const BlogPage = () => {
   const { language } = useLanguage();
+  const blogBasePath = language === "en" ? "/en/blog" : "/blog";
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -78,7 +79,7 @@ const BlogPage = () => {
               {articles.map((article) => (
                 <Link 
                   key={article.id}
-                  to={`/blog/${article.slug}`}
+                  to={`${blogBasePath}/${article.slug}`}
                   className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow group"
                 >
                   <div className="aspect-video overflow-hidden">
@@ -96,7 +97,7 @@ const BlogPage = () => {
                     <div className="flex items-center gap-2 text-sm text-orange-500 mb-3">
                       <span>{article.category}</span>
                       <span>•</span>
-                      <span>{new Date(article.created_at).toLocaleDateString('fr-FR')}</span>
+                      <span>{new Date(article.created_at).toLocaleDateString(language === "en" ? "en-US" : "fr-FR")}</span>
                     </div>
                     <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-500 transition-colors line-clamp-2">
                       {article.title}
