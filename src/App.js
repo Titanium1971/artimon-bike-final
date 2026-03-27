@@ -23,6 +23,7 @@ const AdminPage = lazy(() => import("./pages/AdminPage"));
 const MentionsLegalesPage = lazy(() => import("./pages/MentionsLegalesPage"));
 const PolitiqueConfidentialitePage = lazy(() => import("./pages/PolitiqueConfidentialitePage"));
 const LocationAreaPage = lazy(() => import("./pages/LocationAreaPage"));
+const BikeDetailPage = lazy(() => import("./pages/BikeDetailPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const GoogleAnalytics = lazy(() => import("./components/GoogleAnalytics"));
 
@@ -140,6 +141,7 @@ function App() {
               <Route path="/location" element={<LocationPage />} />
               <Route path="/reparation" element={<ReparationPage />} />
               <Route path="/vente" element={<VentePage />} />
+              <Route path="/vente/:slug" element={<BikeDetailPage />} />
               <Route path="/parcours" element={<BikePathsPage />} />
               <Route path="/tarifs" element={<TarifsPage />} />
               <Route path="/contact" element={<ContactPage />} />
@@ -157,6 +159,7 @@ function App() {
               <Route path="/en/location" element={<WithLang lang="en"><LocationPage /></WithLang>} />
               <Route path="/en/reparation" element={<WithLang lang="en"><ReparationPage /></WithLang>} />
               <Route path="/en/vente" element={<WithLang lang="en"><VentePage /></WithLang>} />
+              <Route path="/en/vente/:slug" element={<WithLang lang="en"><BikeDetailPage /></WithLang>} />
               <Route path="/en/parcours" element={<WithLang lang="en"><BikePathsPage /></WithLang>} />
               <Route path="/en/tarifs" element={<WithLang lang="en"><TarifsPage /></WithLang>} />
               <Route path="/en/contact" element={<WithLang lang="en"><ContactPage /></WithLang>} />
