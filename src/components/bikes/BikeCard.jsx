@@ -11,7 +11,7 @@ const BikeCard = ({ bike, stockInfo }) => {
       className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col"
     >
       {/* Image */}
-      <div className="relative overflow-hidden aspect-[4/3] bg-gray-100">
+      <div className="relative overflow-hidden aspect-[4/3] bg-white">
         <img
           src={bike.images[0]}
           alt={bike.name[language]}
