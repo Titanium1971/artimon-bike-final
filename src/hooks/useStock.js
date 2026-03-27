@@ -1,39 +1,13 @@
-import { useState, useEffect } from "react";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://artimon-backend.onrender.com";
-
+/**
+ * Stock hook — désactivé temporairement.
+ * L'API eWheel ne fournit pas encore le stock réel.
+ * Retourne toujours inStock: true (données statiques de bikes.js).
+ * TODO: réactiver quand eWheel aura l'endpoint stock.
+ */
 export function useStock() {
-  const [stockData, setStockData] = useState({});
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchStock() {
-      try {
-        const res = await fetch(`${BACKEND_URL}/api/stock`);
-        if (res.ok) {
-          const data = await res.json();
-          const stockMap = {};
-          for (const bike of data.data || []) {
-            stockMap[bike.reference] = {
-              inStock: bike.inStock,
-              stock: bike.stock,
-            };
-          }
-          setStockData(stockMap);
-        }
-      } catch (e) {
-        console.warn("Stock API unavailable, using defaults");
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchStock();
-  }, []);
-
-  const getStock = (reference) => {
-    if (stockData[reference]) return stockData[reference];
-    return { inStock: true, stock: -1 }; // fallback
+  const getStock = () => {
+    return { inStock: true, stock: -1 };
   };
 
-  return { getStock, loading };
+  return { getStock, loading: false };
 }
