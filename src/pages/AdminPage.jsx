@@ -33,6 +33,11 @@ const TabIcons = {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.28 3.939a1 1 0 00.95.69h4.14c.969 0 1.371 1.24.588 1.81l-3.35 2.433a1 1 0 00-.364 1.118l1.28 3.939c.3.921-.755 1.688-1.539 1.118l-3.35-2.433a1 1 0 00-1.176 0l-3.35 2.433c-.783.57-1.838-.197-1.539-1.118l1.28-3.939a1 1 0 00-.364-1.118L2.98 9.366c-.783-.57-.38-1.81.588-1.81h4.14a1 1 0 00.95-.69l1.39-3.939z" />
     </svg>
   ),
+  usedBikes: (
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
 };
 
 // Simple Bar Chart Component
@@ -743,6 +748,282 @@ const MessagesTab = ({ messages, authHeader, onRefresh, readMessages, onMarkAsRe
 // Helper function to generate unique message ID
 const getMessageId = (msg) => `${msg.email}_${msg.created_at}`;
 
+// ==================== USED BIKES TAB ====================
+const BIKE_TYPES = ["vtt", "urbain", "vtc", "fatbike", "enfant"];
+const CONDITIONS = ["excellent", "bon", "correct"];
+
+const emptyUsedBikeForm = {
+  title: "", description: "", price: "", original_price: "", brand: "",
+  bike_type: "vtt", condition: "bon", year: "", size: "", electric: false,
+  featured: false, image_url: "",
+};
+
+const UsedBikesTab = ({ usedBikes, authHeader, onRefresh }) => {
+  const [editingBike, setEditingBike] = useState(null);
+  const [formData, setFormData] = useState({ ...emptyUsedBikeForm });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [uploading, setUploading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const bikeData = {
+      ...formData,
+      price: parseFloat(formData.price) || 0,
+      original_price: formData.original_price ? parseFloat(formData.original_price) : null,
+      year: formData.year ? parseInt(formData.year, 10) : null,
+      size: formData.size || null,
+    };
+
+    try {
+      const url = editingBike
+        ? `${API_URL}/api/used-bikes/${editingBike.id}`
+        : `${API_URL}/api/used-bikes`;
+      const method = editingBike ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          Authorization: authHeader,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bikeData),
+      });
+
+      if (response.ok) {
+        cancelEdit();
+        onRefresh();
+      } else {
+        let err;
+        try { err = await response.json(); } catch { err = {}; }
+        setError(err.detail || "Erreur lors de la sauvegarde");
+      }
+    } catch {
+      setError("Erreur de connexion");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (bikeId) => {
+    if (!window.confirm("Supprimer ce vélo ?")) return;
+    try {
+      const response = await fetch(`${API_URL}/api/used-bikes/${bikeId}`, {
+        method: "DELETE",
+        headers: { Authorization: authHeader },
+      });
+      if (response.ok) onRefresh();
+    } catch {
+      console.error("Error deleting used bike");
+    }
+  };
+
+  const handleToggleSold = async (bikeId) => {
+    try {
+      const response = await fetch(`${API_URL}/api/used-bikes/${bikeId}/sold`, {
+        method: "PATCH",
+        headers: { Authorization: authHeader },
+      });
+      if (response.ok) onRefresh();
+    } catch {
+      console.error("Error toggling sold status");
+    }
+  };
+
+  const handleImageUpload = async (bikeId, file) => {
+    if (!file) return;
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const response = await fetch(`${API_URL}/api/used-bikes/${bikeId}/image`, {
+        method: "POST",
+        headers: { Authorization: authHeader },
+        body: fd,
+      });
+      if (response.ok) onRefresh();
+    } catch {
+      console.error("Error uploading image");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const startEdit = (bike) => {
+    setEditingBike(bike);
+    setFormData({
+      title: bike.title || "",
+      description: bike.description || "",
+      price: bike.price?.toString() || "",
+      original_price: bike.original_price?.toString() || "",
+      brand: bike.brand || "",
+      bike_type: bike.bike_type || "vtt",
+      condition: bike.condition || "bon",
+      year: bike.year?.toString() || "",
+      size: bike.size || "",
+      electric: bike.electric || false,
+      featured: bike.featured || false,
+      image_url: bike.image_url || "",
+    });
+  };
+
+  const cancelEdit = () => {
+    setEditingBike(null);
+    setFormData({ ...emptyUsedBikeForm });
+    setError("");
+  };
+
+  const inputClass = "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500";
+
+  return (
+    <div className="grid lg:grid-cols-2 gap-6">
+      {/* Form */}
+      <div className="bg-white rounded-xl p-6 shadow-sm">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">
+          {editingBike ? "Modifier le vélo" : "Ajouter un vélo d'occasion"}
+        </h2>
+        {error && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">{error}</div>}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Titre</label>
+            <input type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className={inputClass} placeholder="VTT Rockrider E-ST 520" required />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} rows={3} className={inputClass} placeholder="État, historique, équipements..." required />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Prix (€)</label>
+              <input type="number" step="0.01" min="0" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} className={inputClass} required />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Prix neuf (€)</label>
+              <input type="number" step="0.01" min="0" value={formData.original_price} onChange={(e) => setFormData({ ...formData, original_price: e.target.value })} className={inputClass} placeholder="Optionnel" />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Marque</label>
+              <input type="text" value={formData.brand} onChange={(e) => setFormData({ ...formData, brand: e.target.value })} className={inputClass} placeholder="Rockrider, Trek..." required />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+              <select value={formData.bike_type} onChange={(e) => setFormData({ ...formData, bike_type: e.target.value })} className={inputClass}>
+                {BIKE_TYPES.map((bt) => (
+                  <option key={bt} value={bt}>{bt.charAt(0).toUpperCase() + bt.slice(1)}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">État</label>
+              <select value={formData.condition} onChange={(e) => setFormData({ ...formData, condition: e.target.value })} className={inputClass}>
+                {CONDITIONS.map((c) => (
+                  <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Année</label>
+              <input type="number" min="2000" max="2030" value={formData.year} onChange={(e) => setFormData({ ...formData, year: e.target.value })} className={inputClass} placeholder="2023" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Taille</label>
+              <input type="text" value={formData.size} onChange={(e) => setFormData({ ...formData, size: e.target.value })} className={inputClass} placeholder="M, L, XL" />
+            </div>
+          </div>
+          <div className="flex items-center gap-6">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" checked={formData.electric} onChange={(e) => setFormData({ ...formData, electric: e.target.checked })} className="w-4 h-4 text-orange-500 rounded focus:ring-orange-500" />
+              <span className="text-sm text-gray-700">Électrique</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" checked={formData.featured} onChange={(e) => setFormData({ ...formData, featured: e.target.checked })} className="w-4 h-4 text-orange-500 rounded focus:ring-orange-500" />
+              <span className="text-sm text-gray-700">Mis en avant</span>
+            </label>
+          </div>
+          <div className="flex gap-4">
+            <button type="submit" disabled={loading} className="flex-1 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors disabled:opacity-50">
+              {loading ? "..." : editingBike ? "Mettre à jour" : "Ajouter le vélo"}
+            </button>
+            {editingBike && (
+              <button type="button" onClick={cancelEdit} className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">Annuler</button>
+            )}
+          </div>
+        </form>
+      </div>
+
+      {/* List */}
+      <div className="bg-white rounded-xl p-6 shadow-sm">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">
+          Vélos d'occasion ({usedBikes.length})
+          <span className="text-sm font-normal text-gray-400 ml-2">y compris vendus</span>
+        </h2>
+        <div className="space-y-3 max-h-[700px] overflow-y-auto">
+          {usedBikes.map((bike) => (
+            <div key={bike.id} className={`border rounded-lg p-4 hover:border-orange-300 transition-colors ${bike.sold ? "border-red-200 bg-red-50/50" : "border-gray-200"}`}>
+              <div className="flex gap-3">
+                {/* Thumbnail */}
+                <div className="w-20 h-20 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
+                  {bike.image_url ? (
+                    <img src={bike.image_url} alt={bike.title} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-300">
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-semibold text-gray-900 truncate">{bike.title}</h3>
+                      <div className="flex items-center gap-2 mt-1 flex-wrap">
+                        <span className="text-sm font-bold text-orange-500">{bike.price}€</span>
+                        {bike.original_price && (
+                          <span className="text-xs text-gray-400 line-through">{bike.original_price}€</span>
+                        )}
+                        <span className={`px-2 py-0.5 text-xs rounded-full ${bike.sold ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"}`}>
+                          {bike.sold ? "Vendu" : "Disponible"}
+                        </span>
+                        {bike.electric && (
+                          <span className="px-2 py-0.5 text-xs bg-blue-100 text-blue-700 rounded-full">Électrique</span>
+                        )}
+                        <span className="text-xs text-gray-400">{bike.brand} - {bike.bike_type}</span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Actions */}
+                  <div className="flex gap-1 mt-2 flex-wrap">
+                    <button onClick={() => startEdit(bike)} className="px-3 py-1 text-xs text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">Modifier</button>
+                    <button onClick={() => handleToggleSold(bike.id)} className={`px-3 py-1 text-xs rounded-lg transition-colors ${bike.sold ? "text-green-600 bg-green-50 hover:bg-green-100" : "text-yellow-600 bg-yellow-50 hover:bg-yellow-100"}`}>
+                      {bike.sold ? "Remettre en vente" : "Marquer vendu"}
+                    </button>
+                    <label className="px-3 py-1 text-xs text-purple-600 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors cursor-pointer">
+                      {uploading ? "..." : "Image"}
+                      <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(bike.id, e.target.files[0])} />
+                    </label>
+                    <button onClick={() => handleDelete(bike.id)} className="px-3 py-1 text-xs text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors">Supprimer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+          {usedBikes.length === 0 && (
+            <div className="text-center py-8 text-gray-500">Aucun vélo d'occasion pour le moment</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Main Admin Page Component
 const AdminPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -760,6 +1041,7 @@ const AdminPage = () => {
   const [reviewsData, setReviewsData] = useState(null);
   const [reviewsError, setReviewsError] = useState("");
   const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [usedBikes, setUsedBikes] = useState([]);
   const [lastRefreshAt, setLastRefreshAt] = useState(null);
 
   const authHeader = authToken ? `Bearer ${authToken}` : "";
@@ -829,10 +1111,21 @@ const AdminPage = () => {
       if (articlesRes.ok) setArticles(await articlesRes.json());
       if (statsRes.ok) setStats(await statsRes.json());
       if (analyticsRes.ok) setAnalyticsData(await analyticsRes.json());
-      await fetchReviews();
+      await Promise.all([fetchReviews(), fetchUsedBikes(token)]);
       setLastRefreshAt(new Date());
     } catch (err) {
       console.error("Error fetching data:", err);
+    }
+  };
+
+  const fetchUsedBikes = async (token) => {
+    try {
+      const response = await fetch(`${API_URL}/api/used-bikes?include_sold=true`, {
+        headers: { Authorization: `Bearer ${token || authToken}` },
+      });
+      if (response.ok) setUsedBikes(await response.json());
+    } catch (err) {
+      console.error("Error fetching used bikes:", err);
     }
   };
 
@@ -868,6 +1161,7 @@ const AdminPage = () => {
     setAnalyticsData(null);
     setReviewsData(null);
     setReviewsError("");
+    setUsedBikes([]);
     setLastRefreshAt(null);
   };
 
@@ -906,6 +1200,7 @@ const AdminPage = () => {
     { id: "articles", label: "Articles", icon: TabIcons.articles },
     { id: "messages", label: "Messages", icon: TabIcons.messages, badge: unreadCount },
     { id: "reviews", label: "Avis Google", icon: TabIcons.reviews },
+    { id: "usedBikes", label: "Vélos occasion", icon: TabIcons.usedBikes },
   ];
 
   return (
@@ -979,6 +1274,13 @@ const AdminPage = () => {
             loading={reviewsLoading}
             error={reviewsError}
             onRefresh={fetchReviews}
+          />
+        )}
+        {activeTab === "usedBikes" && (
+          <UsedBikesTab
+            usedBikes={usedBikes}
+            authHeader={authHeader}
+            onRefresh={handleRefresh}
           />
         )}
       </div>

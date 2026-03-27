@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
-import { SEO_DATA, BUSINESS_INFO } from "../constants";
+import { SEO_DATA, BUSINESS_INFO, API_URL } from "../constants";
 import { CTASection, ContactSection } from "../components/sections";
 import BikeCard from "../components/bikes/BikeCard";
 import BikeFilters from "../components/bikes/BikeFilters";
+import UsedBikeCard from "../components/bikes/UsedBikeCard";
 import { bikes, getBikesByCategory } from "../data/bikes";
 import { useStock } from "../hooks/useStock";
 
@@ -13,6 +14,26 @@ const VentePage = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const { getStock } = useStock();
   const prefix = language === "en" ? "/en" : "";
+  const [usedBikes, setUsedBikes] = useState([]);
+  const [usedBikesLoading, setUsedBikesLoading] = useState(true);
+
+  // Fetch used bikes
+  useEffect(() => {
+    const fetchUsedBikes = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/used-bikes`);
+        if (res.ok) {
+          const data = await res.json();
+          setUsedBikes(data);
+        }
+      } catch (err) {
+        console.error("Error fetching used bikes:", err);
+      } finally {
+        setUsedBikesLoading(false);
+      }
+    };
+    fetchUsedBikes();
+  }, []);
 
   useSEO({
     title: SEO_DATA.vente[language].title,
@@ -127,6 +148,58 @@ const VentePage = () => {
           )}
         </div>
       </section>
+
+      {/* Used Bikes Section */}
+      {(usedBikes.length > 0 || usedBikesLoading) && (
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Separator */}
+            <div className="flex items-center gap-4 mb-12">
+              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-orange-300 to-transparent"></div>
+              <span className="text-orange-500 font-semibold text-sm uppercase tracking-wider">
+                {t.usedBikes?.sectionBadge || "Bonnes affaires"}
+              </span>
+              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-orange-300 to-transparent"></div>
+            </div>
+
+            {/* Title */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                {t.usedBikes?.sectionTitle || "Vélos d'occasion"}
+              </h2>
+              <p className="text-gray-500 max-w-2xl mx-auto">
+                {t.usedBikes?.sectionDescription ||
+                  "Des vélos révisés et garantis à prix réduit. Chaque vélo est vérifié par notre atelier avant la mise en vente."}
+              </p>
+            </div>
+
+            {/* Loading */}
+            {usedBikesLoading && (
+              <div className="flex items-center justify-center py-12">
+                <div className="animate-spin w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full"></div>
+              </div>
+            )}
+
+            {/* Grid */}
+            {!usedBikesLoading && usedBikes.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {usedBikes.map((bike) => (
+                  <UsedBikeCard key={bike.id} bike={bike} />
+                ))}
+              </div>
+            )}
+
+            {/* Empty (after load) */}
+            {!usedBikesLoading && usedBikes.length === 0 && (
+              <div className="text-center py-8">
+                <p className="text-gray-400">
+                  {t.usedBikes?.noBikes || "Aucun vélo d'occasion disponible pour le moment."}
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       <CTASection />
       <ContactSection />
