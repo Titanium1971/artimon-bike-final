@@ -6,6 +6,8 @@ const BikeFilters = ({ activeFilter, onFilterChange }) => {
 
   const filters = Object.entries(BIKE_CATEGORIES);
 
+  const occasionLabel = language === "en" ? "Used bikes" : "Occasion";
+
   return (
     <div className="flex flex-wrap justify-center gap-3">
       {filters.map(([key, label]) => (
@@ -21,6 +23,12 @@ const BikeFilters = ({ activeFilter, onFilterChange }) => {
           {label[language]}
         </button>
       ))}
+      <a
+        href="#occasion"
+        className="px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 bg-amber-100 text-amber-700 hover:bg-amber-200 border border-amber-300"
+      >
+        🏷️ {occasionLabel}
+      </a>
     </div>
   );
 };

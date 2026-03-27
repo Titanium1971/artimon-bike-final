@@ -151,7 +151,7 @@ const VentePage = () => {
 
       {/* Used Bikes Section */}
       {(usedBikes.length > 0 || usedBikesLoading) && (
-        <section className="py-16 bg-gray-50">
+        <section id="occasion" className="py-16 bg-gray-50 scroll-mt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Separator */}
             <div className="flex items-center gap-4 mb-12">
