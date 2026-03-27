@@ -1,5 +1,11 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { BUSINESS_INFO } from "../../constants";
+import { BUSINESS_INFO, API_URL } from "../../constants";
+
+const resolveImageUrl = (url) => {
+  if (!url) return null;
+  if (url.startsWith("http")) return url;
+  return `${API_URL}${url}`;
+};
 
 const conditionColors = {
   excellent: "bg-green-100 text-green-700",
@@ -46,7 +52,7 @@ const UsedBikeCard = ({ bike }) => {
       <div className="relative overflow-hidden aspect-[4/3] bg-gray-100">
         {bike.image_url ? (
           <img
-            src={bike.image_url}
+            src={resolveImageUrl(bike.image_url)}
             alt={bike.title}
             className="w-full h-full object-cover"
             loading="lazy"

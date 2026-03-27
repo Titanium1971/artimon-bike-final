@@ -971,7 +971,7 @@ const UsedBikesTab = ({ usedBikes, authHeader, onRefresh }) => {
                 {/* Thumbnail */}
                 <div className="w-20 h-20 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
                   {bike.image_url ? (
-                    <img src={bike.image_url} alt={bike.title} className="w-full h-full object-cover" />
+                    <img src={bike.image_url.startsWith("http") ? bike.image_url : `${API_URL}${bike.image_url}`} alt={bike.title} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-300">
                       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
