@@ -150,7 +150,7 @@ const UsedBikeCard = ({ bike }) => {
               to={`${prefix}/vente/occasion/${bike.id}`}
               className="block w-full py-3 bg-orange-500 hover:bg-orange-600 text-white text-center rounded-xl font-semibold transition-colors"
             >
-              {language === "fr" ? "Voir la fiche →" : "View details →"}
+              {ub.viewDetails || "Voir la fiche →"}
             </Link>
             {!bike.sold && (
               <a

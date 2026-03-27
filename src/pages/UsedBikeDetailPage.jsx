@@ -106,7 +106,7 @@ const UsedBikeDetailPage = () => {
       <div className="pt-20 min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            {language === "fr" ? "Vélo non trouvé" : "Bike not found"}
+            {ub.notFound || "Vélo non trouvé"}
           </h1>
           <Link
             to={`${prefix}/vente#occasion`}
@@ -256,7 +256,7 @@ const UsedBikeDetailPage = () => {
                   <>
                     <span className="w-3 h-3 rounded-full bg-green-500" />
                     <span className="text-green-600 font-medium">
-                      {language === "fr" ? "Disponible" : "Available"}
+                      {ub.available || "Disponible"}
                     </span>
                   </>
                 )}
@@ -301,7 +301,7 @@ const UsedBikeDetailPage = () => {
                   {bike.brand && (
                     <div className="py-3 flex justify-between items-center">
                       <dt className="text-sm text-gray-500 font-medium">
-                        {language === "fr" ? "Marque" : "Brand"}
+                        {ub.specLabels?.brand || "Marque"}
                       </dt>
                       <dd className="text-sm font-semibold text-gray-900">{bike.brand}</dd>
                     </div>
@@ -309,7 +309,7 @@ const UsedBikeDetailPage = () => {
                   {bike.year && (
                     <div className="py-3 flex justify-between items-center">
                       <dt className="text-sm text-gray-500 font-medium">
-                        {language === "fr" ? "Année" : "Year"}
+                        {ub.specLabels?.year || "Année"}
                       </dt>
                       <dd className="text-sm font-semibold text-gray-900">{bike.year}</dd>
                     </div>
@@ -324,24 +324,22 @@ const UsedBikeDetailPage = () => {
                   )}
                   <div className="py-3 flex justify-between items-center">
                     <dt className="text-sm text-gray-500 font-medium">
-                      {language === "fr" ? "Type" : "Type"}
+                      {ub.specLabels?.type || "Type"}
                     </dt>
                     <dd className="text-sm font-semibold text-gray-900">{bikeTypeLabel}</dd>
                   </div>
                   <div className="py-3 flex justify-between items-center">
                     <dt className="text-sm text-gray-500 font-medium">
-                      {language === "fr" ? "État" : "Condition"}
+                      {ub.specLabels?.condition || "État"}
                     </dt>
                     <dd className="text-sm font-semibold text-gray-900">{conditionLabel}</dd>
                   </div>
                   <div className="py-3 flex justify-between items-center">
                     <dt className="text-sm text-gray-500 font-medium">
-                      {language === "fr" ? "Électrique" : "Electric"}
+                      {ub.specLabels?.electric || "Électrique"}
                     </dt>
                     <dd className="text-sm font-semibold text-gray-900">
-                      {bike.electric
-                        ? language === "fr" ? "Oui" : "Yes"
-                        : language === "fr" ? "Non" : "No"}
+                      {bike.electric ? (ub.yes || "Oui") : (ub.no || "Non")}
                     </dd>
                   </div>
                 </dl>
