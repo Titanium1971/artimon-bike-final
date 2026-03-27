@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const BikeCard = ({ bike }) => {
+const BikeCard = ({ bike, stockInfo }) => {
   const { language, t } = useLanguage();
   const prefix = language === "en" ? "/en" : "";
 
@@ -47,9 +47,9 @@ const BikeCard = ({ bike }) => {
           </span>
         </div>
 
-        {/* Stock */}
+        {/* Stock (live from eWheel API) */}
         <div className="flex items-center gap-2 mb-4">
-          {bike.inStock ? (
+          {(stockInfo?.inStock ?? bike.inStock) ? (
             <>
               <span className="w-2 h-2 rounded-full bg-green-500"></span>
               <span className="text-sm text-green-600">

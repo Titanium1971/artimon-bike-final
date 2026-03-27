@@ -6,10 +6,12 @@ import { CTASection, ContactSection } from "../components/sections";
 import BikeCard from "../components/bikes/BikeCard";
 import BikeFilters from "../components/bikes/BikeFilters";
 import { bikes, getBikesByCategory } from "../data/bikes";
+import { useStock } from "../hooks/useStock";
 
 const VentePage = () => {
   const { t, language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState("all");
+  const { getStock } = useStock();
   const prefix = language === "en" ? "/en" : "";
 
   useSEO({
@@ -109,7 +111,7 @@ const VentePage = () => {
           {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredBikes.map((bike) => (
-              <BikeCard key={bike.id} bike={bike} />
+              <BikeCard key={bike.id} bike={bike} stockInfo={getStock(bike.reference)} />
             ))}
           </div>
 

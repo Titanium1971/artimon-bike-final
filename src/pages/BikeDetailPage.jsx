@@ -4,12 +4,15 @@ import { useLanguage } from "../contexts/LanguageContext";
 import { getBikeBySlug } from "../data/bikes";
 import { BUSINESS_INFO } from "../constants";
 import { CTASection, ContactSection } from "../components/sections";
+import { useStock } from "../hooks/useStock";
 
 const BikeDetailPage = () => {
   const { slug } = useParams();
   const { language, t } = useLanguage();
   const prefix = language === "en" ? "/en" : "";
   const bike = getBikeBySlug(slug);
+  const { getStock } = useStock();
+  const stockInfo = bike ? getStock(bike.reference) : null;
   const [selectedImage, setSelectedImage] = useState(0);
 
   // Scroll to top on mount
@@ -179,7 +182,7 @@ const BikeDetailPage = () => {
 
               {/* Stock */}
               <div className="flex items-center gap-2 mb-6">
-                {bike.inStock ? (
+                {(stockInfo?.inStock ?? bike.inStock) ? (
                   <>
                     <span className="w-3 h-3 rounded-full bg-green-500"></span>
                     <span className="text-green-600 font-medium">
