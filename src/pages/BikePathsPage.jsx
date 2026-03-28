@@ -361,7 +361,7 @@ const BikePathsPage = () => {
               data-testid="parcours-cta-btn"
             >
               <img src="/logo.svg" alt="" className="w-6 h-6" width="24" height="24" decoding="async" />
-              Réserver sur la plateforme
+              {t.hero?.bookPlatform || "Réserver sur la plateforme"}
             </a>
             <a 
               href={BUSINESS_INFO.phoneLink} 
