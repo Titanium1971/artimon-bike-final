@@ -12,7 +12,7 @@ export const Navigation = () => {
   const location = useLocation();
   
   // Détecte si on est sur la page d'accueil (seule page avec hero sombre)
-  const isHomePage = location.pathname === "/";
+  const isHomePage = location.pathname === "/" || /^\/(en|it|es|de)\/?$/.test(location.pathname);
   
   // Le menu doit être en mode "sombre sur clair" si :
   // - On n'est PAS sur la page d'accueil, OU
@@ -52,7 +52,7 @@ export const Navigation = () => {
       <nav className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${shouldShowDarkNav ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-transparent"}`} data-testid="main-navigation">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <Link to="/" onClick={handleLogoClick} className="flex items-center gap-3" data-testid="logo-link">
+            <Link to={language === "en" ? "/en/" : "/"} onClick={handleLogoClick} className="flex items-center gap-3" data-testid="logo-link">
               <img 
                 src="/logo.svg" 
                 alt="Artimon Bike Logo" 

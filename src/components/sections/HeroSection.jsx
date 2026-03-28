@@ -43,7 +43,7 @@ export const HeroSection = () => {
             <div className="flex flex-wrap gap-4 mb-8 animate-fade-in-up opacity-0" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
               <a href={BUSINESS_INFO.lokkiUrl} target="_blank" rel="noopener noreferrer" className="btn-primary btn-shine px-8 py-4 rounded-xl text-white font-semibold text-lg inline-flex items-center gap-2 hover-glow" data-testid="hero-reservation-btn">
                 <img src="/logo.svg" alt="" className="w-6 h-6" style={{ filter: 'brightness(0) invert(1)' }} width="24" height="24" decoding="async" />
-                Réserver sur la plateforme
+                {t.hero?.bookPlatform || "Réserver sur la plateforme"}
               </a>
               <Link to="/tarifs" className="px-8 py-4 rounded-xl bg-white/10 text-white font-semibold text-lg hover:bg-white/20 transition-all inline-flex items-center gap-2 hover:scale-105" data-testid="hero-tarifs-btn">
                 {t.hero.pricesBtn}
