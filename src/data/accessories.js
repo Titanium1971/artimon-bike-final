@@ -20,7 +20,7 @@ export const accessories = [
     },
     category: "pneus",
     categoryLabel: { fr: "Pneu", en: "Tire" },
-    price: 11.90,
+    price: 17.90,
     priceHT: 5.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/3/19325.jpg",
     specs: {
@@ -43,7 +43,7 @@ export const accessories = [
     },
     category: "pneus",
     categoryLabel: { fr: "Pneu", en: "Tire" },
-    price: 19.90,
+    price: 29.90,
     priceHT: 9.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/3/2700.jpg",
     specs: {
@@ -66,7 +66,7 @@ export const accessories = [
     },
     category: "pneus",
     categoryLabel: { fr: "Pneu", en: "Tire" },
-    price: 25.90,
+    price: 38.90,
     priceHT: 12.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/1/8435764446498_5.jpg",
     specs: {
@@ -89,7 +89,7 @@ export const accessories = [
     },
     category: "pneus",
     categoryLabel: { fr: "Pneu", en: "Tire" },
-    price: 21.90,
+    price: 32.90,
     priceHT: 10.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/1/8435764447082_1.jpg",
     specs: {
@@ -112,7 +112,7 @@ export const accessories = [
     },
     category: "pneus",
     categoryLabel: { fr: "Pneu", en: "Tire" },
-    price: 25.90,
+    price: 38.90,
     priceHT: 12.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/1/8435764440380_3.jpg",
     specs: {
@@ -136,7 +136,7 @@ export const accessories = [
     },
     category: "pneus",
     categoryLabel: { fr: "Pneu", en: "Tire" },
-    price: 17.90,
+    price: 26.90,
     priceHT: 8.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/3/12833.jpg",
     specs: {
@@ -159,7 +159,7 @@ export const accessories = [
     },
     category: "pneus",
     categoryLabel: { fr: "Pneu", en: "Tire" },
-    price: 21.90,
+    price: 32.90,
     priceHT: 10.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/3/19401.jpg",
     specs: {
@@ -182,7 +182,7 @@ export const accessories = [
     },
     category: "pneus",
     categoryLabel: { fr: "Pneu", en: "Tire" },
-    price: 9.90,
+    price: 14.90,
     priceHT: 4.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/3/15201.jpg",
     specs: {
@@ -205,7 +205,7 @@ export const accessories = [
     },
     category: "pneus",
     categoryLabel: { fr: "Pneu", en: "Tire" },
-    price: 23.90,
+    price: 35.90,
     priceHT: 11.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/temp/NExXYThvSnBkV3JYNlVpMXcwMm5mQT09/8435764435508_3.JPG",
     specs: {
@@ -228,7 +228,7 @@ export const accessories = [
     },
     category: "pneus",
     categoryLabel: { fr: "Pneu Vélo", en: "Bike Tire" },
-    price: 8.90,
+    price: 13.50,
     priceHT: 4.45,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/1/8435764442728_-1.jpg",
     specs: {
@@ -254,7 +254,7 @@ export const accessories = [
     },
     category: "chambres",
     categoryLabel: { fr: "Chambre à air", en: "Inner Tube" },
-    price: 12.90,
+    price: 19.50,
     priceHT: 6.45,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/1/8435764424250_principal.jpg",
     specs: {
@@ -278,7 +278,7 @@ export const accessories = [
     },
     category: "chambres",
     categoryLabel: { fr: "Chambre à air", en: "Inner Tube" },
-    price: 13.50,
+    price: 20.50,
     priceHT: 6.75,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/1/16793.webp",
     specs: {
@@ -302,7 +302,7 @@ export const accessories = [
     },
     category: "chambres",
     categoryLabel: { fr: "Chambre à air", en: "Inner Tube" },
-    price: 3.90,
+    price: 5.50,
     priceHT: 1.85,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/3/13547.jpg",
     specs: {
@@ -325,7 +325,7 @@ export const accessories = [
     },
     category: "chambres",
     categoryLabel: { fr: "Chambre à air", en: "Inner Tube" },
-    price: 4.50,
+    price: 6.90,
     priceHT: 2.25,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/3/13587.jpg",
     specs: {
@@ -348,7 +348,7 @@ export const accessories = [
     },
     category: "chambres",
     categoryLabel: { fr: "Chambre à air", en: "Inner Tube" },
-    price: 3.90,
+    price: 5.90,
     priceHT: 1.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/3/5018.jpg",
     specs: {
@@ -371,7 +371,7 @@ export const accessories = [
     },
     category: "chambres",
     categoryLabel: { fr: "Chambre à air", en: "Inner Tube" },
-    price: 14.90,
+    price: 22.50,
     priceHT: 7.45,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/1/13269.webp",
     specs: {
@@ -396,7 +396,7 @@ export const accessories = [
     },
     category: "chambres",
     categoryLabel: { fr: "Chambre à air", en: "Inner Tube" },
-    price: 3.10,
+    price: 4.50,
     priceHT: 1.55,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/1/7427251493703_principal.jpg",
     specs: {
@@ -419,7 +419,7 @@ export const accessories = [
     },
     category: "chambres",
     categoryLabel: { fr: "Chambre à air", en: "Inner Tube" },
-    price: 3.90,
+    price: 5.50,
     priceHT: 1.85,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/3/13564.jpg",
     specs: {
@@ -442,7 +442,7 @@ export const accessories = [
     },
     category: "chambres",
     categoryLabel: { fr: "Chambre à air", en: "Inner Tube" },
-    price: 3.80,
+    price: 5.90,
     priceHT: 1.90,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/6/16804.jpg",
     specs: {
@@ -465,7 +465,7 @@ export const accessories = [
     },
     category: "chambres",
     categoryLabel: { fr: "Chambre à air", en: "Inner Tube" },
-    price: 19.90,
+    price: 29.90,
     priceHT: 9.95,
     image: "http://d7rh5s3nxmpy4.cloudfront.net/CMP10286/1/6977017042559_inf1.jpg",
     specs: {
