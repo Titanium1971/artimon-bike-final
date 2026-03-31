@@ -24,6 +24,12 @@ const BikeFilters = ({ activeFilter, onFilterChange }) => {
         </button>
       ))}
       <a
+        href="#accessoires"
+        className="px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200 border border-gray-200"
+      >
+        🔧 {language === "en" ? "Parts" : "Pièces"}
+      </a>
+      <a
         href="#occasion"
         className="px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 bg-amber-100 text-amber-700 hover:bg-amber-200 border border-amber-300"
       >

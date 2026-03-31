@@ -6,7 +6,9 @@ import { CTASection, ContactSection } from "../components/sections";
 import BikeCard from "../components/bikes/BikeCard";
 import BikeFilters from "../components/bikes/BikeFilters";
 import UsedBikeCard from "../components/bikes/UsedBikeCard";
+import AccessoryCard from "../components/bikes/AccessoryCard";
 import { bikes, getBikesByCategory } from "../data/bikes";
+import { accessories, ACCESSORY_CATEGORIES } from "../data/accessories";
 import { useStock } from "../hooks/useStock";
 
 const VentePage = () => {
@@ -16,6 +18,7 @@ const VentePage = () => {
   const prefix = language === "en" ? "/en" : "";
   const [usedBikes, setUsedBikes] = useState([]);
   const [usedBikesLoading, setUsedBikesLoading] = useState(true);
+  const [accessoryFilter, setAccessoryFilter] = useState("all");
 
   // Fetch used bikes
   useEffect(() => {
@@ -43,6 +46,9 @@ const VentePage = () => {
   });
 
   const filteredBikes = getBikesByCategory(activeFilter);
+  const filteredAccessories = accessoryFilter === "all"
+    ? accessories
+    : accessories.filter((a) => a.category === accessoryFilter);
 
   // JSON-LD Product schemas for all visible bikes
   useEffect(() => {
@@ -146,6 +152,64 @@ const VentePage = () => {
               </p>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Accessories Section */}
+      <section id="accessoires" className="py-16 bg-gray-50 scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Separator */}
+          <div className="flex items-center gap-4 mb-12">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-orange-300 to-transparent"></div>
+            <span className="text-orange-500 font-semibold text-sm uppercase tracking-wider">
+              {language === "fr" ? "Pièces & Accessoires" : "Parts & Accessories"}
+            </span>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-orange-300 to-transparent"></div>
+          </div>
+
+          {/* Title */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {language === "fr" ? "Pneus & Chambres à air" : "Tires & Inner Tubes"}
+            </h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">
+              {language === "fr"
+                ? "Pneus et chambres à air pour vélos et trottinettes électriques. Livraison rapide."
+                : "Tires and inner tubes for electric bikes and scooters. Fast delivery."}
+            </p>
+          </div>
+
+          {/* Filters */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            {Object.entries(ACCESSORY_CATEGORIES).map(([key, label]) => (
+              <button
+                key={key}
+                onClick={() => setAccessoryFilter(key)}
+                className={`px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 ${
+                  accessoryFilter === key
+                    ? "bg-orange-500 text-white shadow-lg shadow-orange-500/25"
+                    : "bg-white text-gray-600 hover:bg-gray-200 border border-gray-200"
+                }`}
+              >
+                {label[language]}
+              </button>
+            ))}
+          </div>
+
+          {/* Count */}
+          <p className="text-gray-500 text-sm mb-6 text-center">
+            {filteredAccessories.length}{" "}
+            {language === "fr"
+              ? filteredAccessories.length > 1 ? "produits" : "produit"
+              : filteredAccessories.length > 1 ? "products" : "product"}
+          </p>
+
+          {/* Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredAccessories.map((accessory) => (
+              <AccessoryCard key={accessory.id} accessory={accessory} />
+            ))}
+          </div>
         </div>
       </section>
 
