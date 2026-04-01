@@ -25,6 +25,8 @@ const PolitiqueConfidentialitePage = lazy(() => import("./pages/PolitiqueConfide
 const LocationAreaPage = lazy(() => import("./pages/LocationAreaPage"));
 const BikeDetailPage = lazy(() => import("./pages/BikeDetailPage"));
 const UsedBikeDetailPage = lazy(() => import("./pages/UsedBikeDetailPage"));
+const PneusPage = lazy(() => import("./pages/PneusPage"));
+const ChambresPage = lazy(() => import("./pages/ChambresPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const GoogleAnalytics = lazy(() => import("./components/GoogleAnalytics"));
 
@@ -142,6 +144,8 @@ function App() {
               <Route path="/location" element={<LocationPage />} />
               <Route path="/reparation" element={<ReparationPage />} />
               <Route path="/vente" element={<VentePage />} />
+              <Route path="/vente/pneus" element={<PneusPage />} />
+              <Route path="/vente/chambres-a-air" element={<ChambresPage />} />
               <Route path="/vente/occasion/:id" element={<UsedBikeDetailPage />} />
               <Route path="/vente/:slug" element={<BikeDetailPage />} />
               <Route path="/parcours" element={<BikePathsPage />} />
@@ -161,6 +165,8 @@ function App() {
               <Route path="/en/location" element={<WithLang lang="en"><LocationPage /></WithLang>} />
               <Route path="/en/reparation" element={<WithLang lang="en"><ReparationPage /></WithLang>} />
               <Route path="/en/vente" element={<WithLang lang="en"><VentePage /></WithLang>} />
+              <Route path="/en/vente/pneus" element={<WithLang lang="en"><PneusPage /></WithLang>} />
+              <Route path="/en/vente/chambres-a-air" element={<WithLang lang="en"><ChambresPage /></WithLang>} />
               <Route path="/en/vente/occasion/:id" element={<WithLang lang="en"><UsedBikeDetailPage /></WithLang>} />
               <Route path="/en/vente/:slug" element={<WithLang lang="en"><BikeDetailPage /></WithLang>} />
               <Route path="/en/parcours" element={<WithLang lang="en"><BikePathsPage /></WithLang>} />

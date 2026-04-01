@@ -27,7 +27,7 @@ const BikeFilters = ({ activeFilter, onFilterChange }) => {
         href="#accessoires"
         className="px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 bg-gray-100 text-gray-600 hover:bg-gray-200 border border-gray-200"
       >
-        🔧 {language === "en" ? "Parts" : "Pièces"}
+        🛞 {language === "en" ? "Parts" : "Pièces"}
       </a>
       <a
         href="#occasion"
