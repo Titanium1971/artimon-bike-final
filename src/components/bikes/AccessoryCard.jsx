@@ -1,19 +1,28 @@
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const AccessoryCard = ({ accessory }) => {
   const { language } = useLanguage();
+  const prefix = language === "en" ? "/en" : "";
 
   const getSpec = (val) => {
     if (!val) return null;
     return typeof val === "object" ? val[language] || val.fr : val;
   };
 
+  const detailPath = accessory.category === "pneus"
+    ? `${prefix}/vente/pneus/${accessory.id}`
+    : `${prefix}/vente/chambres-a-air/${accessory.id}`;
+
   return (
-    <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col">
+    <Link
+      to={detailPath}
+      className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col"
+    >
       {/* Image */}
       <div className="relative overflow-hidden aspect-square bg-white">
         <img
-          src={accessory.image}
+          src={accessory.images ? accessory.images[0] : accessory.image}
           alt={accessory.name[language]}
           className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-500"
           loading="lazy"
@@ -32,9 +41,11 @@ const AccessoryCard = ({ accessory }) => {
 
         {/* Specs tags */}
         <div className="flex flex-wrap gap-1.5 mb-3">
-          <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
-            {accessory.specs.size}
-          </span>
+          {accessory.specs.size && (
+            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+              {accessory.specs.size}
+            </span>
+          )}
           {getSpec(accessory.specs.type) && (
             <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
               {getSpec(accessory.specs.type)}
@@ -47,30 +58,17 @@ const AccessoryCard = ({ accessory }) => {
           )}
         </div>
 
-        {/* Description */}
-        <p className="text-xs text-gray-500 mb-4 line-clamp-2">
-          {accessory.description[language]}
-        </p>
-
-        {/* Price + Contact CTA */}
+        {/* Price + CTA */}
         <div className="mt-auto flex items-center justify-between">
           <span className="text-xl font-bold text-gray-900">
             {accessory.price.toLocaleString("fr-FR", { minimumFractionDigits: 2 })}&nbsp;&euro;
           </span>
-          <a
-            href={`https://wa.me/33671326547?text=${encodeURIComponent(
-              `Bonjour, je suis intéressé par : ${accessory.name.fr} (réf: ${accessory.reference})`
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="text-green-600 font-semibold text-sm hover:text-green-700 inline-flex items-center gap-1"
-          >
-            Commander &rarr;
-          </a>
+          <span className="text-orange-500 font-semibold text-sm group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+            {language === "fr" ? "Voir" : "View"} &rarr;
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
