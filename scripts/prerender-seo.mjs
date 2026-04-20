@@ -23,6 +23,7 @@ const { SEO_DATA } = await import(resolve(ROOT, "src/constants/index.js"));
 
 // Mapping route → clé SEO_DATA (+ variante EN)
 const ROUTES = [
+  { path: "/",                          key: "home",      lang: "fr" },
   { path: "/location",                  key: "location",  lang: "fr" },
   { path: "/reparation",                key: "reparation", lang: "fr" },
   { path: "/vente",                     key: "vente",     lang: "fr" },
