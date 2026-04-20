@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useSEO } from "../hooks/useSEO";
 
-const MentionsLegalesPage = () => (
+const MentionsLegalesPage = () => {
+  useSEO({
+    title: "Mentions Légales | Artimon Bike Nautique",
+    description: "Mentions légales du site Artimon Bike Nautique — Location, vente et réparation de vélos à Marseillan (Hérault).",
+    canonical: "https://www.artimonbike.com/mentions-legales",
+  });
+  return (
   <div className="pt-20">
     <section className="py-12 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,6 +25,7 @@ const MentionsLegalesPage = () => (
       </div>
     </section>
   </div>
-);
+  );
+};
 
 export default MentionsLegalesPage;

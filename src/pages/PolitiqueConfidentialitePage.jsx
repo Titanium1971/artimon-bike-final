@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useSEO } from "../hooks/useSEO";
 
-const PolitiqueConfidentialitePage = () => (
+const PolitiqueConfidentialitePage = () => {
+  useSEO({
+    title: "Politique de Confidentialité | Artimon Bike Nautique",
+    description: "Politique de confidentialité et gestion des données personnelles du site Artimon Bike Nautique (Marseillan).",
+    canonical: "https://www.artimonbike.com/politique-confidentialite",
+  });
+  return (
   <div className="pt-20">
     <section className="py-12 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,6 +42,7 @@ const PolitiqueConfidentialitePage = () => (
       </div>
     </section>
   </div>
-);
+  );
+};
 
 export default PolitiqueConfidentialitePage;
