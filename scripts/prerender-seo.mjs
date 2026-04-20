@@ -132,7 +132,13 @@ function injectSeo(html, route) {
 }
 
 function writeRoute(route, html) {
-  const target = join(BUILD_DIR, route.path.replace(/^\//, ""), "index.html");
+  // Stratégie Vercel cleanUrls:true → écrire build/<route>.html (pas de dossier)
+  // Vercel servira /<route> depuis <route>.html sans redirect.
+  // Exception: /en/ (base EN) doit rester en dossier.
+  const clean = route.path.replace(/^\//, "").replace(/\/$/, "");
+  const target = clean === "en" || clean === ""
+    ? join(BUILD_DIR, clean, "index.html")
+    : join(BUILD_DIR, `${clean}.html`);
   mkdirSync(dirname(target), { recursive: true });
   writeFileSync(target, html);
   return target;
