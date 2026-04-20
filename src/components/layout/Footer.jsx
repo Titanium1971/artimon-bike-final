@@ -113,6 +113,31 @@ export const Footer = () => {
           <p className="text-gray-400 text-sm">© {new Date().getFullYear()} Artimon Bike Nautique. {t.footer.allRights}</p>
           <p className="text-gray-400 text-sm">SIRET: 832 331 235 - ARILLA SEBASTIEN (MIKADOC - MISCOOTER)</p>
         </div>
+
+        <div className="mt-8 flex flex-col items-center justify-center gap-2">
+          <span className="text-[11px] font-light tracking-[0.15em] uppercase text-gray-500">
+            Site réalisé par
+          </span>
+          <a
+            href="https://ccdeveloppement.eu"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="CC Développement — Création de sites web"
+            className="flex flex-col items-center gap-1 opacity-70 transition-opacity hover:opacity-100"
+          >
+            <span className="text-sm font-light tracking-[0.2em] uppercase text-gray-300">
+              CC Développement
+            </span>
+            <img
+              src="/cc-developpement-logo.svg"
+              alt="CC Développement"
+              className="h-20 w-auto"
+              width="320"
+              height="160"
+              loading="lazy"
+            />
+          </a>
+        </div>
       </div>
     </footer>
   );
