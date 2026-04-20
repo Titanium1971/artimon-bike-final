@@ -63,7 +63,8 @@
     "test": "craco test",
     "minify:js": "npx terser ./build/static/js/*.js --compress --mangle --output ./build/static/js/",
     "precompress": "node scripts/precompress.js",
-    "postbuild": "npm run minify:js || true && npm run precompress || true"
+    "prerender:seo": "node scripts/prerender-seo.mjs",
+    "postbuild": "npm run minify:js || true && npm run prerender:seo || true && npm run precompress || true"
   },
   "proxy": "https://artimon-backend.onrender.com",
   "browserslist": {
