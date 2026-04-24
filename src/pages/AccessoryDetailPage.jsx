@@ -117,6 +117,8 @@ const AccessoryDetailPage = () => {
                   src={images[selectedImage]}
                   alt={`${accessory.name[language]} - ${selectedImage + 1}`}
                   className="w-full h-full object-contain p-8"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               {images.length > 1 && (

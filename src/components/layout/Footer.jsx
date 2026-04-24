@@ -17,12 +17,13 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <img 
-                src="/logo.svg" 
-                alt="Artimon Bike Logo" 
+              <img
+                src="/logo.svg"
+                alt="Artimon Bike Logo"
                 className="w-12 h-12 object-contain"
                 width="48"
                 height="48"
+                loading="lazy"
                 decoding="async"
                 style={{ filter: 'brightness(0) invert(1)' }}
               />

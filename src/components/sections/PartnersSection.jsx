@@ -25,15 +25,18 @@ export const PartnersSection = () => {
             className="group bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all"
           >
             <div className="flex items-center gap-4">
-              <img
-                src="/petit-fute-logo.png"
-                alt="Petit Futé"
-                className="w-14 h-14 object-contain rounded-xl bg-white p-1"
-                width="56"
-                height="56"
-                loading="lazy"
-                decoding="async"
-              />
+              <picture>
+                <source srcSet="/petit-fute-logo.webp" type="image/webp" />
+                <img
+                  src="/petit-fute-logo.png"
+                  alt="Petit Futé"
+                  className="w-14 h-14 object-contain rounded-xl bg-white p-1"
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div>
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-500 transition-colors">Petit Futé</h3>
                 <p className="text-sm text-gray-600">
@@ -50,15 +53,18 @@ export const PartnersSection = () => {
             className="group bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all"
           >
             <div className="flex items-center gap-4">
-              <img
-                src="/famille-plus.png"
-                alt="Famille Plus"
-                className="w-14 h-14 object-contain rounded-xl bg-white p-1"
-                width="56"
-                height="56"
-                loading="lazy"
-                decoding="async"
-              />
+              <picture>
+                <source srcSet="/famille-plus.webp" type="image/webp" />
+                <img
+                  src="/famille-plus.png"
+                  alt="Famille Plus"
+                  className="w-14 h-14 object-contain rounded-xl bg-white p-1"
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div>
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-500 transition-colors">Famille Plus</h3>
                 <p className="text-sm text-gray-600">

@@ -138,6 +138,8 @@ const BikeDetailPage = () => {
                   src={bike.images[selectedImage]}
                   alt={`${bike.name[language]} - ${selectedImage + 1}`}
                   className="w-full h-full object-contain"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               {/* Thumbnails */}
