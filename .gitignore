@@ -4,3 +4,6 @@ build
 *.log
 artimon-backend/
 .claude/
+.env
+.env.*
+!.env.example
