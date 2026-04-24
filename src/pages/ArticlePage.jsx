@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
+import DOMPurify from "dompurify";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useSEO } from "../hooks/useSEO";
 import { API_URL, FALLBACK_BLOG_ARTICLES } from "../constants";
@@ -225,9 +226,10 @@ const ArticlePage = () => {
             </ol>
           );
         }
-        // Handle bold text with **
+        // Handle bold text with ** (sanitisation XSS via DOMPurify)
         const formatted = paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        return <p key={i} className="text-gray-700 leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: formatted }} />;
+        const safeHtml = DOMPurify.sanitize(formatted, { ALLOWED_TAGS: ['strong', 'em', 'br'], ALLOWED_ATTR: [] });
+        return <p key={i} className="text-gray-700 leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: safeHtml }} />;
       });
   };
 

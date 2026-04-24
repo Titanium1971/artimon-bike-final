@@ -297,6 +297,7 @@ function StructuredData({ areaKey, lang }) {
   };
 
   return (
+    // JSON-LD from internal data, JSON.stringify provides safe serialization
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
   );
 }
