@@ -10,12 +10,10 @@ let gaInitialized = false;
 // Initialize GA4
 export const initGA = () => {
   if (!GA_MEASUREMENT_ID) {
-    console.log('Google Analytics not configured (REACT_APP_GA_MEASUREMENT_ID missing)');
     return false;
   }
 
   if (gaInitialized) {
-    console.log('Google Analytics already initialized');
     return true;
   }
 
@@ -40,7 +38,6 @@ export const initGA = () => {
   });
 
   gaInitialized = true;
-  console.log('Google Analytics initialized with ID:', GA_MEASUREMENT_ID);
   return true;
 };
 

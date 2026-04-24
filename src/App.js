@@ -40,7 +40,6 @@ const RedirectHandler = () => {
   const redirectTo = REDIRECTS[location.pathname.toLowerCase()];
   
   if (redirectTo) {
-    console.log(`[SEO Redirect 301] ${location.pathname} → ${redirectTo}`);
     return <Navigate to={redirectTo} replace />;
   }
   

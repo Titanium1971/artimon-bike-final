@@ -83,7 +83,7 @@ export const ReviewsSection = () => {
             hasLoadedDynamicData = true;
           }
         } catch (error) {
-          console.log("Using fallback reviews");
+          // Silent fallback — reviews fallback to BUSINESS_INFO defaults
         }
       }
 
