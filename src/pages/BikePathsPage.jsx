@@ -4,6 +4,33 @@ import { useSEO } from "../hooks/useSEO";
 import { SEO_DATA, BUSINESS_INFO } from "../constants";
 import { PhoneIcon } from "../icons";
 
+const MARSEILLAN_START_PLUSCODE = "9G2M+PG Marseillan";
+
+const isTourLoop = (launchUrl) => {
+  if (!launchUrl) return false;
+  try {
+    const u = new URL(launchUrl);
+    const dest = u.searchParams.get("destination");
+    const wp = u.searchParams.get("waypoints");
+    return dest === MARSEILLAN_START_PLUSCODE && !!wp && wp.includes("|");
+  } catch {
+    return false;
+  }
+};
+
+const buildReverseTourUrl = (launchUrl) => {
+  try {
+    const u = new URL(launchUrl);
+    const wp = u.searchParams.get("waypoints");
+    if (!wp) return launchUrl;
+    const reversed = wp.split("|").reverse().join("|");
+    u.searchParams.set("waypoints", reversed);
+    return u.toString();
+  } catch {
+    return launchUrl;
+  }
+};
+
 const ROUTE_SECTIONS = [
   { key: "shortDiscovery", routeIds: [5] },
   { key: "easyGreenway", routeIds: [9, 3] },
@@ -306,6 +333,18 @@ const BikePathsPage = () => {
                           >
                             {t.bikePaths.launchItinerary}
                           </a>
+                          {isTourLoop(route.launchUrl) && (
+                            <a
+                              href={buildReverseTourUrl(route.launchUrl)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold transition-all hover:scale-105 border-2"
+                              style={{ borderColor: route.color, color: route.color }}
+                              data-testid={`reverse-tour-btn-${route.id}`}
+                            >
+                              {t.bikePaths.reverseTour}
+                            </a>
+                          )}
                           {route.returnUrl && (
                             <a
                               href={route.returnUrl}
