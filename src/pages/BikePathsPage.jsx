@@ -63,6 +63,18 @@ const BikePathsPage = () => {
     }
   }, [filterRoute, routes]);
 
+  useEffect(() => {
+    if (filterRoute === 'all') return;
+    const target = document.getElementById(`itineraire-${filterRoute}`);
+    if (!target) return;
+    const id = window.requestAnimationFrame(() => {
+      const navOffset = 96;
+      const top = target.getBoundingClientRect().top + window.scrollY - navOffset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [filterRoute]);
+
   const getDifficultyLabel = (difficulty) => {
     return t.bikePaths[difficulty] || difficulty;
   };
@@ -284,10 +296,11 @@ const BikePathsPage = () => {
                         {/* Action Buttons */}
                         <div className="flex flex-wrap gap-4">
                           <a
+                            id={`itineraire-${route.id}`}
                             href={route.launchUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-white font-bold transition-all hover:opacity-90 hover:scale-105"
+                            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-white font-bold transition-all hover:opacity-90 hover:scale-105 scroll-mt-24"
                             style={{ backgroundColor: route.color }}
                             data-testid={`launch-btn-${route.id}`}
                           >
